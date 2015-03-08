@@ -1,0 +1,51 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Valider une étape - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+<p>
+  <table>
+    <tr>
+      <td width="20%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet</a></td><td width="80%" align="center"><h2>Valider une étape</h2>
+      </td>
+    </tr>
+  </table>
+</p>
+
+<div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+           <div class="form-group">
+            {{ form_label(form.contenu, "Commentaire", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(form.contenu) }}
+          <div class="col-sm-9">
+            {{ form_widget(form.contenu, {'attr': {'class': 'ckeditor'}}) }}
+          </div>
+          </div>
+           <div class="form-group">
+            {{ form_label(form.projet.assign, "Assigner à", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(form.projet.assign) }}
+          <div class="col-sm-4">
+            {{ form_widget(form.projet.assign, {'attr': {'class': 'form-control'}}) }}
+          </div>
+          </div>
+          <div class="form-group">
+            {{ form_label(form.projet.etape, "Nouvelle étape", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(form.projet.etape) }}
+          <div class="col-sm-4">
+            {{ form_widget(form.projet.etape, {'attr': {'class': 'form-control'}}) }}
+          </div>
+        </div>
+          <div class="col-sm-11"></div>
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }} 
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+          
+
+    </div>
+
+{% endblock %}

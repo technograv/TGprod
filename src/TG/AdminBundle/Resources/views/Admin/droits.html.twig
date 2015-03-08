@@ -1,0 +1,44 @@
+{% extends "TGAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Droits utilisateur - {{ parent() }}
+{% endblock %}
+
+{% block tgadmin_body %}
+	
+<div class="well">
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.user, "Liste des utilisateurs", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+           {{ form_errors(form.user) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+   <div class="form-group">
+      {{ form_label(form.roles, "Roles disponibles", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.roles) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div> 
+
+{{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_rest(form) }}
+{{ form_end(form) }}
+</div>
+
+<div class="well">
+	{% if compteslist %}
+		{% for user in compteslist %}
+			<strong>{{ user.username }} :</strong> {% for role in user.roles %}{% if role != 'ROLE_USER' %}<li>{{ role }}</li>{% endif %}{% endfor %}</br>
+		{% endfor %}
+	{% endif %}
+</div>
+
+{% include "FOSUserBundle:ChangePassword:changePassword_content.html.twig" %}
+{% endblock %}

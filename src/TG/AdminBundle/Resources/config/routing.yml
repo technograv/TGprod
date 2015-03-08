@@ -1,0 +1,23 @@
+tg_admin_home:
+    path: /
+    defaults: { _controller: TGAdminBundle:Admin:index }
+
+tg_admin_types:
+    path: /types
+    defaults: { _controller: TGAdminBundle:Admin:types }
+
+tg_admin_etapes:
+    path: /etapes
+    defaults: { _controller: TGAdminBundle:Admin:etapes }
+
+tg_admin_comptes:
+    path: /comptes
+    defaults: { _controller: TGAdminBundle:Admin:comptes }
+
+tg_admin_droits:
+    path: /droits
+    defaults: { _controller: TGAdminBundle:Admin:droits }
+
+tg_admin_recette:
+    path: /recette
+    defaults: { _controller: TGAdminBundle:Admin:recette }

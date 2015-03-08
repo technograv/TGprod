@@ -1,0 +1,292 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Créer un projet - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+  <h2>Créer un projet</h2>
+
+  <h3>Formulaire de projet</h3>
+
+<div class="well">
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.titre, "Titre du projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      {{ form_errors(form.titre) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.client, "Pour le client", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>    
+
+    <div class="form-group">
+      {{ form_label(form.type, "Type de projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.contenu, "Consignes", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-9">
+        {{ form_widget(form.contenu, {'attr': {'class': 'ckeditor'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.assign, "Assigné à", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.assign, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>      
+
+    <div class="form-group">
+      {{ form_label(form.etape, "Etape du projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.etape, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.published, "Publier maintenant", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.published, {'attr': {'class': 'checkbox'}}) }}
+      </div>              
+    </div>
+
+  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script Devis en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#tg_prodbundle_projet_devix');
+
+    // On ajoute un lien pour ajouter un nouveau devis
+    var $addLink = $('<a href="#" id="add_devis" class="btn btn-default">Ajouter un devis</a>');
+    $container.append($addLink);
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $addLink.click(function(e) {
+      addDevis($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+    /* On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addDevis($container);
+    } else {
+      // Pour chaque devis déjà existant, on ajoute un lien de suppression
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    } */
+
+    // La fonction qui ajoute un formulaire devis
+    function addDevis($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Devis n°' + (index+1))
+          .replace(/__name__/g, index));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer le devis
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'un devis
+    function addDeleteLink($prototype) {
+      // Création du lien
+      $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+  });
+</script>
+
+{# Voici le script facture en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#tg_prodbundle_projet_factures');
+
+    // On ajoute un lien pour ajouter une nouvelle facture
+    var $addLink = $('<a href="#" id="add_facture" class="btn btn-default">Ajouter une facture</a>');
+    $container.append($addLink);
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $addLink.click(function(e) {
+      addFacture($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+    /* On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addFacture($container);
+    } else {
+      // Pour chaque facture déjà existante, on ajoute un lien de suppression
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    } */
+
+    // La fonction qui ajoute un formulaire facture
+    function addFacture($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Facture n°' + (index+1))
+          .replace(/__name__/g, index));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la facture
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'une facture
+    function addDeleteLink($prototype) {
+      // Création du lien
+      $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+  });
+</script>
+
+{# Voici le script Créa en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#tg_prodbundle_projet_creas');
+
+    // On ajoute un lien pour ajouter une nouvelle créa
+    var $addLink = $('<a href="#" id="add_crea" class="btn btn-default">Ajouter une créa</a>');
+    $container.append($addLink);
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $addLink.click(function(e) {
+      addCrea($container);
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+    /* On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addCrea($container);
+    } else {
+      // Pour chaque créa déjà existante, on ajoute un lien de suppression
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    } */
+
+    // La fonction qui ajoute un formulaire créa
+    function addCrea($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Créa n°' + (index+1))
+          .replace(/__name__/g, index));
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la créa
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'une créa
+    function addDeleteLink($prototype) {
+      // Création du lien
+      $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+  });
+</script>
+
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+
+</div>
+
+
+
+
+
+
+
+  <p>
+    Attention : ce projet sera ajouté directement
+    sur la page d'accueil après validation du formulaire.
+  </p>
+
+{% endblock %}

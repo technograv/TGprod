@@ -1,0 +1,6 @@
+services:
+    tg_prod.validator.antiflood:                              # Le nom du service
+        class: TG\ProdBundle\Validator\AntifloodValidator     # La classe du service, ici notre validateur déjà créé
+        arguments: [@request_stack, @doctrine.orm.entity_manager] # Les données qu'on injecte au service : la requête et l'EntityManager
+        tags:
+            - { name: validator.constraint_validator, alias: tg_prod_antiflood }  # C'est avec l'alias qu'on retrouvera le service

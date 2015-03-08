@@ -1,0 +1,149 @@
+{% extends "TGClientBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ client.name }} - {{ parent() }}
+{% endblock %}
+
+{% block tgclient_body %}
+
+  <h2>{% if client.code != null %}[{{ client.code }}]{% endif %} {{ client.name }}</h2>
+  
+  <p><i>
+  {% if client.datemodif != null %}
+  Créé le {{ client.dateadd|localizeddate('full', 'none') }} à {{ client.dateadd|date('G\\hi') }} par {{ client.useradd }}.
+  {% else %}
+  Modifié le {{ client.datemodif|localizeddate('full', 'none') }} à {{ client.datemodif|date('G\\hi') }} par {{ client.usermodif }}.
+  {% endif %}
+  </i></p>
+
+  <p>
+  <a href="{{ path('tg_client_home') }}" class="btn btn-default">
+    <i class="glyphicon glyphicon-chevron-left"></i> Retour à la liste</a>
+
+  <a href="{{ path('tg_client_edit', {'id': client.id}) }}" class="btn btn-default">
+    <i class="glyphicon glyphicon-edit"></i> Modifier le client</a>
+
+  <a href="{{ path('tg_prod_add', { 'client':  client.id}) }}" class="btn btn-primary">
+    <i class="glyphicon glyphicon-plus"></i> Ajouter un projet pour ce client</a>
+
+  <a href="{{ path('tg_client_delete', {'id': client.id}) }}" class="btn btn-danger">
+    <i class="glyphicon glyphicon-trash"></i> Supprimer le client</a>
+
+  </p>
+
+
+  <div class="well margin-right col-sm-3">
+    {% for logo in logoduclient %}
+      <img width="100%" src="{{ (logo.webPath) | imagine_filter('logo') }} "alt="{{ logo.alt }}"/>
+      </br>
+      </br>
+    {% endfor %}
+      <a class="btn btn-default" href="#box-logo" role="button" data-toggle="modal" style="vertical-align:baseline;">
+      <i class="glyphicon glyphicon-camera"></i> {% if logoduclient %}Modifier le logo{% else %}Ajouter un logo au client
+    {% endif %}</a>
+  </div>
+
+    <!-- Modal Fichier Logo -->
+    <div id="box-logo" class="modal fade" keyboard="true" backdrop="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{% if logoduclient %}Modifier le logo du client{% else %}Ajouter un logo au client{% endif %}</h4>
+          </div>
+          <div class="modal-body">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+              {{ form_label(form.file, "Fichier", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(form.file) }}
+              <div class="col-sm-7">
+                {{ form_widget(form.file, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(form.infos, "Informations", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(form.infos) }}
+              <div class="col-sm-7">
+                {{ form_widget(form.infos, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+            <div class="col-sm-8"></div>
+            {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="well col-sm-8">
+  <div class="col-sm-6">
+    {# <h3 class="sticky">Contact</h3> #}
+    <p><strong>Nom du contact :</strong> {{ client.contact }}</p>
+    <p><strong>Email :</strong> {{ client.email }}<pr>
+    <p><strong>Téléphone :</strong> {{ client.tel }}</p>
+    <p><strong>Fax :</strong> {{ client.fax }}</p>
+  </div>
+
+  <div class="col-sm-6">
+    {# <h3 class="sticky">Société</h3> #}
+    <p>
+      <strong>Adresse :</strong></br>
+      {{ client.adresse }}</br>
+      {{ client.CP }} {{ client.ville }} ({{ client.pays }})
+    </p>
+    <p>
+      {% if client.siret != null %}<strong>N° de Siret :</strong> {{ client.siret }}</br>{% endif %}
+    </p>
+  </div>    
+
+<div class="col-sm-8">
+    {% if client.notes != null %}
+    <h3>Notes</h3>
+    <p>{{ client.notes|raw }}</p>
+    {% endif %}
+</div>
+</div>  
+
+{% if not client.projets.empty %}
+	<div class="col-sm-12">
+    <h3>Historique des projets pour ce client</h3>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Nom du projet</th>
+            <th>Type</th>
+            <th>Publié par</th>
+            <th>Pour le client</th>
+            <th>Assigné à</th>
+            <th>Statut</th>
+            <th>Mis à jour le</th>
+            <th>Factures</th>
+          </tr>
+        </thead>
+        <tbody align="center">
+          {% for projet in projets %}
+            <tr bgcolor={{ projet.type.couleur }}>
+              <td width="16%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
+              {{ projet.titre }}</td>
+              <td width="12%">{{ projet.type.name }}</td>
+              <td width="12%">{{ projet.user }}</td>
+              <td width="12%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name }}</td>
+              <td width="12%">{{ projet.assign }}</td>
+              <td width="12%">{{ projet.etape.name }}</td>
+              <td width="12%">{{ projet.maj|date('d/m/Y') }}</td>
+              <td width="12%">lien factures</td>
+            </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+    </div>
+{% endif %}
+
+
+{% endblock %}

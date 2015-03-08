@@ -1,0 +1,27 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un projet - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+  <h2>Supprimer un projet</h2><br/>
+
+  <p>
+    Etes-vous certain de vouloir supprimer le projet "<strong>{{ projet.titre }}</strong>" et tous ses commentaires associés ?
+  </p>
+
+  {# On met l'id du projet dans la route de l'action du formulaire #}
+  <form action="{{ path('tg_prod_delete', {'id': projet.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

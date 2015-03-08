@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ path('tg_prod_home')}}">Accueil Projets</a>
+    </div>
+  
+    <div>
+    <ul class="nav navbar-nav">
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ render(controller("TGClientBundle:Client:header")) }}
+        <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un client</a></li>
+        <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un projet</a></li>
+      </div>
+      
+      <div class="navbar-right">
+      <ul class="nav navbar-nav">
+      <li>
+        <form class="navbar-form inline-form" role="form">
+          <div class="form-group">
+            <input type="search" class="input-sm form-control" placeholder="Recherche">
+            <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Chercher</button>
+            </div>
+        </form>
+          </li>    
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{{ path('fos_user_profile_show') }}">Voir le profil</a></li>
+                    <li><a href="{{ path('fos_user_profile_edit') }}">Modifier le profil</a></li>
+                    <li><a href="{{ path('fos_user_resetting_request') }}">Changer de mot de passe</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div>
+
+
+      {% else %}
+      </ul>
+      <div class="navbar-right">
+      <ul class="nav navbar-nav">
+      <li>{% render(controller('FOSUserBundle:Security:loginnav')) %}</li>
+      </div>  
+    {% endif %}
+    </ul>  
+  </div>
+</nav>

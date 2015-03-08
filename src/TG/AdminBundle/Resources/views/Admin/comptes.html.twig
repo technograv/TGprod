@@ -1,0 +1,42 @@
+{% extends "TGAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Comptes utilisateur - {{ parent() }}
+{% endblock %}
+
+{% block tgadmin_body %}
+	{% if compteslist %}
+
+<h2>Liste des Comptes utilisateur</h2><br/>
+
+<table class="table table-hover table-bordered">
+  <thread>
+    <tr>
+      <th>#</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Couleur</th>
+    </tr>
+  </thread>
+  <tbody class="text-center">
+    {% for user in compteslist %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td><font color={{ user.couleur }}>{{ user.couleur }}</font></td>
+    </tr>
+
+   {% else %}
+      Pas de compte utilisateur pour le moment.<br/><br/>
+      Vous pouvez utiliser la page dédiée pour <a href="{{ path('tg_register') }}">créer un nouveau compte</a>
+    {% endfor %} 
+  </tbody>
+</table>
+{% endif %}
+
+
+
+
+
+{% endblock %}

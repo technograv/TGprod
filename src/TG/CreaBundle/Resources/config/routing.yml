@@ -1,0 +1,3 @@
+tg_crea_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: TGCreaBundle:Default:index }

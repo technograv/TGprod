@@ -1,0 +1,49 @@
+{% extends "TGClientBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block tgclient_body %}
+
+  <h2>Liste des Clients</h2>
+
+{% if listClients is not empty %}
+  <table class="table table-hover table-bordered table-striped">
+    <thread>
+      <tr>
+        <th>Nom du client</th>
+        <th>Date de création</th>
+        <th>Dernière modification le</th>
+        <th>Nombre de projet</th>
+      </tr>
+    </thread>
+    <tbody align="center">
+      {% for client in listClients %}
+      <tr>
+        <td><a href="{{ path('tg_client_view', {'id': client.id}) }}">{{ client.name }}</a></td>
+        <td>{{ client.dateadd|date('d/m/Y') }}</td>
+        <td>{{ client.maj|date('d/m/Y') }}</td>
+        <td>{{ client.nbprojets }}</td>
+      </tr>
+
+    {% endfor %}
+    {% else %}
+      Pas de client créé pour le moment.<br/><br/>
+      Vous pouvez utiliser la page dédié pour <a href="{{ path('tg_client_add') }}">créer un nouveau client</a>
+    
+    </tbody>
+  </table>
+{% endif %}
+
+{% if nbPages > 1 %}
+  <ul class="pagination">
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('tg_client_home', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% endblock %}

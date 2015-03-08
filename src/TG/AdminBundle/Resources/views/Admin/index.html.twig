@@ -1,0 +1,24 @@
+{% extends "TGAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block tgadmin_body %}
+	{% if typeslist %}
+		{% for type in typeslist %}
+			{{ type.name }} a pour couleur {{ type.couleur }} </br>
+		{% endfor %}
+	{% endif %}
+
+	{% if etapeslist %}
+		{% for etape in etapeslist %}
+			{{ etape.name }} a pour couleur {{ etape.couleur }} </br>
+		{% endfor %}
+	{% endif %}
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+<li class="dropdown">
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		<span class="glyphicon glyphicon-list"></span> Liste des clients <span class="caret"></span>
+	</a>
+    <ul class="dropdown-menu scrollable-menu">
+	    {% for client in listClients %}
+	      <li>
+	        <a href="{{ path('tg_client_view', {'id': client.id}) }}">{{ client.name }}</a>
+	      </li>
+	     {% endfor %}
+     </ul>
+ </li>

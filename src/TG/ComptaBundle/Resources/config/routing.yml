@@ -1,0 +1,3 @@
+tg_compta_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: TGComptaBundle:Default:index }

@@ -1,0 +1,121 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ projet.titre }} - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+	<a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet</a>
+
+<div class="well">
+{% if listcrea %}
+<h3>Liste des compos :</h3>
+		<table class="table table-hover table-bordered">
+			<thread>
+    <tr>
+    	<th>Type de fichier</th>
+      <th>Nom de la compo</th>
+      <th>Ajoutée le</th>
+      <th>Ouvrir</th>
+      <th>Télécharger</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+		{% for crea in listcrea %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ crea.alt }}</td>
+			<td>{{ crea.dateadd|localizeddate('full', 'none') }}</td>
+			<td><a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
+{% if listlogo %}
+<h3>Liste des logos :</h3>
+		<table class="table table-hover table-bordered">
+			<thread>
+    <tr>
+    	<th>Type de fichier</th>
+      <th>Nom du logo</th>
+      <th>Ajouté le</th>
+      <th>Ouvrir</th>
+      <th>Télécharger</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+		{% for logo in listlogo %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ logo.alt }}</td>
+			<td>{{ logo.date|localizeddate('full', 'none') }}</td>
+			<td><a href="{{ asset(logo.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(logo.webPath) }}" download="Logo{{ logo.id }}-{{ logo.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
+
+{% if listdevis %}
+<h3>Liste des devis :</h3>
+		<table class="table table-hover table-bordered">
+			<thread>
+    <tr>
+    	<th>Type de fichier</th>
+      <th>Nom du devis</th>
+      <th>Ajouté le</th>
+      <th>Ouvrir</th>
+      <th>Télécharger</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+		{% for devis in listdevis %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ devis.alt }}</td>
+			<td>{{ devis.dateadd|localizeddate('full', 'none') }}</td>
+			<td><a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
+
+{% if listfacture %}
+<h3>Liste des factures :</h3>
+		<table class="table table-hover table-bordered">
+			<thread>
+    <tr>
+    	<th>Type de fichier</th>
+      <th>Nom de la facture</th>
+      <th>Ajoutée le</th>
+      <th>Ouvrir</th>
+      <th>Télécharger</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+		{% for facture in listfacture %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ facture.alt }}</td>
+			<td>{{ facture.dateadd|localizeddate('full', 'none') }}</td>
+			<td><a href="{{ asset(facture.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(facture.webPath) }}" download="Facture{{ facture.id }}-{{ facture.projet.slug }}-{{ facture.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+</div>
+
+{% endblock %}

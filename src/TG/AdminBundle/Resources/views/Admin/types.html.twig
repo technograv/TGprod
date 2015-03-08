@@ -1,0 +1,48 @@
+{% extends "TGAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Types de projet - {{ parent() }}
+{% endblock %}
+
+{% block tgadmin_body %}
+	
+<h2>Ajouter un nouveau type de projet :</h2>
+
+<div class="well">
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.name, "Nom du type de projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+           {{ form_errors(form.name) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+   <div class="form-group">
+      {{ form_label(form.couleur, "couleur associée", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.couleur) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.couleur, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div> 
+
+{{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_rest(form) }}
+{{ form_end(form) }}
+</div>
+
+{{ form(form) }}
+
+<hr>
+
+	{% if typeslist %}
+		<h3>Liste des types existants :</h3>
+		{% for type in typeslist %}
+			<a name="action" value="delete" href="{{ path('tg_admin_types', {'type': type.id}) }}"><span style="color:red" class="glyphicon glyphicon-remove "></span></a><strong>{{ type.name }}</strong> a pour couleur <i><font color={{ type.couleur }}>{{ type.couleur }}</font></i><a name="action" value="edit" href="{{ path('tg_admin_types', {'type': type.id}) }}"><i class="glyphicon glyphicon-pencil"></i></a></br>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

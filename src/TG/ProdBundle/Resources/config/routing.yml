@@ -1,0 +1,51 @@
+# src/TG/ProdBundle/Resources/config/routing.yml
+
+tg_prod_home:
+    path:      /{page}
+    defaults:  { _controller: TGProdBundle:Projet:index, page: 1 }
+    requirements:
+        page: ^[0-9]*$
+
+tg_prod_view:
+    path:      /projet/{id}
+    defaults:  { _controller: TGProdBundle:Projet:view }
+    requirements:
+        id: ^[0-9]+$
+
+tg_prod_add:
+    path:      /projet/add
+    defaults:  { _controller: TGProdBundle:Projet:add }
+
+tg_prod_edit:
+    path:      /projet/edit/{id}
+    defaults:  { _controller: TGProdBundle:Projet:edit }
+    requirements:
+        id: ^[0-9]+$
+
+tg_prod_delete:
+    path:      /projet/delete/{id}
+    defaults:  { _controller: TGProdBundle:Projet:delete }
+    requirements:
+        id: ^[0-9]+$
+
+tg_prod_next:
+    path: /projet/next/{id}
+    defaults: { _controller: TGProdBundle:Projet:next }
+    requirements:
+        id: ^[0-9]+$
+
+tg_prod_test:
+    path: /test
+    defaults: { _controller: TGProdBundle:Projet:test }
+
+tg_prod_fichier:
+    path: /projet/fichier/{id}
+    defaults: { _controller: TGProdBundle:Projet:fichier }
+    requirements:
+       id: ^[0-9]+$
+
+tg_prod_archives:
+    path: /projet/archives/{page}
+    defaults:   { _controller: TGProdBundle:Projet:archives, page: 1 }
+    requirements:
+        page: ^[0-9]*$

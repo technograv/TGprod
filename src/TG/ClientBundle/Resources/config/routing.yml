@@ -1,0 +1,29 @@
+# src/TG/ClientBundle/Resources/config/routing.yml
+
+tg_client_home:
+    path:      /{page}
+    defaults:  { _controller: TGClientBundle:Client:index, page: 1 }
+    requirements:
+        page: ^[0-9]*$
+
+tg_client_view:
+    path:      /client/{id}
+    defaults:  { _controller: TGClientBundle:Client:view }
+    requirements:
+        id: ^[0-9]+$
+
+tg_client_add:
+    path:      /client/add
+    defaults:  { _controller: TGClientBundle:Client:add }
+
+tg_client_edit:
+    path:      /client/edit/{id}
+    defaults:  { _controller: TGClientBundle:Client:edit }
+    requirements:
+        id: ^[0-9]+$
+
+tg_client_delete:
+    path:      /client/delete/{id}
+    defaults:  { _controller: TGClientBundle:Client:delete }
+    requirements:
+        id: ^[0-9]+$

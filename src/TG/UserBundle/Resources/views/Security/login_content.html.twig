@@ -1,0 +1,20 @@
+	{% trans_default_domain 'FOSUserBundle' %}
+
+
+	<form action="{{ path("fos_user_security_check") }}" method="post" class="navbar-form inline-form" role="form">
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+	        <div class="form-group">
+
+	<label for="username"></label>
+	    <input type="text" class="input-sm form-control" id="username" name="_username" value="{{ last_username }}" placeholder=" Nom d'utilisateur" required="required" />
+
+	    <label for="password"></label>
+	    <input type="password" class="input-sm form-control" id="password" name="_password" placeholder=" Mot de passe" required="required" />
+
+	    <input type="hidden" id="remember_me" name="_remember_me" value="on" />
+
+	    <button type="submit" class="btn btn-primary btn-sm" id="_submit" name="_submit" /><span class="glyphicon glyphicon-log-in"></span> {{ 'security.login.submit'|trans }}</button>
+	</form>
+	 <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-sm" name="_register" /><span class="glyphicon glyphicon-log-book"></span> {{ 'layout.register'|trans }}</a>
+	</div>
+	

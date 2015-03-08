@@ -1,0 +1,121 @@
+<?php
+
+namespace TG\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * @ORM\Entity
+ */
+class User extends BaseUser
+{
+   /**
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Projet", mappedBy="user")
+     */
+    private $projets;
+
+   /**
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Commentaire", mappedBy="user")
+     */
+    private $commentaires;
+
+  /**
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="couleur", type="string", length=255)
+     */
+    private $couleur;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->projets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add projets
+     *
+     * @param \TG\ProdBundle\Entity\Projet $projets
+     * @return User
+     */
+    public function addProjet(\TG\ProdBundle\Entity\Projet $projets)
+    {
+        $this->projets[] = $projets;
+
+        return $this;
+    }
+
+    /**
+     * Remove projets
+     *
+     * @param \TG\ProdBundle\Entity\Projet $projets
+     */
+    public function removeProjet(\TG\ProdBundle\Entity\Projet $projets)
+    {
+        $this->projets->removeElement($projets);
+    }
+
+    /**
+     * Get projets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjets()
+    {
+        return $this->projets;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \TG\ProdBundle\Entity\Commentaire $commentaires
+     * @return User
+     */
+    public function addCommentaire(\TG\ProdBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \TG\ProdBundle\Entity\Commentaire $commentaires
+     */
+    public function removeCommentaire(\TG\ProdBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+}

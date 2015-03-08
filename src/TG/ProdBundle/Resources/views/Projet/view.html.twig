@@ -1,0 +1,411 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  {{ projet.titre }} - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+  <table><tr><td width="85%"><h2>{{ projet.titre }}</h2></td><td><h4>Projet ID : #{{ projet.id }}</h4></td></tr></table> 
+  <p><i> Créé le {{ projet.dateadd|localizeddate('full', 'none') }} à {{ projet.dateadd|date('G\\hi') }} par {{ projet.user }} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{projet.client.name}}</a></i>.</p>
+
+  <p>
+    <a href="{{ path('tg_prod_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+    <a href="{{ path('tg_prod_edit', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modifier le projet
+    </a>
+    <a href="{{ path('tg_prod_next', {'id': projet.id}) }}" class="btn btn-primary">
+      <i class="glyphicon glyphicon-ok"></i>
+      Avancer le projet
+    </a>
+    <a href="{{ path('tg_prod_delete', {'id': projet.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Supprimer le projet
+    </a>
+   </p>
+
+
+  <div class="well" style="margin-right:20px; width:64%; float:left;">
+    <div>
+      <div class="col-sm-6 sticky"><p class="sticky"><strong>Assigné à :</strong> {{ projet.assign }} 
+      {# Ajouter un lien vers un tableau des projets qui lui sont assignés ? #}
+      </p></div> 
+      <div><p class="sticky"><strong>Statut :</strong> {{ projet.etape.name }}</p></div>
+    </div>
+
+    <hr>
+
+  {{ projet.contenu|raw }}
+
+    {% if not projet.commentaires.empty %}
+      <table>
+        {% for commentaire in listComments %}
+          <tr>
+            <p>-----------------</br></br>
+            <script type="text/javascript">
+                $('.tooltip-test').tooltip();
+              </script>
+              <i class="glyphicon glyphicon-comment tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ commentaire.date|localizeddate('full', 'none') }} à {{ commentaire.date|date('G\\hi') }}"></i>
+          <strong>{{ commentaire.user }}</strong> </br>
+            {{ commentaire.contenu|raw }}</br>
+            </p>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    {#% if nbPages > 1 %}
+      <ul class="pagination">
+        {% for p in range(1, nbPages) %}
+          <li{% if p == page %} class="active"{% endif %}>
+            <a href="{{ path('tg_prod_view', {'id': projet.id, 'page': p}) }}">{{ p }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %#}
+
+    <hr>
+    {{ form_start(formcom, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(formcom) }}
+           <div class="form-group">
+            {{ form_label(formcom.contenu, "Commentaire", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(formcom.contenu) }}
+          <div class="col-sm-9">
+            {{ form_widget(formcom.contenu, {'attr': {'class': 'ckeditor'}}) }}
+          </div>
+          </div>
+          <div class="col-sm-11"></div>
+            {{ form_widget(formcom.save, {'attr': {'class': 'btn btn-primary', 'label': 'Commenter'}}) }} 
+            {{ form_rest(formcom) }}
+            {{ form_end(formcom) }}
+          
+
+    </div>
+
+
+  <div class="well col-sm-4">
+    <h4 class="sticky">Liste des fichiers attachés</h4><br>
+     
+      <div class="btn-group">
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-picture"></i> Compo <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for crea in listcrea %}
+          <li><a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i> Ouvrir</a></li>
+          <li><a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i> Télécharger</a></li>
+          <li class="divider"></li>
+          {% endfor %}
+          <li><a href="#box-crea" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle compo</a></li>
+        </ul>
+      </div>
+
+        <!-- Modal Crea -->
+        <div id="box-crea" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ajouter une nouvelle compo</h4>
+              </div>
+              <div class="modal-body">
+                {{ form_start(formcrea, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(formcrea) }}
+              <div class="form-group">
+                {{ form_label(formcrea.file, "Fichier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formcrea.file) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcrea.file, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formcrea.infos, "Infos", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formcrea.infos) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcrea.infos, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="col-sm-8"></div>
+                {{ form_widget(formcrea.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                {{ form_rest(formcrea) }}
+                {{ form_end(formcrea) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="btn-group">
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-shopping-cart"></i> Devis <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for devis in listdevis %}
+          <li><a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i> Ouvrir</a></li>
+          <li><a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i> Télécharger</a></li>
+          <li class="divider"></li>
+          {% endfor %}
+          <li><a href="#box-devis" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Ajouter un nouveau devis</a></li>
+        </ul>
+      </div>
+
+        <!-- Modal Devis -->
+        <div id="box-devis" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ajouter un nouveau devis</h4>
+              </div>
+              <div class="modal-body">
+                  {{ form_start(formdevis, {'attr': {'class': 'form-horizontal'}}) }}
+                  {{ form_errors(formdevis) }}
+              <div class="form-group">
+                {{ form_label(formdevis.file, "Fichier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.file) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.file, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.infos, "Infos", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.infos) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.infos, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.numero, "Numéro", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.numero) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.numero, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.prixHT, "Prix HT", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.prixHT) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.prixHT, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.tva, "TVA", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.tva) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.tva, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.prixttc, "Prix TTC", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.prixttc) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.prixttc, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+               <div class="form-group">
+                {{ form_label(formdevis.acompte, "Acompte", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdevis.acompte) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdevis.acompte, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="col-sm-8"></div>
+                {{ form_widget(formdevis.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                {{ form_rest(formdevis) }}
+                {{ form_end(formdevis) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="btn-group">
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-barcode"></i> Facture <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for facture in listfacture %}
+          <li><a href="{{ asset(facture.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i> Ouvrir</a></li>
+          <li><a href="{{ asset(facture.webPath) }}" download="facture{{ facture.id }}-{{ facture.projet.slug }}-{{ facture.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i> Télécharger</a></li>
+          <li class="divider"></li>
+           {% endfor %}
+          <li><a href="#box-facture" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle facture</a></li>
+        </ul>
+      </div>
+
+      <br></br>
+        <a align="right" class="btn" href="{{ path('tg_prod_fichier', {'id': projet.id}) }}"><i class="glyphicon glyphicon-folder-open"></i> Voir la totalité des fichiers</a>
+
+        <!-- Modal Facture -->
+        <div id="box-facture" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ajouter une nouvelle compo</h4>
+              </div>
+              <div class="modal-body">
+              {{ form_start(formfacture, {'attr': {'class': 'form-horizontal'}}) }}
+              {{ form_errors(formfacture) }}
+                <div class="form-group">
+                  {{ form_label(formfacture.file, "Fichier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.file) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.file, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                 <div class="form-group">
+                  {{ form_label(formfacture.infos, "Infos", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.infos) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.infos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                 <div class="form-group">
+                  {{ form_label(formfacture.numero, "Numéro", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.numero) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.numero, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                 <div class="form-group">
+                  {{ form_label(formfacture.montantHT, "Montant HT", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.montantHT) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.montantHT, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                 <div class="form-group">
+                  {{ form_label(formfacture.tva, "TVA", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.tva) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.tva, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                 <div class="form-group">
+                  {{ form_label(formfacture.netapayer, "Net à payer", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                  {{ form_errors(formfacture.netapayer) }}
+                <div class="col-sm-7">
+                  {{ form_widget(formfacture.netapayer, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+                <div class="col-sm-8"></div>
+                {{ form_widget(formfacture.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                  {{ form_rest(formfacture) }}
+                  {{ form_end(formfacture) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+  </div>
+
+
+    {% if listProjets %}
+      <div class="well col-sm-4">
+        <h3 class="sticky">Liaisons
+          {# {% if projet.projetparent == null %}Projet à lier
+            {% else %}Projet lié : #}
+{#
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="btn-group">
+                  <a class="btn btn-success" href="#"><i class="glyphicon glyphicon-shopping-cart"></i> {{ projet.projetparent.titre }}</a>
+                  <a class="btn btn-default dropdown-toggle btn-success" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#projets" data-toggle="collapse" data-parent="#accordion"><i class="glyphicon glyphicon-eye-open"></i> Projets</a></li>
+                    <li><a href="#fichiers" data-toggle="collapse" data-parent="#accordion"><i class="glyphicon glyphicon-eye-open"></i> Fichiers</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><i class="glyphicon glyphicon-eye-open"></i> Aller au projet</a></li>
+                  </ul>
+                </div>
+
+                <div id="projets" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    Test de la liste des autres projets liés
+                  </div>
+                </div>
+                <div id="fichiers" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    Test des fichiers du projet lié
+                  </div>
+                </div>
+              </div>
+            </div> #}
+
+         {# {% endif %} #}</h3>
+         <div style="width:100%; float:left; margin-bottom:20px;">
+          {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
+          {{ form_errors(formlink) }}
+
+          {% if projet.projetparent == null %}
+
+            <div class="form-group">
+              <div class="col-sm-9 sticky">
+                {{ form_widget(formlink.projetparent, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            {% if listEnfants != null %}
+              {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-default'}}) }}
+              {% else %}
+              {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-primary'}}) }}
+            {% endif %}
+
+            {% else %}
+            <h4>Projet parent :</h4>
+            <div class="col-sm-8" style="padding:0; height:35px; line-height:35px;">
+              <p style="vertical-align:middle; display:inline-block; line-height:normal; margin:0;">
+              <i class="glyphicon glyphicon-menu-right" style="margin-right:5px;"> </i><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><strong>{{projet.projetparent.titre }}</strong></a>
+              </p>
+            </div>
+            <div class="col-sm-4">
+              {{ form_widget(formlink.delier, {'attr': {'class': 'btn btn-default', 'label': 'Supprimer la liaison avec'}}) }}
+            </div>
+
+          {% endif %}
+
+          {{ form_rest(formlink) }}
+          {{ form_end(formlink) }}
+          </div>
+
+          {% if projetparent %}
+            {% if listdevisparent != null or listcreaparent != null %}
+              <h4>Fichiers du projet parent :</h4>
+              {% if listdevis %}
+                <strong>Devis :</strong>
+                <div>
+                  {% for devis in listdevis %}
+                    <script type="text/javascript">
+                $('.tooltip-test').tooltip();
+              </script>
+             <a data-toggle="tooltip" data-placement="top" title="{{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt }}</a> <a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
+      <a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a><br>
+                  {% endfor %}
+                </div>
+                <br>
+              {% endif %}
+              {% if listcreaparent %}
+                <strong>Compos :</strong>
+                <div>
+                  {% for crea in listcreaparent %}
+                    <a data-toggle="tooltip" data-placement="top" title="{{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt }}</a> <a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
+      <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a><br>
+                  {% endfor %}
+                </div>
+                <br>
+              {% endif %}
+            {% endif %}
+        <a align="right" href="{{ path('tg_prod_fichier', {'id': projetparent.id}) }}"><i class="glyphicon glyphicon-folder-open" style="margin-right:5px;"></i>Voir la totalité des fichiers</a>
+          {% endif %}
+
+          {% if listEnfants != null %}
+            Projets enfants :
+            <ul>
+              {% for projet in listEnfants %}
+                <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </ul>
+      </div>
+    {% endif %}
+
+
+{% endblock %}
