@@ -498,19 +498,6 @@ class Client
     }
 
     /**
-     * Set datemodif
-     *
-     * @param \DateTime $datemodif
-     * @return Client
-     */
-    public function setDatemodif($datemodif)
-    {
-        $this->datemodif = $datemodif;
-
-        return $this;
-    }
-
-    /**
      * Get datemodif
      *
      * @return \DateTime 
@@ -530,19 +517,31 @@ class Client
     }
 
     /**
+     * Set datemodif
+     * @ORM\PreUpdate
+     * @param \DateTime $datemodif
+     * @return Client
+     */
+    public function setDatemodif($datemodif)
+    {
+        $this->datemodif = new \DateTime('now');
+
+        return $this;
+    }
+
+    /**
      * Set maj
      * @ORM\PreUpdate
      * @param \DateTime $maj
-     * @return Projet
+     * @return Client
      */
     public function setMaj($maj)
     {
-        if ($this->getDatemodif() == null) {
-            $maj = $this->getDateadd();
-        }
-        else {
+        if ($this->getDatemodif() != null) {
             $maj = $this->getDatemodif();
         }
+        else {
+       }
         
         $this->maj = $maj;
 
@@ -592,14 +591,6 @@ class Client
     public function getProjets()
     {
         return $this->projets;
-    }
-
-     /**
-    * @ORM\PreUpdate
-    */
-    public function datemodif()
-    {
-        $this->setDatemodif(new \Datetime());
     }
 
     /**

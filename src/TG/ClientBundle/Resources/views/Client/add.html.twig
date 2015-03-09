@@ -69,8 +69,10 @@
         {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
       </div>
 
+      <div class="required">
       {{ form_label(form.tel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.name) }}
+    </div>
       <div class="col-sm-4">
         {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
       </div>

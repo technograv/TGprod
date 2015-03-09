@@ -133,17 +133,17 @@ class ClientController extends Controller
 
 	public function editAction(client $client, request $request)
 	{
-		if ($this->getUser())
-		{
-			$client->setUsermodif($this->getUser());
-		}
-
 		$form = $this->get('form.factory')->create(new ClientEditType, $client);
 		
 		$form->handleRequest($request);
 
 		if ($form->isValid())
 		{
+			if ($this->getUser())
+			{
+			$client->setUsermodif($this->getUser());
+			}
+			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
 			$em->flush();

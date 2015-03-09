@@ -9,10 +9,10 @@
   <h2>{% if client.code != null %}[{{ client.code }}]{% endif %} {{ client.name }}</h2>
   
   <p><i>
-  {% if client.datemodif != null %}
+  {% if client.datemodif == null %}
   Créé le {{ client.dateadd|localizeddate('full', 'none') }} à {{ client.dateadd|date('G\\hi') }} par {{ client.useradd }}.
-  {% else %}
-  Modifié le {{ client.datemodif|localizeddate('full', 'none') }} à {{ client.datemodif|date('G\\hi') }} par {{ client.usermodif }}.
+  {% elseif client.datemodif != null %}
+  Modifié le {{ client.datemodif|localizeddate('full', 'none') }} à {{ client.maj|date('G\\hi') }} par {{ client.usermodif }}.
   {% endif %}
   </i></p>
 
