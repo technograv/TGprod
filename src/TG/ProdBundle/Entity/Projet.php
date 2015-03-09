@@ -302,8 +302,6 @@ class Projet
       public function __construct()
     {
         $this->dateadd = new \DateTime('now');
-        $this->etape = 'Devis';
-        $this->type = 'Projet client';
         $this->devix = new ArrayCollection();
         $this->factures = new ArrayCollection();
         $this->creas = new ArrayCollection();
@@ -332,14 +330,6 @@ class Projet
     public function getClient()
     {
         return $this->client;
-    }
-
-    /**
-    * @ORM\PreUpdate
-    */
-    public function datemodif()
-    {
-        $this->setDatemodif(new \Datetime());
     }
 
     /**
@@ -400,13 +390,13 @@ class Projet
 
     /**
      * Set datemodif
-     *
+     * @ORM\PreUpdate
      * @param \DateTime $datemodif
      * @return Projet
      */
     public function setDatemodif($datemodif)
     {
-        $this->datemodif = $datemodif;
+        $this->datemodif = new \DateTime('now');
 
         return $this;
     }

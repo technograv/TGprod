@@ -7,7 +7,13 @@
 {% block tgprod_body %}
 
   <table><tr><td width="85%"><h2>{{ projet.titre }}</h2></td><td><h4>Projet ID : #{{ projet.id }}</h4></td></tr></table> 
-  <p><i> Créé le {{ projet.dateadd|localizeddate('full', 'none') }} à {{ projet.dateadd|date('G\\hi') }} par {{ projet.user }} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{projet.client.name}}</a></i>.</p>
+  <p><i>
+    {% if projet.datemodif == null %}
+      Créé le {{ projet.dateadd|localizeddate('full', 'none') }} à {{ projet.dateadd|date('G\\hi') }}
+      {% elseif projet.datemodif != null %}
+      Modifié le {{ projet.datemodif|localizeddate('full', 'none') }} à {{ projet.datemodif|date('G\\hi') }}
+    {% endif %}
+     par {{ projet.user }} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{projet.client.name}}</a></i>.</p>
 
   <p>
     <a href="{{ path('tg_prod_home') }}" class="btn btn-default">
