@@ -188,14 +188,6 @@ class Logo
       return;
     }
 
-    // Si on avait un ancien fichier, on le supprime
-    if (null !== $this->tempFilename) {
-      $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
-/*      if (file_exists($oldFile)) {
-        unlink($oldFile);
-      } */
-    }
-
     // On déplace le fichier envoyé dans le répertoire de notre choix
     $this->file->move(
       $this->getUploadRootDir(), // Le répertoire de destination

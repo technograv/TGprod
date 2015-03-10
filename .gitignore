@@ -1,5 +1,10 @@
 /web/media/
 /web/uploads/
+/web/app.php
+/web/app-dev.php
+/web/apple-touch-icon.png
+/web/favicon.ico
+/web/robors.txt
 /app/cache/*
 /app/logs/*
 /vendor/

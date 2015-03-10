@@ -4,7 +4,6 @@ namespace TG\CreaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class LogoEditType extends AbstractType
 {

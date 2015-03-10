@@ -4,8 +4,6 @@ namespace TG\ComptaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -364,14 +362,6 @@ class Devis
     // Si jamais il n'y a pas de fichier (champ facultatif)
     if (null === $this->file) {
       return;
-    }
-
-    // Si on avait un ancien fichier, on le supprime
-    if (null !== $this->tempFilename) {
-      $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
- /*     if (file_exists($oldFile)) {
-        unlink($oldFile);
-      } */
     }
 
     // On déplace le fichier envoyé dans le répertoire de notre choix

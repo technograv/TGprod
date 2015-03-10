@@ -3,16 +3,11 @@
 namespace TG\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use TG\UserBundle\Entity\User;
 use TG\ProdBundle\Entity\Type;
 use TG\ProdBundle\Form\TypeType;
 use TG\ProdBundle\Entity\Etape;
 use TG\ProdBundle\Form\EtapeType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
 {
@@ -41,7 +36,7 @@ class AdminController extends Controller
         {
             $edittype = $em->getRepository('TGProdBundle:Type')->find($request->query->get('type'));
 
-            if ($edittype != null)
+            if ($edittype !== null)
             {
                 $type = $edittype;
             }
@@ -77,7 +72,7 @@ class AdminController extends Controller
         {
             $editetape = $em->getRepository('TGProdBundle:Etape')->find($request->query->get('etape'));
 
-            if ($editetape != null)
+            if ($editetape !== null)
             {
                 $etape = $editetape;
             }

@@ -4,11 +4,6 @@ namespace TG\ProdBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use TG\ComptaBundle\Form\DevisType;
-use TG\ComptaBundle\Form\FactureType;
-use TG\CreaBundle\Form\CreaType;
-use TG\ClientBundle\Entity\ClientRepository;
 
 class ProjetNextType extends AbstractType
 {

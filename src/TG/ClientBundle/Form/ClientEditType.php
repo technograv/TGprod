@@ -4,9 +4,6 @@ namespace TG\ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use TG\CreaBundle\Form\LogoType;
-use TG\CreaBundle\Entity\LogoRepository;
 
 class ClientEditType extends AbstractType
 {

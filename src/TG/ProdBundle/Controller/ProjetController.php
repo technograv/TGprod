@@ -12,23 +12,14 @@ use TG\ProdBundle\Form\CommentaireType;
 use TG\ProdBundle\Form\NextType;
 use TG\ProdBundle\Entity\Projet;
 use TG\ComptaBundle\Entity\Devis;
-use TG\ComptaBundle\Form\DevisType;
 use TG\ComptaBundle\Form\DevisaddType;
 use TG\ComptaBundle\Entity\Facture;
-use TG\ComptaBundle\Form\FactureType;
 use TG\ComptaBundle\Form\FactureaddType;
 use TG\CreaBundle\Entity\Crea;
-use TG\CreaBundle\Form\CreaType;
 use TG\CreaBundle\Form\CreaaddType;
 use TG\ProdBundle\Entity\Commentaire;
-use TG\ClientBundle\Entity\Client;
-use TG\ProdBundle\Entity\CommentaireRepository;
-use TG\CreaBundle\Entity\CreaRepository;
-use TG\ComptaBundle\Entity\DevisRepository;
-use TG\ComptaBundle\Entity\FactureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProjetController extends Controller
 {
@@ -70,15 +61,11 @@ class ProjetController extends Controller
 
 	public function viewAction(projet $projet,request $request)
 	{
-		//$nbPerPage = 10;
-
 		$em = $this->getDoctrine()->getManager();
 		$emprojet = $em->getRepository('TGProdBundle:Projet');
 
 		$newcom = new Commentaire;
 		$newcom->setProjet($projet);
-
-		$user = $this->getUser();
 
 		if ($this->getUser())
 		{
@@ -129,7 +116,7 @@ class ProjetController extends Controller
 			->getRepository('TGComptaBundle:Devis')
 			->getLastDevis($projetparent);
 
-			if ($projetparent == null)
+			if ($projetparent === null)
 			{
 				$formlink = $this->get('form.factory')->create(new ProjetLinkType($projet), $projet);
 			}
@@ -190,18 +177,6 @@ class ProjetController extends Controller
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
 
-		/* $nbPages = ceil(count($listComments)/$nbPerPage);
-
-		if ($nbPages < 1)
-			{
-				$nbPages = 1;
-			}
-
-			if ($page > $nbPages)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			} */
-
 			return $this->render('TGProdBundle:Projet:view.html.twig', array(
 				'projet' => $projet,
 				'listComments' => $listComments,
@@ -235,13 +210,11 @@ class ProjetController extends Controller
 		{
 			$client = $em->getRepository('TGClientBundle:Client')->find($request->query->get('client'));
 
-			if ($client != null)
+			if ($client !== null)
 			{
 				$projet->setClient($client);
 			}
 		}
-
-		$user = $this->getUser();
 
 		if ($this->getUser())
 		{
@@ -269,8 +242,6 @@ class ProjetController extends Controller
 	{
 		$form = $this->createForm(new ProjetEditType(), $projet);
 
-		$user = $this->getUser();
-
 		if ($this->getUser())
 		{
 			$projet->setUser($this->getUser());
@@ -297,8 +268,6 @@ class ProjetController extends Controller
 	{
 		$commentaire = new Commentaire();
 		$commentaire->setProjet($projet);
-
-		$user = $this->getUser();
 
 		if ($this->getUser())
 		{

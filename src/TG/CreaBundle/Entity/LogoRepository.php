@@ -3,7 +3,6 @@
 namespace TG\CreaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * LogoRepository

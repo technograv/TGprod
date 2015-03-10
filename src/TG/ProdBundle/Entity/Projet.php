@@ -2,7 +2,6 @@
 
 namespace TG\ProdBundle\Entity;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -339,9 +338,9 @@ class Projet
     {
         $linkprojet = $this->getProjetparent();
 
-        if ($linkprojet != null)
+        if ($linkprojet !== null)
         {
-            if ($linkprojet->getProjetparent() != null)
+            if ($linkprojet->getProjetparent() !== null)
             {
             $newlinkprojet = $linkprojet->getProjetparent();
             $this->setProjetparent($newlinkprojet);
@@ -394,7 +393,7 @@ class Projet
      * @param \DateTime $datemodif
      * @return Projet
      */
-    public function setDatemodif($datemodif)
+    public function setDatemodif()
     {
         $this->datemodif = new \DateTime('now');
 
@@ -524,7 +523,7 @@ class Projet
      */
     public function setMaj($maj)
     {
-        if ($this->getDatemodif() == null) {
+        if ($this->getDatemodif() === null) {
             $maj = $this->getDateadd();
         }
         else {

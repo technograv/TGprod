@@ -3,8 +3,6 @@
 namespace TG\ProdBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * CommentaireRepository
@@ -20,11 +18,6 @@ class CommentaireRepository extends EntityRepository
 			->where('c.projet = :projet')
 			->setParameter('projet', $projet)
 			->orderBy('c.date', 'ASC');
-		/*	->getQuery()
-			->setFirstResult(($page-1) * $nbPerPage)
-			->setMaxResults($nbPerPage);
-
-		return new Paginator($qb, true); */
 
 		return $qb
 			->getQuery()

@@ -4,16 +4,13 @@
 
 namespace TG\ClientBundle\Controller;
 
-use TG\ClientBundle\Entity\ClientRepository;
 use TG\ClientBundle\Form\ClientType;
 use TG\ClientBundle\Form\ClientEditType;
 use TG\ClientBundle\Entity\Client;
 use TG\CreaBundle\Entity\Logo;
 use TG\CreaBundle\Form\LogoEditType;
-use TG\ProdBundle\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClientController extends Controller
 {
@@ -90,8 +87,6 @@ class ClientController extends Controller
 	{
 		$client = new Client();
 
-		$user = $this->getUser();
-
 		if ($this->getUser())
 		{
 			$client->setUseradd($this->getUser());
@@ -108,7 +103,7 @@ class ClientController extends Controller
 
 			$logofile = $form->get('logofile')->getData();
 
-			if ($logofile != null)
+			if ($logofile !== null)
 			{
 				$logo = new Logo;
 				$logo->setClient($client);

@@ -522,7 +522,7 @@ class Client
      * @param \DateTime $datemodif
      * @return Client
      */
-    public function setDatemodif($datemodif)
+    public function setDatemodif()
     {
         $this->datemodif = new \DateTime('now');
 
@@ -537,7 +537,7 @@ class Client
      */
     public function setMaj($maj)
     {
-        if ($this->getDatemodif() != null) {
+        if ($this->getDatemodif() !== null) {
             $maj = $this->getDatemodif();
         }
         else {
