@@ -11,7 +11,15 @@
       		{{ message|trans({}, 'FOSUserBundle') }}
     	</div>
     {% endfor %}
+
   {% endfor %}
+
+   <h2>Réalisations récentes</h2><br/>
+   <div class="well">
+   <img class="img-rounded" width="33%" src="http://localhost/Symfony/web/bootstrap/images/real3.jpg" alt="Dernières réalisations" />
+   <img class="img-rounded" width="33%" src="http://localhost/Symfony/web/bootstrap/images/real1.jpg" alt="Dernières réalisations" />
+   <img class="img-rounded" width="33%" src="http://localhost/Symfony/web/bootstrap/images/real2.jpg" alt="Dernières réalisations" />
+ </div>
 
   {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
   {% block fos_user_content %}

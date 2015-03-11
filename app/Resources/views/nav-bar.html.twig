@@ -1,7 +1,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
       <a class="navbar-brand" href="{{ path('tg_prod_home')}}">Accueil Projets</a>
+    {% endif %}
     </div>
   
     <div>

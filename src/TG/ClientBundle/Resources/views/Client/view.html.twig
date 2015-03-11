@@ -34,7 +34,7 @@
 
   <div class="well margin-right col-sm-3">
     {% for logo in logoduclient %}
-      <img class="img-rounded" width="100%" src="{{ (logo.webPath) | imagine_filter('logo') }} "alt="{{ logo.alt }}"/>
+      <img class="img-rounded" width="100%" src="{{ (logo.webPath) | imagine_filter('logo') }}" alt="{{ logo.alt }}"/>
       </br>
       </br>
     {% endfor %}

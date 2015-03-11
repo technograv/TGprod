@@ -106,6 +106,10 @@ liip_imagine:
             quality: 75
             filters:
                 relative_resize: { widen: 200 }
+        login:
+            quality: 75
+            filters:
+                relative_resize: { widen: 600 }
 
 services:
     twig.extension.intl:
