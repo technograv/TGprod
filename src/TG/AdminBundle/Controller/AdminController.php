@@ -122,6 +122,7 @@ class AdminController extends Controller
 			->add('roles', 'choice', array(
 					'choices' =>array(
 						'ROLE_atelier' => 'Atelier',
+                        'ROLE_PAO' => 'PAO',       
 						'ROLE_compta' => 'Comptable',
 						'ROLE_gerant' => 'Gérant',
 						'ROLE_admin' => 'Admin'),

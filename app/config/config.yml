@@ -84,16 +84,16 @@ fos_user:
     registration:
         confirmation:
             from_email:
-                address :    registration@acmedemo.com
-                sender_name: Acme Demo Registration
+                address :    inscription@technograv.fr
+                sender_name: Technograv.prod
     resetting:
         email:
             from_email:
-                address:    resetting@acmedemo.com
-                sender_name: Acme Demo Resetting
+                address:    reinitialiser@technograv.fr
+                sender_name: Technograv.prod
     from_email:
-        address:    noreply@acmedemo.com
-        sender_name: Acme Demo App
+        address:    noreply@technograv.fr
+        sender_name: Technograv.prod
 
 liip_imagine:
     resolvers:

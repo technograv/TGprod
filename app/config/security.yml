@@ -8,7 +8,10 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_GERANT, ROLE_ATELIER]
+        ROLE_PAO:         [ROLE_ATELIER]
+        ROLE_COMPTA:      [ROLE_PAO]
+        ROLE_GERANT:      [ROLE_COMPTA]
+        ROLE_ADMIN:       [ROLE_GERANT]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
@@ -19,13 +22,17 @@ security:
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
+        login:
+            pattern:    ^/login$
+            anonymous:   true
+
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         main:
             pattern:    ^/
-            anonymous:  true
+            anonymous:  false
             provider:   main
             form_login:
                 login_path: fos_user_security_login

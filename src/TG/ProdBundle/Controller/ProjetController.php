@@ -20,17 +20,19 @@ use TG\CreaBundle\Form\CreaaddType;
 use TG\ProdBundle\Entity\Commentaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProjetController extends Controller
 {
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function indexAction($page)
 	{
 		if ($page < 1)
 			{
 				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 			}
-
-	 // récup du nombre de projets ouverts et division pour établir le nombre de page
 
 			$nbPerPage = 10;
 
@@ -58,7 +60,9 @@ class ProjetController extends Controller
 				'page' => $page));
 	}
 
-
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function viewAction(projet $projet,request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -198,6 +202,9 @@ class ProjetController extends Controller
 				));
 	}
 
+	/**
+	* @Security("has_role('ROLE_PAO')")
+	*/
 	public function addAction(request $request)
 	{
 
@@ -238,6 +245,9 @@ class ProjetController extends Controller
 			));
 	} 
 
+	/**
+	* @Security("has_role('ROLE_COMPTA')")
+	*/
 	public function editAction(projet $projet, request $request)
 	{
 		$form = $this->createForm(new ProjetEditType(), $projet);
@@ -264,6 +274,9 @@ class ProjetController extends Controller
 			));
 	}
 
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function nextAction(projet $projet, request $request)
 	{
 		$commentaire = new Commentaire();
@@ -295,7 +308,9 @@ class ProjetController extends Controller
 
 	}
 
-
+	/**
+	* @Security("has_role('ROLE_ADMIN')")
+	*/
 	public function deleteAction(projet $projet, request $request)
 	{
 		$form = $this->createFormBuilder()->getForm();
@@ -317,6 +332,9 @@ class ProjetController extends Controller
 			'form' => $form->createView()));
 	}
 
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function menuAction($limit = 3)
 	{
 		$listProjets = $this->getDoctrine()
@@ -331,32 +349,9 @@ class ProjetController extends Controller
 		return $this->render('TGProdBundle:projet:menu.html.twig', array('listProjets' => $listProjets));
 	}
 
-	public function testAction(request $request)
-	{
-
-	$form = $this->createFormBuilder()
-		->add('text', 'textarea',array(
-			'mapped' => false,
-			'required' => false))
-		->add('save', 'submit')
-		->getForm();
-
-		$text = 'Aucun message !';
-
-	if ($form->handleRequest($request)->isValid())
-	{
-		$text = $form->get('text')->getData();
-
-		return $this->render('TGProdBundle:projet:test.html.twig', array(
-			'text' => $text,
-			'form' => $form->createView()));
-	}
-
-	return $this->render('TGProdBundle:projet:test.html.twig', array(
-		'form' => $form->createView(),
-		'text' => $text));
-	}
-
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function fichierAction(projet $projet, request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -396,6 +391,9 @@ class ProjetController extends Controller
 			));
 	}
 	
+	/**
+	* @Security("has_role('ROLE_COMPTA')")
+	*/
 	public function archivesAction($page)
 	{
 		if ($page < 1)

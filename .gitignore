@@ -4,7 +4,7 @@
 /web/app-dev.php
 /web/apple-touch-icon.png
 /web/favicon.ico
-/web/robors.txt
+/web/robots.txt
 /app/cache/*
 /app/logs/*
 /vendor/

@@ -27,10 +27,13 @@
         Suivi de production
       </p>
           </td>
+          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
           <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
+        {% endif %}
         </tr>
       </table> 
     </div>
+    {% if is_granted('ROLE_ATELIER') %}
       <div class="row">
 
         <div id="menu" class="col-md-2">
@@ -55,6 +58,7 @@
                 {{ flashMessage }}
               </div>
             {% endfor %}
+          {% endif %}
           {% block body %}
           {% endblock %}
         </div>
