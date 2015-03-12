@@ -29,7 +29,9 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-
-
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+tg_accueil:
+    pattern:   /
+    defaults:  { _controller: TGProdBundle:Projet:index, page: 1 }
