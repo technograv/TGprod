@@ -20,18 +20,22 @@
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>
+{% if is_granted('ROLE_COMPTA') %}
     <a href="{{ path('tg_prod_edit', {'id': projet.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-edit"></i>
       Modifier le projet
     </a>
+{% endif %}
     <a href="{{ path('tg_prod_next', {'id': projet.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-ok"></i>
       Avancer le projet
     </a>
+{% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('tg_prod_delete', {'id': projet.id}) }}" class="btn btn-danger">
       <i class="glyphicon glyphicon-trash"></i>
       Supprimer le projet
     </a>
+{% endif %}
    </p>
 
 
@@ -63,16 +67,6 @@
         {% endfor %}
       </table>
     {% endif %}
-
-    {#% if nbPages > 1 %}
-      <ul class="pagination">
-        {% for p in range(1, nbPages) %}
-          <li{% if p == page %} class="active"{% endif %}>
-            <a href="{{ path('tg_prod_view', {'id': projet.id, 'page': p}) }}">{{ p }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %#}
 
     <hr>
     {{ form_start(formcom, {'attr': {'class': 'form-horizontal'}}) }}
@@ -305,43 +299,14 @@
 
     {% if listProjets %}
       <div class="well col-sm-4">
-        <h3 class="sticky">Liaisons
-          {# {% if projet.projetparent == null %}Projet à lier
-            {% else %}Projet lié : #}
-{#
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default">
-                <div class="btn-group">
-                  <a class="btn btn-success" href="#"><i class="glyphicon glyphicon-shopping-cart"></i> {{ projet.projetparent.titre }}</a>
-                  <a class="btn btn-default dropdown-toggle btn-success" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#projets" data-toggle="collapse" data-parent="#accordion"><i class="glyphicon glyphicon-eye-open"></i> Projets</a></li>
-                    <li><a href="#fichiers" data-toggle="collapse" data-parent="#accordion"><i class="glyphicon glyphicon-eye-open"></i> Fichiers</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><i class="glyphicon glyphicon-eye-open"></i> Aller au projet</a></li>
-                  </ul>
-                </div>
+        <h3 class="sticky">Liaisons</h3>
 
-                <div id="projets" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body">
-                    Test de la liste des autres projets liés
-                  </div>
-                </div>
-                <div id="fichiers" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body">
-                    Test des fichiers du projet lié
-                  </div>
-                </div>
-              </div>
-            </div> #}
-
-         {# {% endif %} #}</h3>
          <div style="width:100%; float:left; margin-bottom:20px;">
           {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
           {{ form_errors(formlink) }}
 
           {% if projet.projetparent == null %}
-
+        {% if is_granted('ROLE_PAO') %}
             <div class="form-group">
               <div class="col-sm-9 sticky">
                 {{ form_widget(formlink.projetparent, {'attr': {'class': 'form-control'}}) }}
@@ -352,6 +317,9 @@
               {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-default'}}) }}
               {% else %}
               {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-primary'}}) }}
+             {% endif %}
+              {% else %}
+          <h4>Pas de liaison</h4>
             {% endif %}
 
             {% else %}

@@ -19,7 +19,7 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('published',  'checkbox', array('required' => false))
+            //->add('published',  'checkbox', array('required' => false))
             ->add('assign',     'entity', array(
                 'label' => 'Assigner à',
                 'class' => 'TGUserBundle:User',
@@ -47,19 +47,7 @@ class ProjetType extends AbstractType
                     return $er->createQueryBuilder('c')
                     ->orderBy('c.name', 'ASC');
                 },
-                'multiple' => false))
-            ->add('devix',      'collection', array(
-                'type'          => new DevisType(),
-                'allow_add'     => true,
-                'allow_delete'  => true ))
-            ->add('factures',      'collection', array(
-                'type'          => new FactureType(),
-                'allow_add'     => true,
-                'allow_delete'  => true ))
-            ->add('creas',      'collection', array(
-                'type'          => new CreaType(),
-                'allow_add'     => true,
-                'allow_delete'  => true ))                         
+                'multiple' => false))                         
             ->add('save',       'submit')
         ;
     }

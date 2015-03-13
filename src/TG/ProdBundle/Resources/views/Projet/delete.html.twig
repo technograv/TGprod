@@ -8,20 +8,23 @@
 
   <h2>Supprimer un projet</h2><br/>
 
+   {% if is_granted('ROLE_ADMIN') %}
   <p>
     Etes-vous certain de vouloir supprimer le projet "<strong>{{ projet.titre }}</strong>" et tous ses commentaires associés ?
   </p>
 
-  {# On met l'id du projet dans la route de l'action du formulaire #}
   <form action="{{ path('tg_prod_delete', {'id': projet.id}) }}" method="post">
     <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour au projet
     </a>
-    {# Ici j'ai écrit le bouton de soumission à la main #}
     <input type="submit" value="Supprimer" class="btn btn-danger" />
-    {# Ceci va générer le champ CSRF #}
     {{ form_rest(form) }}
   </form>
+  {% else %}
+ 
+ <h4>Vous n'avez pas les droits suffisants pour supprimer un projet</h4>
+
+{% endif %}
 
 {% endblock %}

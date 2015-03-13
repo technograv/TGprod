@@ -245,9 +245,7 @@ class ProjetController extends Controller
 			));
 	} 
 
-	/**
-	* @Security("has_role('ROLE_COMPTA')")
-	*/
+
 	public function editAction(projet $projet, request $request)
 	{
 		$form = $this->createForm(new ProjetEditType(), $projet);
@@ -308,9 +306,6 @@ class ProjetController extends Controller
 
 	}
 
-	/**
-	* @Security("has_role('ROLE_ADMIN')")
-	*/
 	public function deleteAction(projet $projet, request $request)
 	{
 		$form = $this->createFormBuilder()->getForm();

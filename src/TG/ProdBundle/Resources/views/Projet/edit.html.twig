@@ -8,9 +8,8 @@
 
 <h2>Modifier un projet</h2>
 
-{#<h3>Formulaire de projet</h3>#}
-
 <div class="well">
+ {% if is_granted('ROLE_COMPTA') %}
 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
@@ -59,14 +58,10 @@
 
   {{ form_rest(form) }}
   {{ form_end(form) }}
-
+{% else %}
+<h4>Vous n'avez pas les droits pour éditer un projet</h4>
+{% endif %}
 </div>
-
-  <p>
-    Vous éditez un projet déjà existant, merci de ne pas changer
-    l'esprit général du projet déjà publié.
-  </p>
-
   <p>
     <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
