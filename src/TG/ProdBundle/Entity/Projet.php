@@ -78,6 +78,12 @@ class Projet
     private $creas;
 
     /**
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Documentjoint", mappedBy="projet", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    private $documentjoints;
+
+    /**
     * @Gedmo\Slug(fields={"titre"})
     * @ORM\Column(length=128, unique=true)
     */
@@ -306,6 +312,7 @@ class Projet
         $this->creas = new ArrayCollection();
         $this->maj = new \DateTime('now');
         $this->commentaires = new ArrayCollection();
+        $this->documentjoints = new ArrayCollection();
     }
 
     /**
@@ -726,5 +733,40 @@ class Projet
     public function getAssign()
     {
         return $this->assign;
+    }
+
+    /**
+     * Add documentjoints
+     *
+     * @param \TG\ProdBundle\Entity\Documentjoint $documentjoints
+     * @return Projet
+     */
+    public function addDocumentjoint(\TG\ProdBundle\Entity\Documentjoint $documentjoints)
+    {
+        $this->documentjoints[] = $documentjoints;
+
+        $documentjoints->setProjet($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove documentjoints
+     *
+     * @param \TG\ProdBundle\Entity\Documentjoint $documentjoints
+     */
+    public function removeDocumentjoint(\TG\ProdBundle\Entity\Documentjoint $documentjoints)
+    {
+        $this->documentjoints->removeElement($documentjoints);
+    }
+
+    /**
+     * Get documentjoints
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocumentjoints()
+    {
+        return $this->documentjoints->toArray();
     }
 }

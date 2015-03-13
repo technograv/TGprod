@@ -2,7 +2,6 @@
 
 namespace TG\ProdBundle\Entity;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -77,6 +76,12 @@ class Projet
      * @Assert\Valid()
      */
     private $creas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Documentjoint", mappedBy="projet", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    private $documentjoints;
 
     /**
     * @Gedmo\Slug(fields={"titre"})
@@ -302,8 +307,6 @@ class Projet
       public function __construct()
     {
         $this->dateadd = new \DateTime('now');
-        $this->etape = 'Devis';
-        $this->type = 'Projet client';
         $this->devix = new ArrayCollection();
         $this->factures = new ArrayCollection();
         $this->creas = new ArrayCollection();
@@ -337,21 +340,13 @@ class Projet
     /**
     * @ORM\PreUpdate
     */
-    public function datemodif()
-    {
-        $this->setDatemodif(new \Datetime());
-    }
-
-    /**
-    * @ORM\PreUpdate
-    */
     public function LinkProjet()
     {
         $linkprojet = $this->getProjetparent();
 
-        if ($linkprojet != null)
+        if ($linkprojet !== null)
         {
-            if ($linkprojet->getProjetparent() != null)
+            if ($linkprojet->getProjetparent() !== null)
             {
             $newlinkprojet = $linkprojet->getProjetparent();
             $this->setProjetparent($newlinkprojet);
@@ -400,13 +395,13 @@ class Projet
 
     /**
      * Set datemodif
-     *
+     * @ORM\PreUpdate
      * @param \DateTime $datemodif
      * @return Projet
      */
-    public function setDatemodif($datemodif)
+    public function setDatemodif()
     {
-        $this->datemodif = $datemodif;
+        $this->datemodif = new \DateTime('now');
 
         return $this;
     }
@@ -534,7 +529,7 @@ class Projet
      */
     public function setMaj($maj)
     {
-        if ($this->getDatemodif() == null) {
+        if ($this->getDatemodif() === null) {
             $maj = $this->getDateadd();
         }
         else {
@@ -714,5 +709,28 @@ class Projet
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set assign
+     *
+     * @param \TG\UserBundle\Entity\User $assign
+     * @return Projet
+     */
+    public function setAssign(\TG\UserBundle\Entity\User $assign)
+    {
+        $this->assign = $assign;
+
+        return $this;
+    }
+
+    /**
+     * Get assign
+     *
+     * @return \TG\UserBundle\Entity\User 
+     */
+    public function getAssign()
+    {
+        return $this->assign;
     }
 }

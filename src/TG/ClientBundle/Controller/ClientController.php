@@ -110,7 +110,7 @@ class ClientController extends Controller
 				$logo->setInfos($form->get('logoinfos')->getData());
 				$logo->setExtention($form->get('logofile')->getData()->guessExtension());
 				$logo->setAlt($form->get('logofile')->getData()->getClientOriginalName());
-				$logo->setFile($form->get('logofile')->getData());
+				$logo->setFile($logofile);
 				$em->persist($logo);
 			}
 

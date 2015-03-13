@@ -16,6 +16,8 @@ use TG\ComptaBundle\Form\DevisaddType;
 use TG\ComptaBundle\Entity\Facture;
 use TG\ComptaBundle\Form\FactureaddType;
 use TG\CreaBundle\Entity\Crea;
+use TG\ProdBundle\Entity\Documentjoint;
+use TG\ProdBundle\Form\DocumentjointType;
 use TG\CreaBundle\Form\CreaaddType;
 use TG\ProdBundle\Entity\Commentaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -95,6 +97,10 @@ class ProjetController extends Controller
 		$listcrea = $em
 			->getRepository('TGCreaBundle:Crea')
 			->getLastCrea($projet);
+
+		$listdoc = $em
+			->getRepository('TGProdBundle:Documentjoint')
+			->getLastDoc($projet);
 			
 		$listdevis = $em
 			->getRepository('TGComptaBundle:Devis')
@@ -181,20 +187,34 @@ class ProjetController extends Controller
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
 
+		$doc = new Documentjoint;
+		$formdoc = $this->get('form.factory')->create(new DocumentjointType, $doc);
+
+		if ($formdoc->handleRequest($request)->isValid())
+		{
+			$doc->setProjet($projet);
+			$em->persist($doc);
+			$em->flush();
+
+			$request->getSession()->getFlashBag()->add('infos', 'Pièce jointe ajoutée avec succès');
+
+			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
+		}
+
 			return $this->render('TGProdBundle:Projet:view.html.twig', array(
 				'projet' => $projet,
 				'listComments' => $listComments,
-				//'nbPages' => $nbPages,
-				//'page' => $page,
 				'listProjets' => $listProjets,
 				'listcrea' => $listcrea,
 				'listdevis' => $listdevis,
 				'listfacture' => $listfacture,
+				'listdoc' => $listdoc,
 				'formlink' => $formlink->createView(),
 				'formdevis' => $formdevis->createView(),
 				'formfacture' => $formfacture->createView(),
 				'formcrea' => $formcrea->createView(),
 				'formcom' => $formcom->createView(),
+				'formdoc' => $formdoc->createView(),
 				'projetparent' => $projetparent,
 				'listEnfants' => $listEnfants,
 				'listdevisparent' => $listdevisparent,
@@ -202,9 +222,6 @@ class ProjetController extends Controller
 				));
 	}
 
-	/**
-	* @Security("has_role('ROLE_PAO')")
-	*/
 	public function addAction(request $request)
 	{
 
@@ -233,6 +250,19 @@ class ProjetController extends Controller
 		if ($form->handleRequest($request)->isValid())
 		{
 			$em->persist($projet);
+
+			$docfile = $form->get('docfile')->getData();
+
+			if ($docfile !== null)
+			{
+				$doc = new Documentjoint;
+				$doc->setProjet($projet);
+				$doc->setFile($docfile);
+				$doc->setExtention($docfile->guessExtension());
+				$doc->setAlt($docfile->getClientOriginalName());
+				$em->persist($doc);
+			}
+
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Projet créé avec succès.'); //Message de confirmation
@@ -387,7 +417,7 @@ class ProjetController extends Controller
 	}
 	
 	/**
-	* @Security("has_role('ROLE_COMPTA')")
+	* @Security("has_role('ROLE_ATELIER')")
 	*/
 	public function archivesAction($page)
 	{

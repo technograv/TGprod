@@ -1,0 +1,168 @@
+<?php
+
+namespace TG\ProdBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Documentjoint
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Documentjoint
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet", inversedBy="creas")
+     * @ORM\JoinColumn(name="projet_id", referencedColumnName="id", nullable=false)
+     */
+    private $projet;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="extention", type="string", length=255)
+     */
+    private $extention;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="alt", type="string", length=255)
+     */
+    private $alt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="infos", type="text")
+     */
+    private $infos;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    private $file;
+
+    private $tempFilename;
+
+    public function __construct()
+    {
+      $this->date = new \DateTime('now');
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set extention
+     *
+     * @param string $extention
+     * @return Documentjoint
+     */
+    public function setExtention($extention)
+    {
+        $this->extention = $extention;
+
+        return $this;
+    }
+
+    /**
+     * Get extention
+     *
+     * @return string 
+     */
+    public function getExtention()
+    {
+        return $this->extention;
+    }
+
+    /**
+     * Set alt
+     *
+     * @param string $alt
+     * @return Documentjoint
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    /**
+     * Get alt
+     *
+     * @return string 
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * Set infos
+     *
+     * @param string $infos
+     * @return Documentjoint
+     */
+    public function setInfos($infos)
+    {
+        $this->infos = $infos;
+
+        return $this;
+    }
+
+    /**
+     * Get infos
+     *
+     * @return string 
+     */
+    public function getInfos()
+    {
+        return $this->infos;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Documentjoint
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+}

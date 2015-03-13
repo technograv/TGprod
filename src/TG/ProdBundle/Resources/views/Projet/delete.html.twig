@@ -7,6 +7,7 @@
 {% block tgprod_body %}
 
   <h2>Supprimer un projet</h2><br/>
+  <div class="well">
 
    {% if is_granted('ROLE_ADMIN') %}
   <p>
@@ -24,7 +25,12 @@
   {% else %}
  
  <h4>Vous n'avez pas les droits suffisants pour supprimer un projet</h4>
+ <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
 
 {% endif %}
+</div>
 
 {% endblock %}

@@ -47,7 +47,10 @@ class ProjetType extends AbstractType
                     return $er->createQueryBuilder('c')
                     ->orderBy('c.name', 'ASC');
                 },
-                'multiple' => false))                         
+                'multiple' => false))
+            ->add('docfile',   'file', array(
+                'mapped' => false,
+                'required' => false))                     
             ->add('save',       'submit')
         ;
     }

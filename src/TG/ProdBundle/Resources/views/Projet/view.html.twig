@@ -91,6 +91,45 @@
     <h4 class="sticky">Liste des fichiers attachés</h4><br>
      
       <div class="btn-group">
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-paperclip"></i> Pièce jointe <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for documentjoint in listdoc %}
+          <li><a href="{{ asset(documentjoint.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i> Ouvrir</a></li>
+          <li><a href="{{ asset(documentjoint.webPath) }}" download="Piece_jointe{{ documentjoint.id }}-{{ documentjoint.projet.slug }}-{{ documentjoint.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i> Télécharger</a></li>
+          <li class="divider"></li>
+          {% endfor %}
+          <li><a href="#box-doc" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Ajouter une nouvelle pièce jointe</a></li>
+        </ul>
+      </div>
+
+        <!-- Modal Doc -->
+        <div id="box-doc" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ajouter une nouvelle pièce jointe</h4>
+              </div>
+              <div class="modal-body">
+                {{ form_start(formdoc, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(formdoc) }}
+              <div class="form-group">
+                {{ form_label(formdoc.file, "Fichier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(formdoc.file) }}
+              <div class="col-sm-7">
+                {{ form_widget(formdoc.file, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="col-sm-8"></div>
+                {{ form_widget(formdoc.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                {{ form_rest(formdoc) }}
+                {{ form_end(formdoc) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="btn-group">
         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-picture"></i> Compo <span class="caret"></span></a>
         <ul class="dropdown-menu">
           {% for crea in listcrea %}
@@ -301,28 +340,27 @@
       <div class="well col-sm-4">
         <h3 class="sticky">Liaisons</h3>
 
+         {% if projet.projetparent == null %}
          <div style="width:100%; float:left; margin-bottom:20px;">
           {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
           {{ form_errors(formlink) }}
-
-          {% if projet.projetparent == null %}
-        {% if is_granted('ROLE_PAO') %}
             <div class="form-group">
               <div class="col-sm-9 sticky">
                 {{ form_widget(formlink.projetparent, {'attr': {'class': 'form-control'}}) }}
               </div>
             </div>
-
             {% if listEnfants != null %}
               {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-default'}}) }}
               {% else %}
               {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-primary'}}) }}
              {% endif %}
-              {% else %}
-          <h4>Pas de liaison</h4>
+             {{ form_rest(formlink) }}
+          {{ form_end(formlink) }}
             {% endif %}
-
-            {% else %}
+            {% if projet.projetparent != null %}
+              <div style="width:100%; float:left; margin-bottom:20px;">
+          {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
+          {{ form_errors(formlink) }}
             <h4>Projet parent :</h4>
             <div class="col-sm-8" style="padding:0; height:35px; line-height:35px;">
               <p style="vertical-align:middle; display:inline-block; line-height:normal; margin:0;">
