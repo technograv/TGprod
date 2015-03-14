@@ -26,6 +26,10 @@ security:
             pattern:    ^/login$
             anonymous:   true
 
+        reset:
+            pattern:    ^/resetting/.*$
+            anonymous:    true
+
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -45,4 +49,4 @@ security:
                 key:    %secret%
 
     access_control:
-      #  - { path: ^/admin, ip: 127.0.0.1, requires_channel: https }
+        #- { path: ^/admin, roles: ROLE_ADMIN }

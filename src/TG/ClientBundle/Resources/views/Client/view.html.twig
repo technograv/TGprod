@@ -20,14 +20,18 @@
   <a href="{{ path('tg_client_home') }}" class="btn btn-default">
     <i class="glyphicon glyphicon-chevron-left"></i> Retour à la liste</a>
 
+    {% if is_granted("ROLE_ATELIER") %}
   <a href="{{ path('tg_client_edit', {'id': client.id}) }}" class="btn btn-default">
     <i class="glyphicon glyphicon-edit"></i> Modifier le client</a>
-
+  {% endif %}
+    {% if is_granted("ROLE_PAO") %}
   <a href="{{ path('tg_prod_add', { 'client':  client.id}) }}" class="btn btn-primary">
     <i class="glyphicon glyphicon-plus"></i> Ajouter un projet pour ce client</a>
-
+  {% endif %}
+    {% if is_granted("ROLE_ADMIN") %}
   <a href="{{ path('tg_client_delete', {'id': client.id}) }}" class="btn btn-danger">
     <i class="glyphicon glyphicon-trash"></i> Supprimer le client</a>
+  {% endif %}
 
   </p>
 

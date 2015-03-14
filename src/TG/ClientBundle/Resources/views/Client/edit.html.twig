@@ -8,9 +8,8 @@
 
 <h2>Modifier un client</h2>
 
-{# Formulaire client #}
-
 <div class="well">
+  {% if is_granted("ROLE_ATELIER") %}
 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
     {# Les erreurs générales du formulaire. #}
@@ -118,37 +117,19 @@
   <div class="col-sm-11"></div>
   {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
 
-  {# Génération du label + error + widget pour un champ 
-    {{ form_row(form.adresse) }}
-  {{ form_row(form.cp) }}
-    {{ form_row(form.ville) }}
-    {{ form_row(form.tel) }}
-  {{ form_row(form.fax) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.contact) }}
-  {{ form_row(form.code) }}
-    {{ form_row(form.siret) }} #}
-
-
-
-  {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
   {{ form_rest(form) }}
-  
-  {# Fermeture de la balise <form> du formulaire HTML #}
   {{ form_end(form) }}
  </div>
- {# Fin du formulaire #}
-  <p>
-    Vous éditez un client déjà existant, merci d'être prudent quant à vos modifications.
-  </p>
-{#
+
+{% else %}
+<h4>Vous n'avez pas les droits nécessaire pour modifier un client.</h4>
+{% endif %}
+
   <p>
     <a href="{{ path('tg_client_view', {'id': client.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour au client
     </a>
-  </p> #}
+  </p> 
 
 {% endblock %}

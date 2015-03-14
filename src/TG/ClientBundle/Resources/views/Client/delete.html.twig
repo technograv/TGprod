@@ -7,7 +7,7 @@
 {% block tgclient_body %}
 
   <h2>Supprimer un client</h2><br/>
-
+{% if is_granted("ROLE_ADMIN") %}
   <p>
     Etes-vous certain de vouloir supprimer le client "{{ client.name }}" et tous ses projets associés ?
   </p>
@@ -23,5 +23,8 @@
     {# Ceci va générer le champ CSRF #}
     {{ form_rest(form) }}
   </form>
-
+  {% else %}
+  <h4>Vous n'avez pas les droits nécessaires pour supprimer un client</h4>
+  <a href="{{ path('tg_client_view', {'id': client.id}) }}" class="btn btn-default">
+{% endif %}
 {% endblock %}

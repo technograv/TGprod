@@ -86,6 +86,8 @@ sub {
 }
 img {
   border: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 svg:not(:root) {
   overflow: hidden;
@@ -1115,8 +1117,10 @@ img {
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   display: block;
-  max-width: 100%;
+  max-width: 65%;
   height: auto;
+  margin-left: auto;
+  margin-right: auto 
 }
 .img-rounded {
   border-radius: 6px;
@@ -6580,8 +6584,9 @@ button.close {
   padding-left: 0;
 }
 
-.margin-right {
-  margin-right: 20px;
+.no-padding {
+  padding-right: 1px;
+  padding-left: 1px;
 }
 
 .grouped {
@@ -6607,4 +6612,8 @@ button.close {
   float: left;
   text-align: center;
   margin-right: 20px;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
 }

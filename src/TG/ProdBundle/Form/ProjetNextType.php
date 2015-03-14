@@ -23,7 +23,8 @@ class ProjetNextType extends AbstractType
             ->remove('devix')
             ->remove('factures')
             ->remove('creas')
-            ->remove('save');
+            ->remove('save')
+            ->remove('docfile');
     }
    
     public function getParent()

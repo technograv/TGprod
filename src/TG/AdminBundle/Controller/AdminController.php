@@ -8,9 +8,13 @@ use TG\ProdBundle\Form\TypeType;
 use TG\ProdBundle\Entity\Etape;
 use TG\ProdBundle\Form\EtapeType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdminController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function indexAction()
     {
     	$em = $this->getDoctrine()->getManager();
@@ -23,6 +27,9 @@ class AdminController extends Controller
         	'etapeslist' => $etapeslist));
     }
 
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function typesAction(request $request)
     {
     	$type = new Type;
@@ -59,6 +66,9 @@ class AdminController extends Controller
     		'form' => $form->createView()));
     }
 
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function etapesAction(request $request)
     {
         $etape = new Etape;
@@ -95,6 +105,9 @@ class AdminController extends Controller
     		'form' => $form->createView()));
     }
 
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function comptesAction()
     {
     	$em = $this->getDoctrine()->getManager();
@@ -105,6 +118,9 @@ class AdminController extends Controller
     		'compteslist' => $compteslist));
     }
 
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function droitsAction(request $request)
     {
     	$em = $this->getDoctrine()->getManager();
@@ -153,6 +169,9 @@ class AdminController extends Controller
     		));
     }
 
+    /**
+    * @Security("has_role('ROLE_ATELIER')")
+    */
     public function recetteAction(request $request)
     {
        if (isset($_POST['recette']))

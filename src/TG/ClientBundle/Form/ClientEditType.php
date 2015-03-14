@@ -14,7 +14,8 @@ class ClientEditType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->remove('logos')
+			->remove('logofile')
+			->remove('logoinfos')
 		;
 	}
 	

@@ -6,16 +6,10 @@
 
 {% block tgprod_body %}
 
-<table>
-<tr>
-<td width="40%"><h2>Liste des projets en cours</h2></td>
-<td width="40%"></td>
+<div class="col-sm-8 sticky"><h2>Liste des projets en cours</h2></div>
 {% if is_granted('ROLE_PAO') %}
-<td width="20%" class="text-right"><h4><a href="{{ path('tg_prod_archives') }}"><i class="glyphicon glyphicon-menu-right"></i> Projets archivés</a></h4></td>
+<div class="col-sm-4 text-right"><h4 style="margin-top:30px;"><a href="{{ path('tg_prod_archives') }}"><i class="glyphicon glyphicon-menu-right"></i> Projets archivés</a></h4></div>
 {% endif %}
-</tr>
-</table>
-<br/>
 
 {% if listProjets is not empty %}
 <table class="table table-hover table-bordered">

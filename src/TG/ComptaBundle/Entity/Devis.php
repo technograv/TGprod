@@ -41,7 +41,7 @@ class Devis
     private $alt;
 
     /**
-     * @ORM\Column(name="infos", type="text")
+     * @ORM\Column(name="infos", type="text", nullable=true)
      */
     private $infos;
 

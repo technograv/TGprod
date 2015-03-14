@@ -19,8 +19,7 @@ class DocumentjointRepository extends EntityRepository
 		$qb
 			->where('d.projet = :projet')
 			->setParameter('projet', $projet)
-			->orderBy('d.date', 'DESC')
-			->SetMaxResults(1, 1);
+			->orderBy('d.date', 'DESC');
 
 		return $qb
 			->getQuery()
