@@ -52,7 +52,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=4)
      */
     private $name;
 
@@ -60,13 +60,15 @@ class Client
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
+     * @Assert\Length(min=10)
      */
     private $adresse;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cp", type="integer")
+     * @ORM\Column(name="cp", type="string", length=5)
+     * @Assert\Length(min=5)
      */
     private $cp;
 
@@ -74,6 +76,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
+     * @Assert\Length(min=1)
      */
     private $ville;
 
@@ -81,28 +84,31 @@ class Client
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
-     * @Assert\Length(min=3)
+     * @Assert\Length(min=4)
      */
     private $pays;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tel", type="string", length=255)
+     * @ORM\Column(name="tel", type="string", length=10)
+     * @Assert\Length(min=10)
      */
     private $tel;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="portable", type="string", length=255, nullable=true)
+     * @ORM\Column(name="portable", type="string", length=10, nullable=true)
+     * @Assert\Length(min=10)
      */
     private $portable;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fax", type="string", length=10, nullable=true)
+     * @Assert\Length(min=10)
      */
     private $fax;
 
@@ -145,7 +151,8 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="siret", type="string", length=255, nullable=true)
+     * @ORM\Column(name="siret", type="string", length=14, nullable=true)
+     * @Assert\Length(min=14)
      */
     private $siret;
 

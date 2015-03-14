@@ -17,10 +17,11 @@ class ClientType extends AbstractType
 		$builder
 		->add('name',		'text')
 		->add('adresse',	'text')
-		->add('cp',			'integer')
+		->add('cp',			'text')
 		->add('ville',		'text')
 		->add('pays',		'text')
 		->add('tel',		'text')
+		->add('portable',	'text', array('required' => false))
 		->add('fax',		'text', array('required' => false))
 		->add('email',		'email', array('required' => false))
 		->add('contact',	'text', array('required' => false))
