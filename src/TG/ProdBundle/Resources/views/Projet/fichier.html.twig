@@ -11,6 +11,32 @@
       Retour au projet</a>
 
 <div class="well">
+{% if listdoc %}
+<h3>Liste des pièces jointes :</h3>
+		<table class="table table-hover table-bordered">
+			<thread>
+    <tr>
+		<th>Type de fichier</th>
+		<th>Nom de la pièce jointe</th>
+		<th>Ajoutée le</th>
+		<th>Ouvrir</th>
+		<th>Télécharger</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+		{% for documentjoint in listdoc %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ documentjoint.alt }}</td>
+			<td>{{ documentjoint.date|localizeddate('full', 'none') }}</td>
+			<td><a href="{{ asset(documentjoint.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(documentjoint.webPath) }}" download="Piece_jointe{{ documentjoint.id }}-{{ documentjoint.projet.slug }}-{{ documentjoint.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
 {% if listcrea %}
 <h3>Liste des compos :</h3>
 		<table class="table table-hover table-bordered">

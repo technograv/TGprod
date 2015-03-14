@@ -19,7 +19,8 @@ class ProjetEditType extends AbstractType
             ->remove('client')
             ->remove('devix')
             ->remove('factures')
-            ->remove('creas');
+            ->remove('creas')
+            ->remove('docfile');
     }
 
     /**

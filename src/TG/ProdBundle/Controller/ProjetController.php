@@ -381,6 +381,12 @@ class ProjetController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
+		$listdoc = $em
+			->getRepository('TGProdBundle:Documentjoint')
+			->findBy(
+				array('projet' => $projet),
+				array('date' => 'asc'));
+
 		$listcrea = $em
 			->getRepository('TGCreaBundle:Crea')
 			->findBy(
@@ -412,7 +418,8 @@ class ProjetController extends Controller
 			'listcrea' => $listcrea,
 			'listdevis' => $listdevis,
 			'listfacture' => $listfacture,
-			'listlogo' => $listlogo
+			'listlogo' => $listlogo,
+			'listdoc' => $listdoc
 			));
 	}
 	

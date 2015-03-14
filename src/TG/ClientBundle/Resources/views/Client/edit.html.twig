@@ -12,25 +12,21 @@
   {% if is_granted("ROLE_ATELIER") %}
 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
-    {# Les erreurs générales du formulaire. #}
     {{ form_errors(form) }}
 
     <div class="form-group grouped">
-      {# Génération du label. #}
       <div class="required">
+      {{ form_errors(form.name) }}
       {{ form_label(form.name, "Société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       </div>
       <div class="col-sm-4">
-        {# Génération de l'input. #}
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
       </div>
 
-      {# Affichage des erreurs pour ce champ précis. #}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.contact) }}
       <div class="required">
       {{ form_label(form.contact, "Nom du contact", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       </div>
-      {{ form_errors(form.name) }}
       <div class="col-sm-4">
         {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -38,13 +34,13 @@
 
     <div class="form-group">
       {{ form_label(form.code, "Code client", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.code) }}
       <div class="col-sm-4">
         {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
       </div>
 
       {{ form_label(form.siret, "Siret", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.siret) }}
       <div class="col-sm-4">
         {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -58,7 +54,7 @@
       </div>
 
       {{ form_label(form.tel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.tel) }}
       <div class="col-sm-4">
         {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -69,7 +65,7 @@
       <div class="required">
       {{ form_label(form.adresse, "Adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       </div>
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.adresse) }}
       <div class="col-sm-10">
         {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -83,7 +79,7 @@
       {{ form_errors(form.cp) }}
       {{ form_label(form.ville, "Ville", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
       
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.ville) }}
       <div class="col-sm-5">
         {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -91,14 +87,14 @@
 
     <div class="form-group">
       {{ form_label(form.fax, "Fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.fax) }}
       <div class="col-sm-4">
         {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
       </div>
       <div class="required">
       {{ form_label(form.pays, "Pays", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
       </div>
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.pays) }}
       <div class="col-sm-5">
         {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
       </div>
@@ -107,7 +103,7 @@
 
     <div class="form-group grouped">
       {{ form_label(form.notes, "Notes à propos du client", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.name) }}
+      {{ form_errors(form.notes) }}
       <div class="col-sm-10">
         {{ form_widget(form.notes, {'attr': {'class': 'ckeditor'}}) }}
       </div>

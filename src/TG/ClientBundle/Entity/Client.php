@@ -23,7 +23,6 @@ class Client
 {
     /**
      * @ORM\oneToMany(targetEntity="TG\ProdBundle\Entity\Projet", mappedBy="client", cascade={"remove"})
-     * @Assert\Valid()
      */
     private $projets;
 
@@ -68,7 +67,8 @@ class Client
      * @var integer
      *
      * @ORM\Column(name="cp", type="string", length=5)
-     * @Assert\Length(min=5)
+     * @Assert\Length(min=5, max=5)
+     * @Assert\Regex(pattern="#^((0[1-9])|([1-8][0-9])|(9[0-8]))[0-9]{3}$#", message="Ne doit pas commencer par 00 et doit comporter 5 chiffres.")
      */
     private $cp;
 
@@ -92,7 +92,8 @@ class Client
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=10)
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=10, max=10)
+     * @Assert\Regex(pattern="#^0[1-9][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
      */
     private $tel;
 
@@ -100,7 +101,8 @@ class Client
      * @var string
      *
      * @ORM\Column(name="portable", type="string", length=10, nullable=true)
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=10, max=10)
+     * @Assert\Regex(pattern="#^0[67][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
      */
     private $portable;
 
@@ -108,7 +110,8 @@ class Client
      * @var string
      *
      * @ORM\Column(name="fax", type="string", length=10, nullable=true)
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=10, max=10)
+     * @Assert\Regex(pattern="#^0[1-9][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
      */
     private $fax;
 
@@ -152,7 +155,8 @@ class Client
      * @var string
      *
      * @ORM\Column(name="siret", type="string", length=14, nullable=true)
-     * @Assert\Length(min=14)
+     * @Assert\Length(min=14, max=14)
+     * @Assert\Regex(pattern="#^[0-9]{14}$#", message="Doit comporter 14 chiffres.")
      */
     private $siret;
 

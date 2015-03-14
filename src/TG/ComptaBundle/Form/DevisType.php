@@ -17,11 +17,11 @@ class DevisType extends AbstractType
         $builder
             ->add('file', 'file')
             ->add('infos')
-            ->add('numero')
-            ->add('prixHT')
-            ->add('tva')
-            ->add('prixttc')
-            ->add('acompte')
+            ->add('numero', 'text')
+            ->add('prixHT', 'text')
+            ->add('tva', 'text')
+            ->add('prixttc', 'text')
+            ->add('acompte', 'text')
         ;
     }
     

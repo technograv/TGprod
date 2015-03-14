@@ -48,7 +48,7 @@ class Devis
     /**
      * @var integer
      *
-     * @ORM\Column(name="numero", type="integer")
+     * @ORM\Column(name="numero", type="string", length=255)
      */
     private $numero;
 
