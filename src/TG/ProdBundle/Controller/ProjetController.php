@@ -42,7 +42,7 @@ class ProjetController extends Controller
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts('Projet terminé', $page, $nbPerPage);
+				->getProjetsOuverts(26, $page, $nbPerPage);
 
 			$nbPages = ceil(count($listProjets)/$nbPerPage);
 
@@ -439,7 +439,7 @@ class ProjetController extends Controller
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsFermes('Projet terminé', $page, $nbPerPage);
+				->getProjetsFermes(26, $page, $nbPerPage);
 
 			$nbPages = ceil(count($listProjets)/$nbPerPage);
 
