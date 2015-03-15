@@ -51,6 +51,9 @@ class Logo
      */
     private $date;
 
+    /**
+    * * @Assert\File(maxSize="150M")
+    */
     private $file;
 
     private $tempFilename;
@@ -171,7 +174,7 @@ class Logo
     }
 
     // Le nom du fichier est son id, on doit juste stocker également son extension
-    $this->extention = $this->file->guessExtension();
+    $this->extention = $this->file->getClientOriginalExtension();
 
     // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
     $this->alt = $this->file->getClientOriginalName();

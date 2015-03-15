@@ -15,6 +15,29 @@ class LogoRepository extends EntityRepository
 	public function getLogoView($client)
 	{
 		$qb = $this->createQueryBuilder('l');
+	//	$ext = array("png","jpg","jpeg","ico","bmp","gif");
+
+		$qb	
+			->where('l.client = :client')
+			->andwhere('l.extention = :ext')
+				->orwhere('l.extention = :ext2')
+				->orwhere('l.extention = :ext3')
+			->setParameter('client', $client)
+			->setParameter('ext', 'jpg')
+			->setParameter('ext2', 'png')
+			->setParameter('ext3', 'jpeg')
+			->orderBy('l.date', 'DESC')
+			->setMaxResults( 1 );
+
+		return $qb
+			->getQuery()
+			->getResult();
+
+	}
+
+		public function getListLogo($client)
+	{
+		$qb = $this->createQueryBuilder('l');
 
 		$qb	
 			->where('l.client = :client')

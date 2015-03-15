@@ -60,7 +60,7 @@ class Crea
     private $dateadd;
 
     /**
-     * @Assert\File(maxSize="150M", mimeTypes={"application/pdf", "application/x-pdf", "jpeg", "image/png", "image/vnd.adobe.photoshop", "image/vnd.microsoft.icon", "image/jpeg", "application/octet-stream", "application/postscript", "image/bmp", "image/x-windows-bmp", "image/x-icon", "application/zip"})
+     * @Assert\File(maxSize="150M", mimeTypes={"application/pdf", "application/x-pdf", "jpeg", "image/png", "image/vnd.adobe.photoshop", "image/jpeg", "application/octet-stream", "application/postscript", "image/bmp", "application/zip"})
      */
     private $file;
 
@@ -213,7 +213,7 @@ class Crea
 
     // Le nom du fichier est son id, on doit juste stocker également son extension
     // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « extention »
-    $this->extention = $this->file->guessExtension();
+    $this->extention = $this->file->getClientOriginalExtension();
 
     // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
     $this->alt = $this->file->getClientOriginalName();

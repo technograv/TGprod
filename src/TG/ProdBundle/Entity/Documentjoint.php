@@ -51,6 +51,9 @@ class Documentjoint
      */
     private $date;
 
+    /**
+    * @Assert\File(maxSize="150M")
+    */
     private $file;
 
     private $tempFilename;
@@ -192,7 +195,7 @@ class Documentjoint
           return;
         }
 
-        $this->extention = $this->file->guessExtension();
+        $this->extention = $this->file->getClientOriginalExtension();
 
         $this->alt = $this->file->getClientOriginalName();
       }

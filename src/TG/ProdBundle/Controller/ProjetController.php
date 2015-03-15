@@ -112,7 +112,7 @@ class ProjetController extends Controller
 
 		$listlogo = $em
 			->getRepository('TGCreaBundle:Logo')
-			->getLogoView($projet->getClient());
+			->getListLogo($projet->getClient());
 
 		$listProjets = $emprojet
 			->getProjetPourLier($projet);

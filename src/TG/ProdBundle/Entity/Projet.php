@@ -131,6 +131,7 @@ class Projet
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Assert\Length(min=5)
      */
     private $titre;
 
