@@ -86,8 +86,6 @@ sub {
 }
 img {
   border: 0;
-  width: 100% !important;
-  height: 100% !important;
 }
 svg:not(:root) {
   overflow: hidden;
@@ -6619,5 +6617,27 @@ button.close {
 }
 
 .margin-top {
-  margin-top: 0px;
+  margin-top: 15px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.no-style {
+  color: #000;
+  text-decoration: none;
+}
+.no-style:hover {
+  color: #000;
+  text-decoration: none;
+}
+.no-style:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+.ckeditor img {
+  max-width: 100% !important;
+  height: auto !important;
 }
