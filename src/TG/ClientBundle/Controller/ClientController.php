@@ -21,7 +21,7 @@ class ClientController extends Controller
 				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 			}
 
-		$nbPerPage = 30;
+		$nbPerPage = 20;
 
 		$listClients = $this->getDoctrine()
 			->getManager()

@@ -48,35 +48,39 @@ class Devis
     /**
      * @var integer
      *
-     * @ORM\Column(name="numero", type="string", length=255)
+     * @ORM\Column(name="numero", type="string", length=255, nullable=true)
      */
     private $numero;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="prixHT", type="integer")
+     * @ORM\Column(name="prixHT", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format du Prix HT n'est pas correct ex: 123,45")
      */
     private $prixHT;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tva", type="integer")
+     * @ORM\Column(name="tva", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format de la TVA n'est pas correct ex: 123,45")
      */
     private $tva;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="prixttc", type="integer")
+     * @ORM\Column(name="prixttc", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format du Prix TTC n'est pas correct ex: 123,45")
      */
     private $prixttc;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="acompte", type="integer")
+     * @ORM\Column(name="acompte", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format de l'acompte n'est pas correct ex: 123,45")
      */
     private $acompte;
 
@@ -88,6 +92,9 @@ class Devis
     */
     private $dateadd;
 
+    /**
+     * @Assert\File(maxSize="1M", mimeTypes={"application/pdf", "application/x-pdf"})
+     */
     private $file;
 
     private $tempFilename;

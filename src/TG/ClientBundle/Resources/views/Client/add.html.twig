@@ -6,22 +6,15 @@
 
 {% block tgclient_body %}
 
-  <table>
-    <tr>
-    	<td width="80%">
-    		<h2 >Créer un client</h2>
-    	</td>
-    	<td class='test' width="20%">
-    		<a href="{{ path('tg_client_home') }}" class="btn btn-default">
-    			Liste des clients <i class="glyphicon glyphicon-chevron-right"></i>
-    		</a>
-    	</td>
-    </tr>
-  </table>
+<div class="col-sm-8 no-padding"><h2>Créer un client</h2></div>
+<div class="col-sm-4 no-padding text-right margin-top">
+  <a href="{{ path('tg_client_home') }}" class="btn btn-default">Liste des clients <i class="glyphicon glyphicon-chevron-right"></i></a>
+</div>
 
-<div class="well">
+<div class="well col-sm-12">
   {% if is_granted("ROLE_PAO") %}
-{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+  {# {% form_theme form 'TGAdminBundle:Admin:form_layout.html.twig' %} #}
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {# Les erreurs générales du formulaire. #}
     {{ form_errors(form) }}
@@ -67,12 +60,12 @@
         {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
       </div>
 
-      <div>
-      {{ form_label(form.portable, "Portable", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.portable) }}
+    <div>
+      {{ form_label(form.fax, "Fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.fax) }}
     </div>
       <div class="col-sm-4">
-        {{ form_widget(form.portable, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
@@ -85,14 +78,15 @@
       </div>
     </div>
 
-      <div>
-      {{ form_label(form.fax, "Fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.fax) }}
+    <div>
+      {{ form_label(form.portable, "Portable", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.portable) }}
     </div>
       <div class="col-sm-4">
-        {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.portable, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
+
 
     <div class="form-group grouped">
       <div class="required">

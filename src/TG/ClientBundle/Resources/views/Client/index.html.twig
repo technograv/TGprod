@@ -10,14 +10,14 @@
 
 {% if listClients is not empty %}
   <table class="table table-hover table-bordered table-striped">
-    <thread>
+    <thead>
       <tr>
         <th>Nom du client</th>
         <th>Date de création</th>
         <th>Dernière modification le</th>
         <th>Nombre de projet</th>
       </tr>
-    </thread>
+    </thead>
     <tbody align="center">
       {% for client in listClients %}
       <tr>
@@ -31,7 +31,7 @@
   </table>
   {% else %}
       Pas de client créé pour le moment.<br/><br/>
-      Vous pouvez utiliser la page dédié pour <a href="{{ path('tg_client_add') }}">créer un nouveau client</a>
+      Vous pouvez utiliser la page dédiée pour <a href="{{ path('tg_client_add') }}">créer un nouveau client</a>
 {% endif %}
 
 {% if nbPages > 1 %}

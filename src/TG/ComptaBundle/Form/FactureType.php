@@ -16,11 +16,11 @@ class FactureType extends AbstractType
     {
         $builder
             ->add('file', 'file')
-            ->add('infos')
-            ->add('numero')
-            ->add('montantHT')
-            ->add('tva')
-            ->add('netapayer')
+            ->add('infos', 'textarea', array('required' => false))
+            ->add('numero', 'text', array('required' => false))
+            ->add('montantHT', 'text', array('required' => false))
+            ->add('tva', 'text', array('required' => false))
+            ->add('netapayer', 'text', array('required' => false))
         ;
     }
     

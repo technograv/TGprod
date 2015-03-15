@@ -59,6 +59,9 @@ class Crea
     */
     private $dateadd;
 
+    /**
+     * @Assert\File(maxSize="150M", mimeTypes={"application/pdf", "application/x-pdf", "jpeg", "image/png", "image/vnd.adobe.photoshop", "image/vnd.microsoft.icon", "image/jpeg", "application/octet-stream", "application/postscript", "image/bmp", "image/x-windows-bmp", "image/x-icon", "application/zip"})
+     */
     private $file;
 
     private $tempFilename;

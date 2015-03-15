@@ -1,0 +1,14 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                <p>{{
+                    error.messagePluralization is null
+                        ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                        : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                }}<br>
+            {% endfor %}
+        </p>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}

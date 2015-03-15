@@ -106,10 +106,10 @@
     </p>
   </div>    
 
-<div class="col-sm-8">
+<div class="col-sm-12">
     {% if client.notes != null %}
     <h3>Notes</h3>
-    <p>{{ client.notes|raw }}</p>
+    <div class="ckeditor"><p>{{ client.notes|raw }}</p></div>
     {% endif %}
 </div>
 </div>  

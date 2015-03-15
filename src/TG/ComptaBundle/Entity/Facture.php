@@ -48,28 +48,31 @@ class Facture
     /**
      * @var integer
      *
-     * @ORM\Column(name="numero", type="integer")
+     * @ORM\Column(name="numero", type="integer", nullable=true)
      */
     private $numero;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="montantHT", type="integer")
+     * @ORM\Column(name="montantHT", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format du Montant HT n'est pas correct ex: 123,45")
      */
     private $montantHT;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tva", type="integer")
+     * @ORM\Column(name="tva", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format de la TVA n'est pas correct ex: 123,45")
      */
     private $tva;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="netapayer", type="integer")
+     * @ORM\Column(name="netapayer", type="integer", nullable=true)
+     * @Assert\Regex(pattern="#^[\d]*[,]?[\d]{2}$#", message="Le format du Net à payer n'est pas correct ex: 123,45")
      */
     private $netapayer;
 
@@ -81,6 +84,9 @@ class Facture
     */
     private $dateadd;
 
+    /**
+     * @Assert\File(maxSize="1M", mimeTypes={"application/pdf", "application/x-pdf"})
+     */
     private $file;
 
     private $tempFilename;

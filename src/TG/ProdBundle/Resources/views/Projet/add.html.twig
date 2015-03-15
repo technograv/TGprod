@@ -6,10 +6,10 @@
 
 {% block tgprod_body %}
 
-  <h2>Créer un projet</h2>
+<h2>Créer un projet</h2>
 <div class="well">
   {% if is_granted("ROLE_PAO") %}
-{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
 

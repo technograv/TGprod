@@ -15,13 +15,13 @@ class DevisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
-            ->add('infos')
-            ->add('numero', 'text')
-            ->add('prixHT', 'text')
-            ->add('tva', 'text')
-            ->add('prixttc', 'text')
-            ->add('acompte', 'text')
+            ->add('file')
+            ->add('infos', 'textarea', array('required' => false))
+            ->add('numero', 'text', array('required' => false))
+            ->add('prixHT', 'text', array('required' => false))
+            ->add('tva', 'text', array('required' => false))
+            ->add('prixttc', 'text', array('required' => false))
+            ->add('acompte', 'text', array('required' => false))
         ;
     }
     

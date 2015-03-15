@@ -36,7 +36,7 @@ class ProjetController extends Controller
 				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 			}
 
-			$nbPerPage = 10;
+			$nbPerPage = 20;
 
 			$listProjets = $this
 				->getDoctrine()
@@ -109,6 +109,10 @@ class ProjetController extends Controller
 		$listfacture = $em
 			->getRepository('TGComptaBundle:Facture')
 			->getLastFacture($projet);
+
+		$listlogo = $em
+			->getRepository('TGCreaBundle:Logo')
+			->getLogoView($projet->getClient());
 
 		$listProjets = $emprojet
 			->getProjetPourLier($projet);
@@ -206,6 +210,7 @@ class ProjetController extends Controller
 				'listComments' => $listComments,
 				'listProjets' => $listProjets,
 				'listcrea' => $listcrea,
+				'listlogo' => $listlogo,
 				'listdevis' => $listdevis,
 				'listfacture' => $listfacture,
 				'listdoc' => $listdoc,
