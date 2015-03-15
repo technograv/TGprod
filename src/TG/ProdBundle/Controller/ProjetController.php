@@ -144,7 +144,7 @@ class ProjetController extends Controller
 			$em->persist($projet);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('infos', 'Projets liés avec succès');
+			$request->getSession()->getFlashBag()->add('info', 'Projets liés avec succès');
 
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
@@ -158,7 +158,7 @@ class ProjetController extends Controller
 			$em->persist($devis);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('infos', 'Devis ajouté avec succès');
+			$request->getSession()->getFlashBag()->add('info', 'Devis ajouté avec succès');
 
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
@@ -172,7 +172,7 @@ class ProjetController extends Controller
 			$em->persist($facture);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('infos', 'Facture ajoutée avec succès');
+			$request->getSession()->getFlashBag()->add('info', 'Facture ajoutée avec succès');
 
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
@@ -186,7 +186,7 @@ class ProjetController extends Controller
 			$em->persist($crea);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('infos', 'Compo ajoutée avec succès');
+			$request->getSession()->getFlashBag()->add('info', 'Compo ajoutée avec succès');
 
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
@@ -200,7 +200,7 @@ class ProjetController extends Controller
 			$em->persist($doc);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('infos', 'Pièce jointe ajoutée avec succès');
+			$request->getSession()->getFlashBag()->add('info', 'Pièce jointe ajoutée avec succès');
 
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
