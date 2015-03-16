@@ -144,8 +144,14 @@ class ProjetController extends Controller
 			$em->persist($projet);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('info', 'Projets liés avec succès');
-
+			if ($projetparent === null)
+			{
+				$request->getSession()->getFlashBag()->add('info', 'Projets liés avec succès');
+			}
+			else
+			{
+				$request->getSession()->getFlashBag()->add('info', 'Liaisons rompue avec succès');
+			}
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId())));
 		}
 
