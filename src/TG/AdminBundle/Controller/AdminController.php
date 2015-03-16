@@ -189,6 +189,8 @@ class AdminController extends Controller
               )));
 
         $this->get('mailer')->send($message);
+
+        $request->getSession()->getFlashBag()->add('info', 'Message envoyé avec succès.');
         }
         return $this->redirect($this->generateUrl('tg_prod_home'));
     }

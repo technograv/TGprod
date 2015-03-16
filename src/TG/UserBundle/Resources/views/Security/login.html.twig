@@ -6,10 +6,8 @@
 
 {% block fos_user_content %}
 
-{% if error == 'Bad credentials' %}
-    <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ 'security.login.error1'|trans([], 'FOSUserBundle') }}</div>
-{% else %}
-    <div><div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ 'security.login.error2'|trans([], 'FOSUserBundle') }}</div>
+{% if error %}
+    <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
 <h2>Réalisations récentes</h2><br/>
