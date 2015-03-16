@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/tgadmin/ckeditor/contents.css') }}" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
   {% endblock %}
 </head>
@@ -21,14 +22,16 @@
     <div id="header" class="jumbotron">
       <table width="100%">
         <tr>
-          <td width="50%">
+          <td width="70%">
       <h1><a href="{{ path('tg_prod_home')}}" class="no-style">DECOR-PUB</a></h1>
       <p>
         Suivi de production
       </p>
           </td>
+          <div align="right">
           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
           <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
+          </div>
         {% endif %}
         </tr>
       </table> 

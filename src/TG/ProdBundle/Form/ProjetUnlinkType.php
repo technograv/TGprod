@@ -19,7 +19,6 @@ class ProjetUnlinkType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $projet = $this->projet;
 
         $builder
             ->add('projetparent', 'hidden', array(

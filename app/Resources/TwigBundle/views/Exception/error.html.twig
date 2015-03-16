@@ -2,14 +2,21 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AHAH Bien fait !</title>
+    <title>Page d'erreur</title>
   </head>
   <body>
-    <h1>Oops! tu t'es fait ****</h1>
-    <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+    <h1>Erreur concernant la page à afficher</h1>
+    <h2>Le serveur à renvoyé "{{ status_code }} {{ status_text }}".</h2>
 
+    <div class="well">
+      <div>
+      <h4>Si vous pensez que ceci est un bug, merci de renseigner l'adresse de la page précédente ainsi que l'adresse de cette page en expliquant comment vous passez de l'une à l'autre dans le formulaire ci-dessous.
+        <hr/>
+    </div>
     <div>
-      test de la page d'erreur !
+      {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+          <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
+        {% endif %}
     </div>
   </body>
 </html>
