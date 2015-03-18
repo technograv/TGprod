@@ -48,7 +48,6 @@ class Projet
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ClientBundle\Entity\Client", inversedBy="projets")
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $client;

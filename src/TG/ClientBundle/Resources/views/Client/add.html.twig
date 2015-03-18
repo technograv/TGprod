@@ -13,82 +13,43 @@
 
 <div class="well col-sm-12">
   {% if is_granted("ROLE_PAO") %}
-  {# {% form_theme form 'TGAdminBundle:Admin:form_layout.html.twig' %} #}
+{#}  {% form_theme form 'TGAdminBundle:Admin:form_layout.html.twig' %}
+
+
+{{ form(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+
+#}  
   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-    {# Les erreurs générales du formulaire. #}
+    <!-- Les erreurs générales du formulaire. -->
     {{ form_errors(form) }}
 
     <div class="form-group grouped">
-      {# Génération du label. #}
-      <div class="required">
-        {{ form_errors(form.name) }}
-      {{ form_label(form.name, "Société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      </div>
-      <div class="col-sm-4">
-        {# Génération de l'input. #}
+      <div class="form-group">
+        <div class="required">
+      {{ form_label(form.name, "Société", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
+      <div class="col-sm-3">
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
       </div>
-
-      <div>
-        {{ form_errors(form.contact) }}
-      {{ form_label(form.contact, "Nom du contact", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>    
-
-    <div class="form-group">
-      {{ form_errors(form.code) }}
-      {{ form_label(form.code, "Code client", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
-      </div>
-
+      {{ form_errors(form.name) }}
+    </div>
+      {{ form_label(form.siret, "Siret", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      
       {{ form_errors(form.siret) }}
-      {{ form_label(form.siret, "Siret", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
       </div>
-    </div>      
+
+      {{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+
+      {{ form_errors(form.code) }}
+      <div class="col-sm-2">
+        {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
 
     <div class="form-group">
-      {{ form_label(form.email, "Email", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.email) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-      </div>
-
-    <div>
-      {{ form_label(form.fax, "Fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.fax) }}
-    </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-     <div class="form-group">
-      <div class="required">
-      {{ form_label(form.tel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.tel) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-    <div>
-      {{ form_label(form.portable, "Portable", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.portable) }}
-    </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.portable, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-
-    <div class="form-group grouped">
       <div class="required">
       {{ form_label(form.adresse, "Adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       </div>
@@ -118,6 +79,47 @@
         {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>      
+        <hr/>
+
+      <h4>Contact par défaut</h4>
+      <div class="form-group">
+          {{ form_label(form.contactname, "Nom du contact", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.contactname, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      {{ form_errors(form.contactname) }}
+      {{ form_label(form.contactemail, "Email", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      
+      {{ form_errors(form.contactemail) }}
+      <div class="col-sm-5">
+        {{ form_widget(form.contactemail, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="required">
+      {{ form_label(form.contacttel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
+
+      {{ form_errors(form.contacttel) }}
+      <div class="col-sm-3">
+        {{ form_widget(form.contacttel, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+          {{ form_label(form.contactport, "Portable", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+      <div class="col-sm-3">
+        {{ form_widget(form.contactport, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      {{ form_errors(form.contactport) }}
+
+      {{ form_label(form.contactfax, "Fax", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      
+      {{ form_errors(form.contactfax) }}
+      <div class="col-sm-2">
+        {{ form_widget(form.contactfax, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <hr/>
 
     <div class="form-group grouped">
       {{ form_label(form.notes, "Informations complémentaires", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
@@ -149,6 +151,9 @@
   {{ form_rest(form) }}
   
   {{ form_end(form) }}
+
+
+
 {% else %}
 <h4>Vous n'avez pas les droits nécessaires pour créer un nouveau client client</h4>
 {% endif %}

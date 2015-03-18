@@ -7,6 +7,7 @@ namespace TG\ClientBundle\Controller;
 use TG\ClientBundle\Form\ClientType;
 use TG\ClientBundle\Form\ClientEditType;
 use TG\ClientBundle\Entity\Client;
+use TG\ClientBundle\Entity\Contact;
 use TG\CreaBundle\Entity\Logo;
 use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -101,8 +102,24 @@ class ClientController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
 
-			$logofile = $form->get('logofile')->getData();
+			$contact = new Contact;
+			$contactname = $form->get('contactname')->getData();
+			if ($contactname !== null)
+			{
+				$contact->setName($contactname);
+			}
+			else
+			{
+				$contact->setName($form->get('name')->getData());
+			}
+			$contact->setEmail($form->get('contactemail')->getData());
+			$contact->setTel($form->get('contacttel')->getData());
+			$contact->setFax($form->get('contactfax')->getData());
+			$contact->setPortable($form->get('contactport')->getData());
+			$contact->setClient($client);
+			$em->persist($contact);
 
+			$logofile = $form->get('logofile')->getData();
 			if ($logofile !== null)
 			{
 				$logo = new Logo;

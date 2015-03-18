@@ -20,11 +20,6 @@ class ClientType extends AbstractType
 		->add('cp',			'text')
 		->add('ville',		'text')
 		->add('pays',		'text')
-		->add('tel',		'text')
-		->add('portable',	'text', array('required' => false))
-		->add('fax',		'text', array('required' => false))
-		->add('email',		'email', array('required' => false))
-		->add('contact',	'text', array('required' => false))
 		->add('code',		'text', array('required' => false))
 		->add('siret',		'text', array('required' => false))
 		->add('logofile',	'file', array(
@@ -36,6 +31,23 @@ class ClientType extends AbstractType
 		->add('notes',		'textarea', array(
 			'required' => false,
 			'attr' =>array('class' => 'ckeditor')))
+		->add('contactname',	'text', array(
+			'mapped' => false,
+			'required' => false))
+		->add('contacttel',	'text', array(
+			'mapped' => false,
+			'required' => true))
+		->add('contactport',	'text', array(
+			'mapped' => false,
+			'required' => false))
+		->add('contactemail',		'email', array(
+			'required' => false,
+			'mapped' => false,
+			'required' => false))
+		->add('contactfax',		'text', array(
+			'required' => false,
+			'mapped' => false,
+			'required' => false))
 		->add('save',		'submit')
 		;
 	}

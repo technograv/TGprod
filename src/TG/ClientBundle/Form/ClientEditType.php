@@ -16,6 +16,11 @@ class ClientEditType extends AbstractType
 		$builder
 			->remove('logofile')
 			->remove('logoinfos')
+			->remove('contactname')
+			->remove('contacttel')
+			->remove('contactport')
+			->remove('contactfax')
+			->remove('contactemail')
 		;
 	}
 	

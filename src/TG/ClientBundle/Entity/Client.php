@@ -14,9 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="TG\ClientBundle\Entity\ClientRepository")
  * @UniqueEntity(fields="name", message="Un client de ce nom existe déjà.")
- * @UniqueEntity(fields="tel", message="Un client possédant ce numéro de téléphone existe déjà.")
- * @UniqueEntity(fields="fax", message="Un client possédant ce numéro de fax existe déjà.")
- * @UniqueEntity(fields="email", message="Un client possédant cet email existe déjà.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Client
@@ -25,6 +22,11 @@ class Client
      * @ORM\oneToMany(targetEntity="TG\ProdBundle\Entity\Projet", mappedBy="client", cascade={"remove"})
      */
     private $projets;
+
+    /**
+     * @ORM\oneToMany(targetEntity="TG\ClientBundle\Entity\Contact", mappedBy="client", cascade={"remove"})
+     */
+    private $contacts;
 
     /**
      * @ORM\OneToMany(targetEntity="TG\CreaBundle\Entity\Logo", mappedBy="client", cascade={"persist", "remove"})
@@ -87,48 +89,6 @@ class Client
      * @Assert\Length(min=4)
      */
     private $pays;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tel", type="string", length=10)
-     * @Assert\Length(min=10, max=10)
-     * @Assert\Regex(pattern="#^0[1-9][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
-     */
-    private $tel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="portable", type="string", length=10, nullable=true)
-     * @Assert\Length(min=10, max=10)
-     * @Assert\Regex(pattern="#^0[67][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
-     */
-    private $portable;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fax", type="string", length=10, nullable=true)
-     * @Assert\Length(min=10, max=10)
-     * @Assert\Regex(pattern="#^0[1-9][0-9]{8}$#", message="Doit commencer par 0 et comporter 10 chiffres.")
-     */
-    private $fax;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contact", type="string", length=255)
-     */
-    private $contact;
 
     /**
      * @var string
@@ -325,98 +285,6 @@ class Client
     }
 
     /**
-     * Set tel
-     *
-     * @param string $tel
-     * @return Client
-     */
-    public function setTel($tel)
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
-
-    /**
-     * Get tel
-     *
-     * @return string 
-     */
-    public function getTel()
-    {
-        return $this->tel;
-    }
-
-    /**
-     * Set fax
-     *
-     * @param string $fax
-     * @return Client
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-     * Get fax
-     *
-     * @return string 
-     */
-    public function getFax()
-    {
-        return $this->fax;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Client
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     * @return Client
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return string 
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
      * Set code
      *
      * @param string $code
@@ -523,6 +391,7 @@ class Client
         $this->dateadd = new \DateTime('now');
         $this->pays = 'France';
         $this->projets = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
         $this->logos = new ArrayCollection();
         $this->maj = new \DateTime('now');
     }
@@ -602,22 +471,6 @@ class Client
     public function getProjets()
     {
         return $this->projets;
-    }
-
-    /**
-    * @ORM\PrePersist
-    */
-    public function contactpardefaut()
-    {
-        if ($this->getContact() === null)
-        {
-           $contactpardefaut = $this->getName();
-            $this->setContact($contactpardefaut); 
-        }
-         else
-        {
-        }
-        
     }
 
     public function increaseProjet()
@@ -758,25 +611,37 @@ class Client
     }
 
     /**
-     * Set portable
+     * Add contacts
      *
-     * @param string $portable
+     * @param \TG\ClientBundle\Entity\Contact $contacts
      * @return Client
      */
-    public function setPortable($portable)
+    public function addContact(\TG\ClientBundle\Entity\Contact $contacts)
     {
-        $this->portable = $portable;
+        $this->contacts[] = $contacts;
+
+        $contact->setClient($this);
 
         return $this;
     }
 
     /**
-     * Get portable
+     * Remove contacts
      *
-     * @return string 
+     * @param \TG\ClientBundle\Entity\Contact $contacts
      */
-    public function getPortable()
+    public function removeContact(\TG\ClientBundle\Entity\Contact $contacts)
     {
-        return $this->portable;
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
     }
 }

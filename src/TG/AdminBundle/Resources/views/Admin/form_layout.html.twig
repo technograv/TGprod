@@ -1,8 +1,68 @@
+{% extends 'form_div_layout.html.twig' %}
+ 
+{# On commence par simplement ajouter le form-group au row de nos formulaires #}
+{% block form_row %}
+    {% spaceless %}
+        <div class="form-group col-sm-12 {{ errors|length > 0 ? 'has-error' : '' }}">
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+ 
+{# Puis on modifie très simplement nos input et textarea
+   les plus importants pour y ajouter le class imposée par Bootstrap 3 #}
+{% block textarea_widget %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' form-control '}) %}
+    {% spaceless %}
+    <div class="col-sm-10">
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+    </div>
+    {% endspaceless %}
+{% endblock textarea_widget %}
+ 
+{% block form_widget_simple %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' form-control'}) %}
+    {% set type = type|default('text') %}
+    {% spaceless %}
+    <div class="col-sm-10">
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    </div>
+{% endspaceless %}
+{% endblock form_widget_simple %}
+
+ 
+{% block form_label %}
+    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label col-sm-2')|trim}) %}
+    {{ parent() }}
+{% endblock form_label %}
+ 
+{# et enfin les erreurs #}
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <span class="help-block col-sm-12">
+                {% for error in errors %}
+                    {{ error.message }}<br />
+                {% endfor %}
+            </span>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block submit_widget %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' btn btn-primary '}) %}
+    {{ parent() }}
+{% endblock submit_widget %}
+
+{#
+<!-- Messages d'erreurs -->
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
             {% for error in errors %}
-                <p>{{
+                <p style="color: red;" class="col-sm-12">{{
                     error.messagePluralization is null
                         ? error.messageTemplate|trans(error.messageParameters, 'validators')
                         : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
@@ -12,3 +72,4 @@
         {% endif %}
     {% endspaceless %}
 {% endblock form_errors %}
+#}
