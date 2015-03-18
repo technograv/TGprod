@@ -368,7 +368,6 @@
                       </div>
                       {{ form_rest(formlink) }}
                       {{ form_end(formlink) }}
-                      </p>
                     </div>
                       {% if listEnfants != null %}
                         <p>
@@ -412,22 +411,24 @@
                   <p>Pas de projet lié</p>
                 </div>
               {% else %}
-                <div style="width:100%; float:left; margin-bottom:20px;">
+
+                    <div>
                   <h4>Projet parent :</h4>
-                    <div class="col-sm-8" style="padding:0; height:35px; line-height:35px;">
-                      <p style="vertical-align:middle; display:inline-block; line-height:normal; margin:0;">
-                        <i class="glyphicon glyphicon-menu-right" style="margin-right:5px;"> </i><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><strong>{{projet.projetparent.titre }}</strong></a>
-                          {% if listEnfants != null %}
-                            Projets enfants :
+                    <div>
+                        <div>
+                      <p><i class="glyphicon glyphicon-menu-right" style="margin-right:5px;"> </i><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><strong>{{projet.projetparent.titre }}</strong></a></p>             
+                      </div>
+                    </div>
+                      {% if listEnfants != null %}
+                        <p>
+                            Autres projets enfants :
                               <ul>
                                 {% for projet in listEnfants %}
                                   <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre }}</a></li>
                                 {% endfor %}
                               </ul>
-                          {% endif %}
-                      </p>
-                    </div>
-                </div>
+                        </p>
+                      {% endif %}
                   {% if listdevisparent != null or listcreaparent != null %}
                     <h4>Fichiers du projet parent :</h4>
                       {% if listdevisparent %}

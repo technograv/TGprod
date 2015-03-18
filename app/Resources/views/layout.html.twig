@@ -36,11 +36,10 @@
         </tr>
       </table> 
     </div>
-    {% if is_granted('ROLE_STAGIAIRE') %}
       <div class="row">
 
         <div id="menu" class="col-md-2">
-
+{% if is_granted('ROLE_STAGIAIRE') %}
           <h3>Les Projets</h3>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{{ path('tg_prod_home')}}">Accueil</a></li>

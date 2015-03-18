@@ -84,8 +84,8 @@ class ProjetRepository extends EntityRepository
 		$qb
 			->where('p.projetparent = :projetparentID')
 			->andwhere('p != :projetID')
-			->setParameter('projetID', $projet->getId())
-			->setParameter('projetparentID', $projetparent->getId())
+			->setParameter('projetID', $projet)
+			->setParameter('projetparentID', $projetparent)
 			->orderBy('p.maj', 'ASC');
 
 		return $qb
