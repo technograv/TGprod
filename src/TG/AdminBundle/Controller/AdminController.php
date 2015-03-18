@@ -136,7 +136,8 @@ class AdminController extends Controller
 				'property' => 'username',
 				'multiple' => false))
 			->add('roles', 'choice', array(
-					'choices' =>array(
+					'choices' => array(
+                        'ROLE_STAGIAIRE' => 'Stagiaire',
 						'ROLE_atelier' => 'Atelier',
                         'ROLE_PAO' => 'PAO',       
 						'ROLE_compta' => 'Comptable',

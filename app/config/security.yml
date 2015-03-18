@@ -8,6 +8,7 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
+        ROLE_ATELIER:     [ROLE_STAGIAIRE]
         ROLE_PAO:         [ROLE_ATELIER]
         ROLE_COMPTA:      [ROLE_PAO]
         ROLE_GERANT:      [ROLE_COMPTA]

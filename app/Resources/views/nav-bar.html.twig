@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      {% if is_granted('ROLE_ATELIER') %}
+      {% if is_granted('ROLE_STAGIAIRE') %}
       <a class="navbar-brand" href="{{ path('tg_prod_home')}}">Accueil Projets</a>
       {% endif %}
     </div>

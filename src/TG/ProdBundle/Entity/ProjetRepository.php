@@ -77,13 +77,15 @@ class ProjetRepository extends EntityRepository
 		//	->getResult();
 	}
 
-	public function GetProjetEnfant($projet)
+	public function GetProjetEnfant($projet, $projetparent)
 	{
 		$qb = $this->createQueryBuilder('p');
 
 		$qb
-			->where('p.projetparent = :projetID')
+			->where('p.projetparent = :projetparentID')
+			->andwhere('p != :projetID')
 			->setParameter('projetID', $projet->getId())
+			->setParameter('projetparentID', $projetparent->getId())
 			->orderBy('p.maj', 'ASC');
 
 		return $qb

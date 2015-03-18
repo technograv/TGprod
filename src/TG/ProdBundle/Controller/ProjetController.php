@@ -27,7 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class ProjetController extends Controller
 {
 	/**
-	* @Security("has_role('ROLE_ATELIER')")
+	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function indexAction($page)
 	{
@@ -63,7 +63,7 @@ class ProjetController extends Controller
 	}
 
 	/**
-	* @Security("has_role('ROLE_ATELIER')")
+	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function viewAction(projet $projet,request $request)
 	{
@@ -117,10 +117,10 @@ class ProjetController extends Controller
 		$listProjets = $emprojet
 			->getProjetPourLier($projet);
 
-		$listEnfants = $emprojet
-			->getProjetEnfant($projet);
-
 		$projetparent = $projet->getProjetparent();
+
+		$listEnfants = $emprojet
+			->getProjetEnfant($projet, $projetparent);
 
 		$listcreaparent = $em
 			->getRepository('TGCreaBundle:Crea')
@@ -369,7 +369,7 @@ class ProjetController extends Controller
 	}
 
 	/**
-	* @Security("has_role('ROLE_ATELIER')")
+	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function menuAction($limit = 3)
 	{
@@ -386,7 +386,7 @@ class ProjetController extends Controller
 	}
 
 	/**
-	* @Security("has_role('ROLE_ATELIER')")
+	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function fichierAction(projet $projet, request $request)
 	{

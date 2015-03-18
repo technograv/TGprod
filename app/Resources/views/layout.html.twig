@@ -36,7 +36,7 @@
         </tr>
       </table> 
     </div>
-    {% if is_granted('ROLE_ATELIER') %}
+    {% if is_granted('ROLE_STAGIAIRE') %}
       <div class="row">
 
         <div id="menu" class="col-md-2">
@@ -48,7 +48,8 @@
           
           <h4>Derniers projets</h4>
           {{ render(controller("TGProdBundle:Projet:menu", {'limit': 3})) }}
-
+        {% endif %}
+{% if is_granted('ROLE_ATELIER') %}
           <h3>Les Clients</h3>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{{ path('tg_client_home') }}">Accueil</a></li>
@@ -56,8 +57,9 @@
 
           <h4>Derniers clients</h4>
           {{ render(controller("TGClientBundle:Client:menu", {'limit': 3})) }}
+        {% endif %}
         </div>
-
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div id="content" class="col-md-10">
             {% for flashMessage in app.session.flashbag.get('info') %}
               <div class="alert alert-success alert-dismissible" role="alert">
