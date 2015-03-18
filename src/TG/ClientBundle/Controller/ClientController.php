@@ -12,6 +12,7 @@ use TG\CreaBundle\Entity\Logo;
 use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ClientController extends Controller
 {
@@ -84,6 +85,9 @@ class ClientController extends Controller
 			'form' => $form->createView()));
 	}
 
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function addAction(request $request)
 	{
 		$client = new Client();

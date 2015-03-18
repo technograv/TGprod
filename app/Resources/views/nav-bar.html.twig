@@ -9,10 +9,8 @@
     <div>
     <ul class="nav navbar-nav">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {% if is_granted("ROLE_ATELIER") %}
         {{ render(controller("TGClientBundle:Client:header")) }}
-        {% endif %}
-        {% if is_granted("ROLE_PAO") %}
+        {% if is_granted("ROLE_ATELIER") %}
         <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un client</a></li>
         <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un projet</a></li>
         {% endif %}

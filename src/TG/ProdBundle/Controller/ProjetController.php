@@ -233,6 +233,9 @@ class ProjetController extends Controller
 				));
 	}
 
+	/**
+	* @Security("has_role('ROLE_ATELIER')")
+	*/
 	public function addAction(request $request)
 	{
 

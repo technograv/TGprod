@@ -8,7 +8,7 @@
 
 <h2>Créer un projet</h2>
 <div class="well">
-  {% if is_granted("ROLE_PAO") %}
+  {% if is_granted("ROLE_ATELIER") %}
   {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
     {{ form_errors(form) }}
