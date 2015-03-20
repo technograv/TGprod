@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use TG\ClientBundle\Entity\ClientRepository;
+use TG\ClientBundle\Entity\Client;
+use TG\ClientBundle\Entity\ContactRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class ProjetType extends AbstractType
 {
@@ -50,6 +54,28 @@ class ProjetType extends AbstractType
                 'required' => false))                     
             ->add('save',       'submit')
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            function(FormEvent $event)
+            {
+                $form = $event->getForm();
+                $data = $event->getData();
+                $client = $data->getClient();
+                if ($client === null)
+                {
+                    return;
+                }
+                else
+                {
+                    $contacts = $client->getContacts();
+                    $form->add('contact', 'entity', array(
+                        'choices' => $contacts,
+                        'class' => 'TGClientBundle:Contact',
+                        'property' => 'name',
+                        'multiple' => false));
+                }
+                    
+            });
     }
     
     /**

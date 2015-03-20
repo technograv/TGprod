@@ -642,6 +642,6 @@ class Client
      */
     public function getContacts()
     {
-        return $this->contacts;
+        return $this->contacts->toArray();
     }
 }

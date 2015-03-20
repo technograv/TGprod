@@ -29,6 +29,11 @@ class Projet
      private $assign;
 
     /**
+     * @ORM\ManyToOne(targetEntity="TG\ClientBundle\Entity\Contact")
+     */
+     private $contact;
+
+    /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet")
      */
     private $projetparent;
@@ -768,5 +773,28 @@ class Projet
     public function getDocumentjoints()
     {
         return $this->documentjoints->toArray();
+    }
+
+    /**
+     * Set contact
+     *
+     * @param \TG\ClientBundle\Entity\contact $contact
+     * @return Projet
+     */
+    public function setContact(\TG\ClientBundle\Entity\contact $contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return \TG\ClientBundle\Entity\contact 
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }

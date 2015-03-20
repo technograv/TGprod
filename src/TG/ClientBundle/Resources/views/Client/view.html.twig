@@ -32,9 +32,7 @@
   <a href="{{ path('tg_client_delete', {'id': client.id}) }}" class="btn btn-danger">
     <i class="glyphicon glyphicon-trash"></i> Supprimer le client</a>
   {% endif %}
-
-  </p>
-
+</p>
 
   <div class="well margin-right col-sm-3">
     {% for logo in logoduclient %}
@@ -86,18 +84,118 @@
 
 
 <div class="well col-sm-8">
-  <div class="col-sm-6">
-    {# <h3 class="sticky">Contact</h3> #}
-    <p><strong>Nom du contact :</strong> {#{ client.contact }#}</p>
-    <p><strong>Email :</strong> {#{ client.email }#}<pr>
-    <p><strong>Téléphone :</strong> {#{ client.tel }#}</p>
-    <p><strong>Fax :</strong> {#{ client.fax }#}</p>
-  </div>
+  <h4>Contacts pour ce client</h4>
 
-  <div class="col-sm-6">
-    {# <h3 class="sticky">Société</h3> #}
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs" role="tablist">
+    {% for contact in contactdefaut %}
+      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+    {% endfor %}
+    {% for contact in contactduclient %}
+    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+      {% for contact in contactdefaut %}
+      <div role="tabpanel" class="tab-pane fade in active" id="{{ contact.id }}">
+        Téléphone : {{ contact.tel }}<br/>
+        Email : {{ contact.email }}<br/>
+        Portable : {{ contact.portable }}<br/>
+        Fax : {{ contact.fax }}
+      </div>
+    {% endfor %}
+      {% for contact in contactduclient %}
+        <div role="tabpanel" class="tab-pane fade" id="{{ contact.id }}">
+          Téléphone : {{ contact.tel }}<br/>
+        Email : {{ contact.email }}<br/>
+        Portable : {{ contact.portable }}<br/>
+        Fax : {{ contact.fax }}
+        </div>
+      {% endfor %}
+  </div>
+</div>
+</div>
+    {% if is_granted("ROLE_ATELIER") %}
+  <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
+      <i class="glyphicon glyphicon-plus"></i> Ajouter un contact au client</a>
+  {% endif %}
+
+     <!-- Modal Contact -->
+    <div id="box-contact" class="modal fade" keyboard="true" backdrop="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Ajouter un contact au client</h4>
+          </div>
+          <div class="modal-body">
+            {{ form_start(formcontact, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(formcontact) }}
+
+            <div class="form-group required">
+              {{ form_label(formcontact.name, "Nom du contact", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.name) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.name, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group required">
+              {{ form_label(formcontact.tel, "Téléphone", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.tel) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.tel, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.portable, "Portable", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.portable) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.portable, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.email, "Email", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.email) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.email, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.fax, "Fax", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.fax) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.fax, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group grouped">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-1">
+              {{ form_widget(formcontact.defaut, {'attr': {'class': 'checkbox'}}) }}
+              </div>
+              <div class="col-sm-5">
+                {{ form_label(formcontact.defaut, "Définir comme contact par défaut", {'label_attr': {'class': 'control-label'}}) }}
+              </div>
+              {{ form_errors(formcontact.defaut) }}
+            </div>
+            <div class="col-sm-8"></div>
+            {{ form_widget(formcontact.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+            {{ form_rest(formcontact) }}
+            {{ form_end(formcontact) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="well col-sm-6">
     <p>
-      <strong>Adresse :</strong></br>
+      <strong>Adresse de la société :</strong></br>
       {{ client.adresse }}</br>
       {{ client.CP }} {{ client.ville }} ({{ client.pays }})
     </p>

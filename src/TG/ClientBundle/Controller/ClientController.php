@@ -8,6 +8,7 @@ use TG\ClientBundle\Form\ClientType;
 use TG\ClientBundle\Form\ClientEditType;
 use TG\ClientBundle\Entity\Client;
 use TG\ClientBundle\Entity\Contact;
+use TG\ClientBundle\Form\ContactType;
 use TG\CreaBundle\Entity\Logo;
 use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,15 +52,19 @@ class ClientController extends Controller
 
 	public function viewAction(client $client, request $request)
 	{
-    	$projets = $this
-    		->getDoctrine()
-    		->getManager()
+		$em = $this->getDoctrine()->getManager();
+
+    	$projets = $em
     		->getRepository('TGProdBundle:Projet')->getProjetParClient($client);
 
-    	$logoduclient = $this
-    		->getDoctrine()
-    		->getManager()
+    	$logoduclient = $em
     		->getRepository('TGCreaBundle:Logo')->getLogoView($client);
+
+    	$contactduclient = $em
+    		->getRepository('TGClientBundle:Contact')->getContactduclient($client);
+
+    	$contactdefaut = $em
+    		->getRepository('TGClientBundle:Contact')->getContactdefaut($client);
 
     	$logo = new Logo;
 
@@ -69,7 +74,6 @@ class ClientController extends Controller
     	{
     		$logo->setClient($client);
 
-    		$em = $this->getDoctrine()->getManager();
     		$em->persist($logo);
     		$em->flush();
 
@@ -78,11 +82,39 @@ class ClientController extends Controller
     		return $this->redirect($this->generateUrl('tg_client_view', array('id' => $client->getId())));
     	}
 
+    	$newcontact = new Contact;
+
+    	$formcontact = $this->get('form.factory')->create(new ContactType, $newcontact);
+
+    	if ($formcontact->handleRequest($request)->isValid())
+    	{
+    		$newcontact->setClient($client);
+    		$em->persist($newcontact);
+    		$em->flush();
+
+    		if ($newcontact->getDefaut() === true)
+    		{
+    			$allcontact = $em->getRepository('TGClientBundle:Contact')->setDefauttrue($client, $newcontact);
+    			foreach ($allcontact as $contact) {
+    				$contact->setDefaut(false);
+    				$em->persist($contact);
+    				$em->flush();
+    			}
+    		}
+
+    		$request->getSession()->getFlashBag()->add('info', 'Contact ajouté avec succès.');
+
+    		return $this->redirect($this->generateUrl('tg_client_view', array('id' => $client->getId())));
+    	}
+
 		return $this->render('TGClientBundle:Client:view.html.twig', array(
 			'client' => $client,
 			'projets' => $projets,
 			'logoduclient' => $logoduclient,
-			'form' => $form->createView()));
+			'contactduclient' => $contactduclient,
+			'contactdefaut' => $contactdefaut,
+			'form' => $form->createView(),
+			'formcontact' => $formcontact->createView()));
 	}
 
 	/**
@@ -120,6 +152,7 @@ class ClientController extends Controller
 			$contact->setTel($form->get('contacttel')->getData());
 			$contact->setFax($form->get('contactfax')->getData());
 			$contact->setPortable($form->get('contactport')->getData());
+			$contact->setdefaut(true);
 			$contact->setClient($client);
 			$em->persist($contact);
 
