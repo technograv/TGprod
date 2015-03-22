@@ -4,6 +4,7 @@ namespace TG\ProdBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use TG\ClientBundle\Entity\ClientRepository;
 use TG\ClientBundle\Entity\Client;
@@ -55,26 +56,43 @@ class ProjetType extends AbstractType
             ->add('save',       'submit')
         ;
 
+        $formModifier = function (FormInterface $form, Client $client = null) {
+            $contacts = null === $client ? array() : $client->getContacts();
+
+            $form->add('contact', 'entity', array(
+                'class' => 'TGClientBundle:Contact',
+                'choices' => $contacts,
+                ));
+        };
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
-            function(FormEvent $event)
+            function(FormEvent $event) use ($formModifier)
             {
-                $form = $event->getForm();
+               // $form = $event->getForm();
                 $data = $event->getData();
-                $client = $data->getClient();
-                if ($client === null)
-                {
-                    return;
-                }
-                else
-                {
-                    $contacts = $client->getContacts();
-                    $form->add('contact', 'entity', array(
-                        'choices' => $contacts,
-                        'class' => 'TGClientBundle:Contact',
-                        'property' => 'name',
-                        'multiple' => false));
-                }
+                $formModifier($event->getForm(), $data->getClient());
+
+                // $client = $data->getClient();
+                // if ($client === null)
+                // {
+                //     return;
+                // }
+                // else
+                // {
+                //     $contacts = $client->getContacts();
+                //     $form->add('contact', 'entity', array(
+                //         'choices' => $contacts,
+                //         'class' => 'TGClientBundle:Contact',
+                //         'property' => 'name',
+                //         'multiple' => false));
+                // }
                     
+            });
+
+        $builder->get('client')->addEventListener(FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $client = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $client);
             });
     }
     

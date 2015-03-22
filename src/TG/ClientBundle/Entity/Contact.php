@@ -251,4 +251,9 @@ class Contact
     {
         return $this->defaut;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

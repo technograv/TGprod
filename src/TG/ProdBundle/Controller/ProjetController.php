@@ -12,6 +12,8 @@ use TG\ProdBundle\Form\CommentaireType;
 use TG\ProdBundle\Form\NextType;
 use TG\ProdBundle\Entity\Projet;
 use TG\ComptaBundle\Entity\Devis;
+use TG\ClientBundle\Entity\Contact;
+use TG\ClientBundle\Form\ContactprodType;
 use TG\ComptaBundle\Form\DevisaddType;
 use TG\ComptaBundle\Entity\Facture;
 use TG\ComptaBundle\Form\FactureaddType;
@@ -261,6 +263,9 @@ class ProjetController extends Controller
 
 		$form = $this->get('form.factory')->create(new ProjetType, $projet);
 
+		$contact = new Contact();
+		$formcontact = $this->get('form.factory')->create(new ContactprodType, $contact);
+
 		if ($form->handleRequest($request)->isValid())
 		{
 			$em->persist($projet);
@@ -284,8 +289,16 @@ class ProjetController extends Controller
 			return $this->redirect($this->generateUrl('tg_prod_view', array('id' => $projet->getId()))); //redirection vers vue du nouveau projet
 		}
 
+		if ($formcontact->handleRequest($request)->isValid())
+		{
+			$em->persist($contact);
+			$em->flush();
+			$request->getSession()->getFlashBag()->add('info', 'Contact créé avec succès.');
+		}
+
 		return $this->render('TGProdBundle:Projet:add.html.twig', array(
 			'form' => $form->createView(),
+			'formcontact' => $formcontact->createView(),
 			));
 	} 
 

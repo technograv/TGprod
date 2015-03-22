@@ -15,76 +15,30 @@
     <!-- Les erreurs générales du formulaire. -->
     {{ form_errors(form) }}
 
-    <div class="form-group grouped">
-      <!-- Génération du label. -->
-      <div class="required">
-      {{ form_errors(form.name) }}
-      {{ form_label(form.name, "Société", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      </div>
-      <div class="col-sm-4">
-        <!-- Génération de l'input. -->
+    <div class="form-group">
+        <div class="required">
+      {{ form_label(form.name, "Société", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
+      <div class="col-sm-3">
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
       </div>
-
-      <div>
-        {{ form_errors(form.contact) }}
-      {{ form_label(form.contact, "Nom du contact", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>    
-
-    <div class="form-group">
-      {{ form_errors(form.code) }}
-      {{ form_label(form.code, "Code client", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
-      </div>
-
+      {{ form_errors(form.name) }}
+    </div>
+      {{ form_label(form.siret, "Siret", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      
       {{ form_errors(form.siret) }}
-      {{ form_label(form.siret, "Siret", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
       </div>
-    </div>      
+
+      {{ form_label(form.code, "Code", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+
+      {{ form_errors(form.code) }}
+      <div class="col-sm-2">
+        {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
 
     <div class="form-group">
-      {{ form_label(form.email, "Email", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.email) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-      </div>
-
-    <div>
-      {{ form_label(form.fax, "Fax", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.fax) }}
-    </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.fax, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-     <div class="form-group">
-      <div class="required">
-      {{ form_label(form.tel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.tel) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-    <div>
-      {{ form_label(form.portable, "Portable", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-      {{ form_errors(form.portable) }}
-    </div>
-      <div class="col-sm-4">
-        {{ form_widget(form.portable, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-
-    <div class="form-group grouped">
       <div class="required">
       {{ form_label(form.adresse, "Adresse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       </div>

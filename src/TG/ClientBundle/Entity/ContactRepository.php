@@ -52,4 +52,15 @@ class ContactRepository extends EntityRepository
 
 			return $qb->getQuery()->getResult();
 		}
+
+		public function setcontactsbyclient($id)
+		{
+			$qb = $this->createQueryBuilder('c');
+
+			$qb
+				->where('c.client = :id')
+				->setParameter('id', $id);
+
+			return $qb->getQuery()->getResult();
+		}
 }

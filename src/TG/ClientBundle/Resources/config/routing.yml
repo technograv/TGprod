@@ -27,3 +27,9 @@ tg_client_delete:
     defaults:  { _controller: TGClientBundle:Client:delete }
     requirements:
         id: ^[0-9]+$
+
+set_contacts:
+    pattern: /set_contacts
+    defaults: { _controller:TGClientBundle:Contact:setcontacts }
+    requirements:
+        _method: POST
