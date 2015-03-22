@@ -35,3 +35,7 @@ _liip_imagine:
 tg_accueil:
     pattern:   /
     defaults:  { _controller: TGProdBundle:Projet:index, page: 1 }
+
+BladeTesterCalendarBundle:
+    resource: "@BladeTesterCalendarBundle/Resources/config/routing.yml"
+    prefix:   /

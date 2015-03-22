@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new TG\AdminBundle\TGAdminBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new BladeTester\CalendarBundle\BladeTesterCalendarBundle(),
+            new TG\CalendarBundle\TGCalendarBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

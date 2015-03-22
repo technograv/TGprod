@@ -116,3 +116,12 @@ services:
        class: Twig_Extensions_Extension_Intl
        tags:
            - { name: twig.extension }
+
+blade_tester_calendar:
+    driver: doctrine/orm
+    engine: twig
+    classes:
+        event:
+            entity: TG\CalendarBundle\Entity\Event
+        category:
+            entity: BladeTester\CalendarBundle\Entity\EventCategory
