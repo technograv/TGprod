@@ -137,6 +137,16 @@ var id_select = $('#tg_prodbundle_projet_client').val();
                   </div>
                 </div>
 
+            <div class="form-group">
+              <div class="required">
+              {{ form_label(formcontact.civilite, "Civilité", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            </div>
+              {{ form_errors(formcontact.civilite) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.civilite, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
             <div class="form-group required">
               {{ form_label(formcontact.name, "Nom du contact", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
               {{ form_errors(formcontact.name) }}

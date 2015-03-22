@@ -35,6 +35,14 @@ class Contact
     /**
      * @var string
      *
+     * @ORM\Column(name="civilite", type="string", length=30)
+     * @Assert\Length(max=4)
+     */
+    private $civilite;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\Length(min=4)
      */
@@ -255,5 +263,28 @@ class Contact
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set civilite
+     *
+     * @param string $civilite
+     * @return Contact
+     */
+    public function setCivilite($civilite)
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    /**
+     * Get civilite
+     *
+     * @return string 
+     */
+    public function getCivilite()
+    {
+        return $this->civilite;
     }
 }

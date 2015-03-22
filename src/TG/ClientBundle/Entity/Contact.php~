@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="TG\ClientBundle\Entity\ContactRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Contact
 {
@@ -30,6 +31,14 @@ class Contact
      * @Assert\Valid()
      */
     private $client;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="civilite", type="string", length=30)
+     * @Assert\Length(max=4)
+     */
+    private $civilite;
 
     /**
      * @var string
@@ -226,5 +235,33 @@ class Contact
     public function getFax()
     {
         return $this->fax;
+    }
+
+    /**
+     * Set defaut
+     *
+     * @param boolean $defaut
+     * @return Contact
+     */
+    public function setDefaut($defaut)
+    {
+        $this->defaut = $defaut;
+
+        return $this;
+    }
+
+    /**
+     * Get defaut
+     *
+     * @return boolean 
+     */
+    public function getDefaut()
+    {
+        return $this->defaut;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
