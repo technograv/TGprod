@@ -17,10 +17,10 @@ class LogoRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('l');
 
 		$qb	
-			->where('l.client = :client')
-			->andwhere('l.extention = :ext')
+			->where('l.extention = :ext')
 				->orwhere('l.extention = :ext2')
 				->orwhere('l.extention = :ext3')
+			->andwhere('l.client = :client')
 			->setParameter('client', $client)
 			->setParameter('ext', 'jpg')
 			->setParameter('ext2', 'png')
