@@ -84,15 +84,20 @@
 
 
 <div class="well col-sm-8">
-  <h4>Contacts pour ce client</h4>
-
+  <div class="col-sm-5"><h4>Contacts pour ce client</h4></div> {% if is_granted("ROLE_ATELIER") %}
+  <div class="col-sm-3">
+  <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
+      <i class="glyphicon glyphicon-plus"></i> Ajouter un contact au client</a>
+  </div>
+  {% endif %}
+<div class="col-sm-8">
 <div class="tabbable tabs-left">
   <ul class="nav nav-tabs" role="tablist">
     {% for contact in contactdefaut %}
-      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.civilite }} {{ contact.name }}</a></li>
     {% endfor %}
     {% for contact in contactduclient %}
-    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.civilite }} {{ contact.name }}</a></li>
     {% endfor %}
   </ul>
 
@@ -104,6 +109,7 @@
         Portable : {{ contact.portable }}<br/>
         Fax : {{ contact.fax }}
       </div>
+
     {% endfor %}
       {% for contact in contactduclient %}
         <div role="tabpanel" class="tab-pane fade" id="{{ contact.id }}">
@@ -116,11 +122,7 @@
   </div>
 </div>
 </div>
-    {% if is_granted("ROLE_ATELIER") %}
-  <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
-      <i class="glyphicon glyphicon-plus"></i> Ajouter un contact au client</a>
-  {% endif %}
-
+</div>
      <!-- Modal Contact -->
     <div id="box-contact" class="modal fade" keyboard="true" backdrop="true">
       <div class="modal-dialog">
