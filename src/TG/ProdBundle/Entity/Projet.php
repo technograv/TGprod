@@ -117,9 +117,10 @@ class Projet
     private $dateadd;
     
      /**
-     * @var \Time
+     * @var \DateTime
      *
-     * @ORM\Column(name="delai", type="time", nullable=true)
+     * @ORM\Column(name="delai", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $delai;
 

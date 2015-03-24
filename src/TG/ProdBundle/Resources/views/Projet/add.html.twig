@@ -67,6 +67,14 @@ var id_select = $('#tg_prodbundle_projet_client').val();
     </div>
 
     <div class="form-group">
+      {{ form_label(form.delai, "Date de livraison", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.delai) }}
+      <div class="col-sm-4">
+        {{ form_widget(form.delai, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
       {{ form_label(form.contenu, "Consignes", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
       {{ form_errors(form.titre) }}
       <div class="col-sm-9">

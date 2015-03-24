@@ -61,7 +61,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=2)
      */
     private $adresse;
 

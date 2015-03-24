@@ -15,7 +15,7 @@ class ProjetEditType extends AbstractType
     {
         $builder
             ->remove('published')
-            ->remove('delai')
+            ->remove('contact')
             ->remove('client')
             ->remove('devix')
             ->remove('factures')

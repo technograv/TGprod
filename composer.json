@@ -24,7 +24,8 @@
         "liip/imagine-bundle": "~1.2",
         "coresphere/console-bundle": "dev-master",
         "doctrine/migrations": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "dev-master"
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "genemu/form-bundle": "2.2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

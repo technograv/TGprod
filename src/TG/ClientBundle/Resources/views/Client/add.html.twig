@@ -83,15 +83,22 @@
 
       <h4>Contact par défaut</h4>
       <div class="form-group">
-          {{ form_label(form.contactname, "Nom du contact", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
-      <div class="col-sm-4">
+          {{ form_label(form.contactcivilite, "Civilité", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      
+      {{ form_errors(form.contactcivilite) }}
+      <div class="col-sm-2">
+        {{ form_widget(form.contactcivilite, {'attr': {'class': 'form-control'}}) }}
+      </div>
+
+          {{ form_label(form.contactname, "Nom", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+      <div class="col-sm-3">
         {{ form_widget(form.contactname, {'attr': {'class': 'form-control'}}) }}
       </div>
       {{ form_errors(form.contactname) }}
       {{ form_label(form.contactemail, "Email", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
       
       {{ form_errors(form.contactemail) }}
-      <div class="col-sm-5">
+      <div class="col-sm-3">
         {{ form_widget(form.contactemail, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>

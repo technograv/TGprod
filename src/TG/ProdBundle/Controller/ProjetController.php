@@ -344,12 +344,13 @@ class ProjetController extends Controller
 
 		$form = $this->get('form.factory')->create(new nextType, $commentaire);
 
-		$form->handleRequest($request);
-
-		if ($form->isValid())
+		if ($form->handleRequest($request)->isValid())
 		{
+			$projet->setEtape($form->get('etape')->getData());
+			$projet->setAssign($form->get('assign')->getData());
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($commentaire);
+			$em->persist($projet);
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Projet transformé avec succès.');

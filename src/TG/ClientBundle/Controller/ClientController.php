@@ -152,6 +152,7 @@ class ClientController extends Controller
 			$contact->setTel($form->get('contacttel')->getData());
 			$contact->setFax($form->get('contactfax')->getData());
 			$contact->setPortable($form->get('contactport')->getData());
+			$contact->setCivilite($form->get('contactcivilite')->getData());
 			$contact->setdefaut(true);
 			$contact->setClient($client);
 			$em->persist($contact);
