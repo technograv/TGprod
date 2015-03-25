@@ -38,7 +38,9 @@ class ProjetType extends AbstractType
                 'property' => 'name',
                 'multiple' => false))
             ->add('titre',      'text')
-            ->add('delai', 'genemu_jquerydate', array('widget' => 'single_text'))
+            ->add('delai', 'genemu_jquerydate', array(
+                'widget' => 'single_text',
+                'required' => false))
             ->add('contenu',    'textarea', array(
                 'attr' =>array('class' => 'ckeditor')))
             ->add('client', 'entity', array(
