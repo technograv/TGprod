@@ -82,22 +82,38 @@
       </div>
     </div>
 
+<div class="well col-sm-8 align-right">
+    <p>
+      <strong>Adresse de la société :</strong></br>
+      {{ client.adresse }}</br>
+      {{ client.CP }} {{ client.ville }} ({{ client.pays }})
+    </p>
+    <p>
+      {% if client.siret != null %}<strong>N° de Siret :</strong> {{ client.siret }}</br>{% endif %}
+    </p>
+<hr/
+    {% if client.notes != null %}
+    <h3>Notes</h3>
+    <div class="ckeditor"><p>{{ client.notes|raw }}</p></div>
+    {% endif %}
+</div>    
 
-<div class="well col-sm-8">
+<div class="well col-sm-11">
   <div class="col-sm-5"><h4>Contacts pour ce client</h4></div> {% if is_granted("ROLE_ATELIER") %}
   <div class="col-sm-3">
   <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
       <i class="glyphicon glyphicon-plus"></i> Ajouter un contact au client</a>
-  </div>
   {% endif %}
-<div class="col-sm-8">
+  </div>
+
+<div class="col-sm-12">
 <div class="tabbable tabs-left">
   <ul class="nav nav-tabs" role="tablist">
     {% for contact in contactdefaut %}
-      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.civilite }} {{ contact.name }}</a></li>
+      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
     {% endfor %}
     {% for contact in contactduclient %}
-    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.civilite }} {{ contact.name }}</a></li>
+    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
     {% endfor %}
   </ul>
 
@@ -107,22 +123,22 @@
         Téléphone : {{ contact.tel }}<br/>
         Email : {{ contact.email }}<br/>
         Portable : {{ contact.portable }}<br/>
-        Fax : {{ contact.fax }}
+        Fax : {{ contact.fax }}<a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
       </div>
-
     {% endfor %}
       {% for contact in contactduclient %}
         <div role="tabpanel" class="tab-pane fade" id="{{ contact.id }}">
           Téléphone : {{ contact.tel }}<br/>
         Email : {{ contact.email }}<br/>
         Portable : {{ contact.portable }}<br/>
-        Fax : {{ contact.fax }}
+        Fax : {{ contact.fax }}<a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
         </div>
       {% endfor %}
   </div>
 </div>
 </div>
 </div>
+
      <!-- Modal Contact -->
     <div id="box-contact" class="modal fade" keyboard="true" backdrop="true">
       <div class="modal-dialog">
@@ -204,24 +220,6 @@
         </div>
       </div>
     </div>
-
-  <div class="well col-sm-6">
-    <p>
-      <strong>Adresse de la société :</strong></br>
-      {{ client.adresse }}</br>
-      {{ client.CP }} {{ client.ville }} ({{ client.pays }})
-    </p>
-    <p>
-      {% if client.siret != null %}<strong>N° de Siret :</strong> {{ client.siret }}</br>{% endif %}
-    </p>
-  </div>    
-
-<div class="col-sm-12">
-    {% if client.notes != null %}
-    <h3>Notes</h3>
-    <div class="ckeditor"><p>{{ client.notes|raw }}</p></div>
-    {% endif %}
-</div>
 </div>  
 
 {% if not client.projets.empty %}

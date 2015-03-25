@@ -21,6 +21,7 @@ class ClientEditType extends AbstractType
 			->remove('contactport')
 			->remove('contactfax')
 			->remove('contactemail')
+			->remove('contactcivilite')
 		;
 	}
 	

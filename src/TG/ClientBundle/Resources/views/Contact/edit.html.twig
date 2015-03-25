@@ -1,0 +1,94 @@
+{% extends "TGClientBundle::layout.html.twig" %}
+
+{% block title %}
+  Modifier un client - {{ parent() }}
+{% endblock %}
+
+{% block tgclient_body %}
+
+<h2>Modifier un client</h2>
+
+<div class="well">
+  {% if is_granted("ROLE_ATELIER") %}
+            {{ form_start(formcontact, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(formcontact) }}
+
+            <div class="form-group">
+              <div class="required">
+              {{ form_label(formcontact.civilite, "Civilité", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            </div>
+              {{ form_errors(formcontact.civilite) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.civilite, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group required">
+              {{ form_label(formcontact.name, "Nom du contact", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.name) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.name, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group required">
+              {{ form_label(formcontact.tel, "Téléphone", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.tel) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.tel, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.portable, "Portable", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.portable) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.portable, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.email, "Email", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.email) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.email, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              {{ form_label(formcontact.fax, "Fax", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+              {{ form_errors(formcontact.fax) }}
+              <div class="col-sm-7">
+                {{ form_widget(formcontact.fax, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+
+            <div class="form-group grouped">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-1">
+              {{ form_widget(formcontact.defaut, {'attr': {'class': 'checkbox'}}) }}
+              </div>
+              <div class="col-sm-5">
+                {{ form_label(formcontact.defaut, "Définir comme contact par défaut", {'label_attr': {'class': 'control-label'}}) }}
+              </div>
+              {{ form_errors(formcontact.defaut) }}
+            </div>
+            <div class="col-sm-8"></div>
+            {{ form_widget(formcontact.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+            {{ form_rest(formcontact) }}
+            {{ form_end(formcontact) }}
+ </div>
+
+{% else %}
+<h4>Vous n'avez pas les droits nécessaire pour modifier un contact.</h4>
+{% endif %}
+
+  <p>
+    <a href="{{ path('tg_client_view', {'id': contact.client.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au client
+    </a>
+  </p> 
+
+{% endblock %}

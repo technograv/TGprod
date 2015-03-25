@@ -5,6 +5,7 @@
 namespace TG\ClientBundle\Controller;
 
 use TG\ClientBundle\Entity\Client;
+use TG\ClientBundle\Form\ContactType;
 use TG\ClientBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,5 +49,40 @@ class ContactController extends Controller
     }
   }
   return new Response('Erreur');
-}
+  }
+
+  public function editAction(contact $contact, request $request)
+  {
+    $formcontact = $this->get('form.factory')->create(new ContactType, $contact);
+    
+    $formcontact->handleRequest($request);
+
+    $client = $contact->getClient();
+
+    if ($formcontact->isValid())
+    {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($contact);
+      $em->flush();
+
+      if ($contact->getDefaut() === true)
+        {
+          $allcontact = $em->getRepository('TGClientBundle:Contact')->setDefauttrue($client, $contact);
+          foreach ($allcontact as $contact) {
+            $contact->setDefaut(false);
+            $em->persist($contact);
+            $em->flush();
+          }
+        }
+
+      $request->getSession()->getFlashBag()->add('info', 'Contact modifié avec succès.'); //Message de confirmation
+
+      return $this->redirect($this->generateUrl('tg_client_view', array('id' => $contact->getClient()->getId()))); //redirection vers vue du nouveau projet
+    }
+
+    return $this->render('TGClientBundle:Contact:edit.html.twig', array(
+      'formcontact' => $formcontact->createView(),
+      'contact' => $contact
+      ));
+  }
 }

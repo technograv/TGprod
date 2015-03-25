@@ -33,3 +33,9 @@ set_contacts:
     defaults: { _controller:TGClientBundle:Contact:setcontacts }
     requirements:
         _method: POST
+
+edit_contact:
+    path:   /contact/edit/{id}
+    defaults: { _controller: TGClientBundle:Contact:edit }
+    requirements:
+        id: ^[0-9]+$

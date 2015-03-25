@@ -24,7 +24,7 @@
       <th>Pour le client</th>
       <th>Assigné à</th>
       <th>Concernant l'étape</th>
-      <th>Dernière modification le</th>
+      <th>Livraison le</th>
       <th>Com</th>
     </tr>
   </thread>
@@ -39,7 +39,7 @@
       <td width="10%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name }}</td>
       <td width="14%">{{ projet.assign }}</td>
       <td width="14%">{{ projet.etape.name }}</td>
-      <td width="20%">{{ projet.maj|date('d/m/Y') }}</td>
+      <td width="20%">{% if projet.delai != null %}{{ projet.delai|date('d/m/Y') }}{% endif %}</td>
       <td>{{ projet.nbcommentaires }}</td>
     </tr>
     {% endfor %}
