@@ -13,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ProjetRepository extends EntityRepository
 {
-	public function getProjetsOuverts($etape, $page, $nbPerPage)
+	public function getProjetsOuverts($etape)
 	{
 		$qb = $this->createQueryBuilder('p');
 		
@@ -23,11 +23,9 @@ class ProjetRepository extends EntityRepository
 			->orderBy('p.maj', 'DESC')
 			->getQuery();
 
-		$qb
-			->setFirstResult(($page-1) * $nbPerPage)
-			->setMaxResults($nbPerPage);
-
-		return new Paginator($qb, true);
+		return $qb
+			->getQuery()
+			->getResult();
 	}
 
 	public function getProjetsFermes($etape, $page, $nbPerPage)

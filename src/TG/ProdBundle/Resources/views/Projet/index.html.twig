@@ -49,14 +49,9 @@
       Pas de commande en cours pour le moment.<br/><br/>
       Vous pouvez utiliser la page dédiée pour <a href="{{ path('tg_prod_add') }}">créer un nouveau projet</a> ou choisir le client dans <a href="{{path("tg_client_home") }}">la liste</a>. 
 {% endif %}
-    {% if nbPages > 1 %}
-    <ul class="pagination">
-      {% for p in range(1, nbPages) %}
-        <li{% if p == page %} class="active"{% endif %}>
-          <a href="{{ path('tg_prod_home', {'page': p}) }}">{{ p }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+
+<div class="navigation">
+    {{ knp_pagination_render(listProjets) }}
+</div>
 
 {% endblock %}

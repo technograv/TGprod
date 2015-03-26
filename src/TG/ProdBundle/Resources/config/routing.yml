@@ -1,10 +1,8 @@
 # src/TG/ProdBundle/Resources/config/routing.yml
 
 tg_prod_home:
-    path:      /{page}
-    defaults:  { _controller: TGProdBundle:Projet:index, page: 1 }
-    requirements:
-        page: ^[0-9]*$
+    path:      /
+    defaults:  { _controller: TGProdBundle:Projet:index }
 
 tg_prod_view:
     path:      /projet/{id}

@@ -31,37 +31,18 @@ class ProjetController extends Controller
 	/**
 	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
-	public function indexAction($page)
+	public function indexAction()
 	{
-		if ($page < 1)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			}
-
-			$nbPerPage = 20;
-
-			$listProjets = $this
+			$findprojets = $this
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts(26, $page, $nbPerPage);
+				->getProjetsOuverts(26);
 
-			$nbPages = ceil(count($listProjets)/$nbPerPage);
-
-			if ($nbPages < 1)
-			{
-				$nbPages = 1;
-			}
-
-			if ($page > $nbPages)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			}
+			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 3);
 
 			return $this->render('TGProdBundle:Projet:index.html.twig', array(
-				'listProjets' => $listProjets,
-				'nbPages' => $nbPages,
-				'page' => $page));
+				'listProjets' => $listProjets));
 	}
 
 	/**
