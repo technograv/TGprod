@@ -39,7 +39,7 @@ class ProjetController extends Controller
 				->getRepository('TGProdBundle:Projet')
 				->getProjetsOuverts(26);
 
-			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 3);
+			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
 
 			return $this->render('TGProdBundle:Projet:index.html.twig', array(
 				'listProjets' => $listProjets));

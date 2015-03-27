@@ -34,14 +34,8 @@
       Vous pouvez utiliser la page dédiée pour <a href="{{ path('tg_client_add') }}">créer un nouveau client</a>
 {% endif %}
 
-{% if nbPages > 1 %}
-  <ul class="pagination">
-    {% for p in range(1, nbPages) %}
-      <li{% if p == page %} class="active"{% endif %}>
-        <a href="{{ path('tg_client_home', {'page': p}) }}">{{ p }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
+<div class="navigation">
+    {{ knp_pagination_render(listClients) }}
+</div>
 
 {% endblock %}

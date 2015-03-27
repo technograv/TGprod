@@ -17,36 +17,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ClientController extends Controller
 {
-	public function indexAction($page)
+	public function indexAction()
 	{
-		if ($page < 1)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			}
-
-		$nbPerPage = 20;
-
-		$listClients = $this->getDoctrine()
+		$findClients = $this->getDoctrine()
 			->getManager()
 			->getRepository('TGClientBundle:Client')
-			->getClients($page, $nbPerPage);
+			->findAll();
 
-		$nbPages = ceil(count($listClients)/$nbPerPage);
+		$listClients = $this->get('knp_paginator')->paginate($findClients, $this->get('request')->query->get('page', 1), 5);
 
-		if ($nbPages < 1)
-		{
-			$nbPages = 1;
-		}
-
-		if ($page > $nbPages)
-		{
-			throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-		}
 
 		return $this->render('TGClientBundle:Client:index.html.twig', array(
-			'listClients' => $listClients,
-			'nbPages' => $nbPages,
-			'page' => $page));
+			'listClients' => $listClients));
   	}
 
 

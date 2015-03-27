@@ -1,10 +1,8 @@
 # src/TG/ClientBundle/Resources/config/routing.yml
 
 tg_client_home:
-    path:      /{page}
-    defaults:  { _controller: TGClientBundle:Client:index, page: 1 }
-    requirements:
-        page: ^[0-9]*$
+    path:      /
+    defaults:  { _controller: TGClientBundle:Client:index }
 
 tg_client_view:
     path:      /client/{id}
