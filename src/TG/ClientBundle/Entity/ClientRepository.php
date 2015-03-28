@@ -13,18 +13,4 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ClientRepository extends EntityRepository
 {
-	public function getClients($page, $nbPerPage)
-	{
-		$qb = $this->createQueryBuilder('c');
-	
-		$qb
-			->orderBy('c.maj', 'DESC')
-			->getQuery();
-
-		$qb
-			->setFirstResult(($page-1) * $nbPerPage)
-			->setMaxResults($nbPerPage);
-
-		return new Paginator($qb, true);
-	}
 }

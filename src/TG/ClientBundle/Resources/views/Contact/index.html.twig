@@ -1,0 +1,44 @@
+{% extends "TGClientBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block tgclient_body %}
+
+  <h2>Liste des Contacts</h2>
+
+{% if listContacts is not empty %}
+  <table class="table table-hover table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Nom du contact</th>
+        <th>Téléphone</th>
+        <th>Email</th>
+        <th>Fax</th>
+        <th>Portable</th>
+        <th>Attaché au client</th>
+      </tr>
+    </thead>
+    <tbody align="center">
+      {% for contact in listContacts %}
+      <tr>
+        <td><strong>{{ contact.name }}</strong></td>
+        <td>{{ contact.tel }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.fax }}</td>
+        <td>{{ contact.portable }}</td>
+        <td><a href="{{ path('tg_client_view', {'id': contact.client.id}) }}">{{ contact.client.name }}</a></td>
+      </tr>
+    {% endfor %}
+   </tbody>
+  </table>
+  {% else %}
+      Pas de contact créé pour le moment.<br/><br/>
+{% endif %}
+
+<div class="navigation">
+    {{ knp_pagination_render(listContacts) }}
+</div>
+
+{% endblock %}

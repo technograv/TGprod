@@ -24,7 +24,7 @@ class ClientController extends Controller
 			->getRepository('TGClientBundle:Client')
 			->findAll();
 
-		$listClients = $this->get('knp_paginator')->paginate($findClients, $this->get('request')->query->get('page', 1), 5);
+		$listClients = $this->get('knp_paginator')->paginate($findClients, $this->get('request')->query->get('page', 1), 20);
 
 
 		return $this->render('TGClientBundle:Client:index.html.twig', array(

@@ -63,4 +63,14 @@ class ContactRepository extends EntityRepository
 
 			return $qb->getQuery()->getResult();
 		}
+
+		public function contactIndex()
+		{
+			$qb = $this->createQueryBuilder('c');
+
+			$qb
+				->orderBy('c.name', 'ASC');
+
+			return $qb->getQuery()->getResult();
+		}
 }

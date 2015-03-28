@@ -37,3 +37,7 @@ edit_contact:
     defaults: { _controller: TGClientBundle:Contact:edit }
     requirements:
         id: ^[0-9]+$
+
+tg_contact_home:
+    path:   /contact
+    defaults: { _controller: TGClientBundle:Contact:index }

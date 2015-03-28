@@ -16,7 +16,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
-	/**
+    public function indexAction()
+    {
+        $findContacts = $this->getDoctrine()->getManager()->getRepository('TGClientBundle:Contact')->contactIndex();
+
+        $listContacts = $this->get('knp_paginator')->paginate($findContacts, $this->get('request')->query->get('page', 1), 20);
+
+        return $this->render('TGClientBundle:Contact:index.html.twig', array(
+            'listContacts' => $listContacts));
+    }
+
+  /**
   * Combobox.
   *
   * @Route("/set_contacts", name="set_contacts")
