@@ -12,9 +12,9 @@
   <table class="table table-hover table-bordered table-striped">
     <thead>
       <tr>
-        <th>Nom du client</th>
+        <th>{{ knp_pagination_sortable(listClients, 'Nom du client', 'c.name') }}</th>
         <th>Date de création</th>
-        <th>Dernière modification le</th>
+        <th>{{ knp_pagination_sortable(listClients, 'Dernière modification le', 'c.maj') }}</th>
         <th>Nombre de projet</th>
       </tr>
     </thead>

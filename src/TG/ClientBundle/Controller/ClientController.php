@@ -19,10 +19,18 @@ class ClientController extends Controller
 {
 	public function indexAction()
 	{
-		$findClients = $this->getDoctrine()
-			->getManager()
-			->getRepository('TGClientBundle:Client')
-			->findAll();
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'c.datemodif';
+            $direction = 'desc';
+        }
+
+		$findClients = $this->getDoctrine()->getManager()->getRepository('TGClientBundle:Client')->clientIndex($sort, $direction);
 
 		$listClients = $this->get('knp_paginator')->paginate($findClients, $this->get('request')->query->get('page', 1), 20);
 

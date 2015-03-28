@@ -13,4 +13,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ClientRepository extends EntityRepository
 {
+	public function clientIndex($sort, $direction)
+		{
+			$qb = $this->createQueryBuilder('c');
+
+			$qb
+				->orderBy($sort, $direction);
+
+			return $qb->getQuery()->getResult();
+		}
 }

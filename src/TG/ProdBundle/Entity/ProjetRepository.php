@@ -13,15 +13,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ProjetRepository extends EntityRepository
 {
-	public function getProjetsOuverts($etape)
+	public function getProjetsOuverts($etape, $sort, $direction)
 	{
 		$qb = $this->createQueryBuilder('p');
 		
 		$qb
 			->where('p.etape != :etape')
 			->setParameter('etape', $etape)
-			->orderBy('p.maj', 'DESC')
-			->getQuery();
+			->orderBy($sort, $direction);
 
 		return $qb
 			->getQuery()

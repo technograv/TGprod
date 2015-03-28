@@ -18,7 +18,18 @@ class ContactController extends Controller
 {
     public function indexAction()
     {
-        $findContacts = $this->getDoctrine()->getManager()->getRepository('TGClientBundle:Contact')->contactIndex();
+        if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'c.name';
+            $direction = 'asc';
+        }
+
+        $findContacts = $this->getDoctrine()->getManager()->getRepository('TGClientBundle:Contact')->contactIndex($sort, $direction);
 
         $listContacts = $this->get('knp_paginator')->paginate($findContacts, $this->get('request')->query->get('page', 1), 20);
 

@@ -22,9 +22,9 @@
       <th>Type</th>
       <th>Publié par</th>
       <th>Pour le client</th>
-      <th>Assigné à</th>
-      <th>Concernant l'étape</th>
-      <th>Livraison le</th>
+      <th>{{ knp_pagination_sortable(listProjets, 'Assigné à', 'p.assign') }}</th>
+      <th>{{ knp_pagination_sortable(listProjets, 'Etape', 'p.etape') }}</th>
+      <th>{{ knp_pagination_sortable(listProjets, 'Livraison le', 'p.delai') }}</th>
       <th>Com</th>
     </tr>
   </thread>

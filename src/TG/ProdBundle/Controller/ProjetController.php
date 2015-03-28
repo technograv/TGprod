@@ -33,11 +33,22 @@ class ProjetController extends Controller
 	*/
 	public function indexAction()
 	{
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'p.maj';
+            $direction = 'desc';
+        }
+
 			$findprojets = $this
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts(26);
+				->getProjetsOuverts(26, $sort, $direction);
 
 			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
 
