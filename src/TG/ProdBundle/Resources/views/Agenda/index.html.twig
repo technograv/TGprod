@@ -1,0 +1,39 @@
+<div class="col-sm-12">
+	
+	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ yesterday|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+			{% for projet in projetsyesterday %}
+				{{ projet.titre }}<br/>
+			{% endfor %}
+	</div>
+ 	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ today|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+			{% for projet in projetsdate %}
+				<a class="btn" style="background-color:{{ projet.assign.couleur }};" role="button" href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre }}<br/></a>
+			{% endfor %}
+	</div> 
+ 	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ tomorrow|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+			{% for projet in projetstomorrow %}
+				{{ projet.titre }}<br/>
+			{% endfor %}
+	</div>
+	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ d2|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+			{% for projet in projetsd2 %}
+				{{ projet.titre }}<br/>
+			{% endfor %}
+	</div>
+	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ d3|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+			{% for projet in projetsd3 %}
+				{{ projet.titre }}<br/>
+			{% endfor %}
+	</div>
+	<div class="col-sm-2 well" align="center" style="min-height:150px;">
+		<strong>{{ d4|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+		 	{% for projet in projetsd4 %}
+				{{ projet.titre }}<br/>
+			{% endfor %}
+	</div>
+</div>

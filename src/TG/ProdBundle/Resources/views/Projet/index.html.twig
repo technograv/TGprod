@@ -6,6 +6,8 @@
 
 {% block tgprod_body %}
 
+{{ render(controller("TGProdBundle:Agenda:index")) }}
+
 <div class="col-sm-10 no-padding"><h2>Liste des projets en cours</h2></div>
 {% if is_granted('ROLE_PAO') %}
 <div class="col-sm-2 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_archives') }}" class="btn btn-default"><i class="glyphicon glyphicon-menu-right"></i> Projets archivés</a></h4></div>

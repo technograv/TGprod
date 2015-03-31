@@ -32,10 +32,6 @@ tg_prod_next:
     requirements:
         id: ^[0-9]+$
 
-tg_prod_test:
-    path: /test
-    defaults: { _controller: TGProdBundle:Projet:test }
-
 tg_prod_fichier:
     path: /projet/fichier/{id}
     defaults: { _controller: TGProdBundle:Projet:fichier }

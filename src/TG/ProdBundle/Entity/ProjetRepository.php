@@ -89,4 +89,15 @@ class ProjetRepository extends EntityRepository
 			->getQuery()
 			->getResult();
 	}
+
+	public function getProjetAgenda($date)
+	{
+		$qb = $this->createQueryBuilder('p');
+
+		$qb
+			->where('p.delai = :date')
+			->setParameter('date', $date);
+
+		return $qb->getQuery()->getResult();
+	}
 }
