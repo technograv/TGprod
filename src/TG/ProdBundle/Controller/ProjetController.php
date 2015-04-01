@@ -33,6 +33,8 @@ class ProjetController extends Controller
 	*/
 	public function indexAction()
 	{
+		$etape = array(26, 24, 3, 4, 25); //26:terminé, 24:facturation, 3:devis, 4:AttenteValidationDevis, 25:AttentePaiement
+
 		$yesterday = new \Datetime;
 		$yesterday->setTime (0, 0, 0);
 		$yesterday->sub(new \DateInterval('P1D'));
@@ -43,7 +45,7 @@ class ProjetController extends Controller
 		$allDays = array();
 		$allDays[] = $yesterday->format('Y-m-d');
 		
-		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12);
+		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, 26);
 		
 		while ($yesterday <= $d12) {
 		 	$yesterday->add(new \DateInterval('P1D'));
@@ -65,12 +67,12 @@ class ProjetController extends Controller
             $sort = 'p.maj';
             $direction = 'desc';
         }
-
+			
 			$findprojets = $this
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts(26, $sort, $direction);
+				->getProjetsOuverts($etape, $sort, $direction);
 
 			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
 

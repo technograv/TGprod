@@ -18,7 +18,7 @@ class ProjetRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('p');
 		
 		$qb
-			->where('p.etape != :etape')
+			->where('p.etape NOT IN (:etape)')
 			->setParameter('etape', $etape)
 			->orderBy($sort, $direction);
 
@@ -32,7 +32,7 @@ class ProjetRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('p');
 		
 		$qb
-			->where('p.etape = :etape')
+			->where('p.etape IN (:etape)')
 			->setParameter('etape', $etape)
 			->orderBy($sort, $direction);
 
@@ -87,14 +87,16 @@ class ProjetRepository extends EntityRepository
 			->getResult();
 	}
 
-	public function getProjetAgenda($start, $end)
+	public function getProjetAgenda($start, $end, $etape)
 	{
 		$qb = $this->createQueryBuilder('p');
 
 		$qb
 			->where('p.delai BETWEEN :start and :end')
+			->andwhere('p.etape NOT IN (:etape)')
 			->setParameter('start', $start)
-			->setParameter('end', $end);
+			->setParameter('end', $end)
+			->setParameter('etape', $etape);
 
 		return $qb->getQuery()->getResult();
 	}
