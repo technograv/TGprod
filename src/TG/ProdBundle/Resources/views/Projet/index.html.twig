@@ -5,12 +5,15 @@
 {% endblock %}
 
 {% block tgprod_body %}
-
 {% if allDays is not empty %}
   {% for item in calendar %}
     <div class="col-sm-2 well" align="center" style="min-height:150px;">
       <strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
-           {#  {{ item.projet.titre }}<br/> #}
+          {% for projet in projetsallDays %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black; background-color: {{ projet.assign.couleur }};">{{ projet.titre|truncate(12, false, '...') }}</a><br/>
+            {% endif %}
+          {% endfor %}
     </div>
   {% endfor %}
 {% endif %}

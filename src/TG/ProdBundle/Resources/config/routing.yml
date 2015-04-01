@@ -11,29 +11,29 @@ tg_prod_view:
         id: ^[0-9]+$
 
 tg_prod_add:
-    path:      /projet/add
+    path:      /add
     defaults:  { _controller: TGProdBundle:Projet:add }
 
 tg_prod_edit:
-    path:      /projet/edit/{id}
+    path:      /edit/{id}
     defaults:  { _controller: TGProdBundle:Projet:edit }
     requirements:
         id: ^[0-9]+$
 
 tg_prod_delete:
-    path:      /projet/delete/{id}
+    path:      /delete/{id}
     defaults:  { _controller: TGProdBundle:Projet:delete }
     requirements:
         id: ^[0-9]+$
 
 tg_prod_next:
-    path: /projet/next/{id}
+    path: /next/{id}
     defaults: { _controller: TGProdBundle:Projet:next }
     requirements:
         id: ^[0-9]+$
 
 tg_prod_fichier:
-    path: /projet/fichier/{id}
+    path: /fichier/{id}
     defaults: { _controller: TGProdBundle:Projet:fichier }
     requirements:
        id: ^[0-9]+$

@@ -43,15 +43,11 @@ class ProjetController extends Controller
 		$allDays = array();
 		$allDays[] = $yesterday->format('Y-m-d');
 		
-		$em = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet');
-		$projetsallDays = array();
-		$projetsallDays[] = $em->getProjetAgenda($yesterday);
+		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12);
 		
 		while ($yesterday <= $d12) {
 		 	$yesterday->add(new \DateInterval('P1D'));
-		 	$projetsdate = $em->getProjetAgenda($yesterday);
 		 	$allDays[] = $yesterday->format('Y-m-d');
-		 	$projetsallDays[] = $projetsdate;
 		 }
 
 		 $pagename = 'calendar';
