@@ -45,7 +45,7 @@ class ProjetController extends Controller
 		$allDays = array();
 		$allDays[] = $yesterday->format('Y-m-d');
 		
-		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, 26);
+		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, $etape);
 		
 		while ($yesterday <= $d12) {
 		 	$yesterday->add(new \DateInterval('P1D'));
@@ -473,7 +473,7 @@ class ProjetController extends Controller
 	/**
 	* @Security("has_role('ROLE_ATELIER')")
 	*/
-	public function archivesAction($page)
+	public function archivesAction()
 	{
 		if($this->get('request')->query->has('sort'))
         {
@@ -496,6 +496,110 @@ class ProjetController extends Controller
 
 
 			return $this->render('TGProdBundle:Projet:archives.html.twig', array(
+				'listProjets' => $listProjets));
+	}
+
+	public function comptaAction()
+	{
+		$etape = array(24, 3); //24:facturation, 3:devis
+
+		$yesterday = new \Datetime;
+		$yesterday->setTime (0, 0, 0);
+		$yesterday->sub(new \DateInterval('P1D'));
+		$d12 = new \DateTime;
+		$d12->setTime (0, 0, 0);
+		$d12->add(new \DateInterval('P9D'));
+
+		$allDays = array();
+		$allDays[] = $yesterday->format('Y-m-d');
+		
+		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda2($yesterday, $d12, $etape);
+		
+		while ($yesterday <= $d12) {
+		 	$yesterday->add(new \DateInterval('P1D'));
+		 	$allDays[] = $yesterday->format('Y-m-d');
+		 }
+
+		 $pagename = 'calendar';
+		 $page1 = $this->get('request')->query->get($pagename, 1);
+
+		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 6, array('pageParameterName' => $pagename));
+
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'p.maj';
+            $direction = 'desc';
+        }
+			
+			$findprojets = $this
+				->getDoctrine()
+				->getManager()
+				->getRepository('TGProdBundle:Projet')
+				->getProjetsFermes($etape, $sort, $direction);
+
+			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
+
+			return $this->render('TGProdBundle:Projet:index.html.twig', array(
+				'calendar' => $calendar,
+   				'allDays' => $allDays,
+   				'projetsallDays' => $projetsallDays,
+				'listProjets' => $listProjets));
+	}
+
+	public function relancesAction()
+	{
+		$etape = array(4, 25); //4:AttenteValidationDevis, 25:AttentePaiement
+
+		$yesterday = new \Datetime;
+		$yesterday->setTime (0, 0, 0);
+		$yesterday->sub(new \DateInterval('P1D'));
+		$d12 = new \DateTime;
+		$d12->setTime (0, 0, 0);
+		$d12->add(new \DateInterval('P9D'));
+
+		$allDays = array();
+		$allDays[] = $yesterday->format('Y-m-d');
+		
+		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda2($yesterday, $d12, $etape);
+		
+		while ($yesterday <= $d12) {
+		 	$yesterday->add(new \DateInterval('P1D'));
+		 	$allDays[] = $yesterday->format('Y-m-d');
+		 }
+
+		 $pagename = 'calendar';
+		 $page1 = $this->get('request')->query->get($pagename, 1);
+
+		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 6, array('pageParameterName' => $pagename));
+
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'p.maj';
+            $direction = 'desc';
+        }
+			
+			$findprojets = $this
+				->getDoctrine()
+				->getManager()
+				->getRepository('TGProdBundle:Projet')
+				->getProjetsFermes($etape, $sort, $direction);
+
+			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
+
+			return $this->render('TGProdBundle:Projet:index.html.twig', array(
+				'calendar' => $calendar,
+   				'allDays' => $allDays,
+   				'projetsallDays' => $projetsallDays,
 				'listProjets' => $listProjets));
 	}
 }

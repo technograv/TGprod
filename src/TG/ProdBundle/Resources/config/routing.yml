@@ -40,4 +40,12 @@ tg_prod_fichier:
 
 tg_prod_archives:
     path: /archives/
-    defaults:   { _controller: TGProdBundle:Projet:archives, page: 1 }
+    defaults:   { _controller: TGProdBundle:Projet:archives }
+
+tg_prod_compta:
+    path: /compta/
+    defaults:   { _controller: TGProdBundle:Projet:compta }
+
+tg_prod_relances:
+    path: /relances/
+    defaults:   { _controller: TGProdBundle:Projet:relances }
