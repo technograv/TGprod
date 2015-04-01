@@ -33,6 +33,32 @@ class ProjetController extends Controller
 	*/
 	public function indexAction()
 	{
+		$yesterday = new \Datetime;
+		$yesterday->setTime (0, 0, 0);
+		$yesterday->sub(new \DateInterval('P1D'));
+		$d12 = new \DateTime;
+		$d12->setTime (0, 0, 0);
+		$d12->add(new \DateInterval('P9D'));
+
+		$allDays = array();
+		$allDays[] = $yesterday->format('Y-m-d');
+		
+		$em = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet');
+		$projetsallDays = array();
+		$projetsallDays[] = $em->getProjetAgenda($yesterday->format('Y-m-d'));
+		
+		while ($yesterday <= $d12) {
+		 	$yesterday->add(new \DateInterval('P1D'));
+		 	$projetsdate = $em->getProjetAgenda($yesterday->format('Y-m-d'));
+		 	$allDays[] = $yesterday->format('Y-m-d');
+		 	$projetsallDays[] = $projetsdate;
+		 }
+
+		 $pagename = 'calendar';
+		 $page1 = $this->get('request')->query->get($pagename, 1);
+
+		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 6, array('pageParameterName' => $pagename));
+
 		if($this->get('request')->query->has('sort'))
         {
             $sort = $this->get('request')->query->get('sort');
@@ -53,6 +79,9 @@ class ProjetController extends Controller
 			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
 
 			return $this->render('TGProdBundle:Projet:index.html.twig', array(
+				'calendar' => $calendar,
+   				'allDays' => $allDays,
+   				'projetsallDays' => $projetsallDays,
 				'listProjets' => $listProjets));
 	}
 

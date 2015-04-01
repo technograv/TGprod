@@ -6,7 +6,17 @@
 
 {% block tgprod_body %}
 
-{{ render(controller("TGProdBundle:Agenda:index")) }}
+{% if allDays is not empty %}
+  {% for item in calendar %}
+    <div class="col-sm-2 well" align="center" style="min-height:150px;">
+      <strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+      Projets<br/>
+    </div>
+  {% endfor %}
+{% endif %}
+<div class="navigation">
+    {{ knp_pagination_render(calendar) }}
+</div>
 
 <div class="col-sm-10 no-padding"><h2>Liste des projets en cours</h2></div>
 {% if is_granted('ROLE_PAO') %}
