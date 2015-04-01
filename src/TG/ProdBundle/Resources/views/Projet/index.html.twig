@@ -10,7 +10,7 @@
   {% for item in calendar %}
     <div class="col-sm-2 well" align="center" style="min-height:150px;">
       <strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
-      Projets<br/>
+           {#  {{ item.projet.titre }}<br/> #}
     </div>
   {% endfor %}
 {% endif %}

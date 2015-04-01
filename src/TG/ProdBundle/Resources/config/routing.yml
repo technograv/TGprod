@@ -39,7 +39,5 @@ tg_prod_fichier:
        id: ^[0-9]+$
 
 tg_prod_archives:
-    path: /projet/archives/{page}
+    path: /archives/
     defaults:   { _controller: TGProdBundle:Projet:archives, page: 1 }
-    requirements:
-        page: ^[0-9]*$

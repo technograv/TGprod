@@ -27,21 +27,18 @@ class ProjetRepository extends EntityRepository
 			->getResult();
 	}
 
-	public function getProjetsFermes($etape, $page, $nbPerPage)
+	public function getProjetsFermes($etape, $sort, $direction)
 	{
 		$qb = $this->createQueryBuilder('p');
 		
 		$qb
 			->where('p.etape = :etape')
 			->setParameter('etape', $etape)
-			->orderBy('p.maj', 'DESC')
-			->getQuery();
+			->orderBy($sort, $direction);
 
-		$qb
-			->setFirstResult(($page-1) * $nbPerPage)
-			->setMaxResults($nbPerPage);
-
-		return new Paginator($qb, true);
+		return $qb
+			->getQuery()
+			->getResult();
 	}
 
 	public function getProjetParClient($client)

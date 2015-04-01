@@ -45,11 +45,11 @@ class ProjetController extends Controller
 		
 		$em = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet');
 		$projetsallDays = array();
-		$projetsallDays[] = $em->getProjetAgenda($yesterday->format('Y-m-d'));
+		$projetsallDays[] = $em->getProjetAgenda($yesterday);
 		
 		while ($yesterday <= $d12) {
 		 	$yesterday->add(new \DateInterval('P1D'));
-		 	$projetsdate = $em->getProjetAgenda($yesterday->format('Y-m-d'));
+		 	$projetsdate = $em->getProjetAgenda($yesterday);
 		 	$allDays[] = $yesterday->format('Y-m-d');
 		 	$projetsallDays[] = $projetsdate;
 		 }
@@ -477,34 +477,27 @@ class ProjetController extends Controller
 	*/
 	public function archivesAction($page)
 	{
-		if ($page < 1)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			}
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'p.maj';
+            $direction = 'desc';
+        }
 
-			$nbPerPage = 50;
-
-			$listProjets = $this
+			$findprojets = $this
 				->getDoctrine()
 				->getManager()
 				->getRepository('TGProdBundle:Projet')
-				->getProjetsFermes(26, $page, $nbPerPage);
+				->getProjetsFermes(26, $sort, $direction);
 
-			$nbPages = ceil(count($listProjets)/$nbPerPage);
+			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
 
-			if ($nbPages < 1)
-			{
-				$nbPages = 1;
-			}
-
-			if ($page > $nbPages)
-			{
-				throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-			}
 
 			return $this->render('TGProdBundle:Projet:archives.html.twig', array(
-				'listProjets' => $listProjets,
-				'nbPages' => $nbPages,
-				'page' => $page));
+				'listProjets' => $listProjets));
 	}
 }

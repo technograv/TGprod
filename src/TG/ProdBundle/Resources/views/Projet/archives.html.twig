@@ -19,7 +19,7 @@
       <th>Type</th>
       <th>Publié par</th>
       <th>Pour le client</th>
-      <th>Dernière modification le</th>
+      <th>{{ knp_pagination_sortable(listProjets, 'Livraison le', 'p.delai') }}</th>
       <th>Com</th>
     </tr>
   </thread>
@@ -32,7 +32,7 @@
       <td width="14%">{{ projet.type.name }}</td>
       <td width="14%">{{ projet.user }}</td>
       <td width="10%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name }}</td>
-      <td width="20%">{{ projet.maj|date('d/m/Y') }}</td>
+      <td width="20%">{% if projet.delai != null %}{{ projet.delai|date('d/m/Y') }}{% endif %}</td>
       <td>{{ projet.nbcommentaires }}</td>
     </tr>
     {% endfor %}
@@ -42,15 +42,9 @@
       Pas de projet archivé pour le moment.<br/><br/> 
 {% endif %}
 
-    {% if nbPages > 1 %}
-    <ul class="pagination">
-      {% for p in range(1, nbPages) %}
-        <li{% if p == page %} class="active"{% endif %}>
-          <a href="{{ path('tg_prod_home', {'page': p}) }}">{{ p }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+<div class="navigation">
+    {{ knp_pagination_render(listProjets) }}
+</div>
 </div>
 
 {% endblock %}
