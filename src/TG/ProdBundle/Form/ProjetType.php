@@ -26,18 +26,25 @@ class ProjetType extends AbstractType
                 'label' => 'Assigner à',
                 'class' => 'TGUserBundle:User',
                 'property' => 'username',
-                'multiple' => false))
+                'multiple' => false,
+                'empty_value' => 'Liste des utilisateurs'))
             ->add('type',     'entity', array(
                 'label' => 'Nature du projet',
                 'class' => 'TGProdBundle:Type',
                 'property' => 'name',
-                'multiple' => false))
+                'multiple' => false,
+                'empty_value' => 'Liste des types de projet'))
             ->add('etape',     'entity', array(
                 'label' => 'Etape en cours',
                 'class' => 'TGProdBundle:Etape',
                 'property' => 'name',
-                'multiple' => false))
+                'multiple' => false,
+                'empty_value' => 'Liste des étapes'))
             ->add('titre',      'text')
+            ->add('livraison', 'choice', array(
+                    'choices' => array('Retrait au magasin', 'Envoi postal', 'Déplacement chez le client'),
+                    'multiple' => false,
+                    'empty_value' => 'Liste des types de livraison'))
             ->add('delai', 'genemu_jquerydate', array(
                 'widget' => 'single_text',
                 'required' => false))
@@ -52,7 +59,8 @@ class ProjetType extends AbstractType
                     return $er->createQueryBuilder('c')
                     ->orderBy('c.name', 'ASC');
                 },
-                'multiple' => false))
+                'multiple' => false,
+                'empty_value' => 'Liste des clients'))
             ->add('docfile',   'file', array(
                 'mapped' => false,
                 'required' => false))                     
@@ -65,6 +73,7 @@ class ProjetType extends AbstractType
             $form->add('contact', 'entity', array(
                 'class' => 'TGClientBundle:Contact',
                 'choices' => $contacts,
+                'empty_value' => 'Liste des contacts',
                 ));
         };
 
@@ -73,23 +82,7 @@ class ProjetType extends AbstractType
             {
                // $form = $event->getForm();
                 $data = $event->getData();
-                $formModifier($event->getForm(), $data->getClient());
-
-                // $client = $data->getClient();
-                // if ($client === null)
-                // {
-                //     return;
-                // }
-                // else
-                // {
-                //     $contacts = $client->getContacts();
-                //     $form->add('contact', 'entity', array(
-                //         'choices' => $contacts,
-                //         'class' => 'TGClientBundle:Contact',
-                //         'property' => 'name',
-                //         'multiple' => false));
-                // }
-                    
+                $formModifier($event->getForm(), $data->getClient());                    
             });
 
         $builder->get('client')->addEventListener(FormEvents::POST_SUBMIT,

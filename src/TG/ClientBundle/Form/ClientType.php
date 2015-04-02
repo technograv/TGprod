@@ -31,30 +31,9 @@ class ClientType extends AbstractType
 		->add('notes',		'textarea', array(
 			'required' => false,
 			'attr' =>array('class' => 'ckeditor')))
-		->add('contactcivilite', 'choice', array(
-                'choices' => array(
-                    'Mme' => 'Mme',
-                    'M.' => 'M.'),
-                'expanded' => true,
-                'mapped' => false,
-                'empty_data' => 'M.'))
-		->add('contactname',	'text', array(
-			'mapped' => false,
-			'required' => false))
-		->add('contacttel',	'text', array(
-			'mapped' => false,
-			'required' => true))
-		->add('contactport',	'text', array(
-			'mapped' => false,
-			'required' => false))
-		->add('contactemail',		'email', array(
-			'required' => false,
-			'mapped' => false,
-			'required' => false))
-		->add('contactfax',		'text', array(
-			'required' => false,
-			'mapped' => false,
-			'required' => false))
+		->add('contacts', 'collection', array(
+				'label' => 'Contact',
+				'type' => new ContactDefaultType()))
 		->add('save',		'submit')
 		;
 	}

@@ -19,7 +19,9 @@ class ContactType extends AbstractType
                 'choices' => array(
                     'Mme' => 'Mme',
                     'M.' => 'M.'),
-                'expanded' => true
+                'expanded' => true,
+                'required' => false,
+                'empty_value' => false
                 ))
             ->add('name', 'text')
             ->add('tel', 'text')

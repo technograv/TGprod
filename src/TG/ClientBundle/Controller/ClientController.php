@@ -113,6 +113,9 @@ class ClientController extends Controller
 	public function addAction(request $request)
 	{
 		$client = new Client();
+		$contact = new Contact();
+		$contact->setDefaut(true);
+		$client->addContact($contact);
 
 		if ($this->getUser())
 		{
@@ -125,11 +128,10 @@ class ClientController extends Controller
 
 		if ($form->isValid())
 		{
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($client);
-
-			$contact = new Contact;
-			$contactname = $form->get('contactname')->getData();
+			$data = $form->get('contacts')->getData();
+			foreach ($data as $contact) {
+				$contactname = $contact->getName();
+			}
 			if ($contactname !== null)
 			{
 				$contact->setName($contactname);
@@ -138,14 +140,9 @@ class ClientController extends Controller
 			{
 				$contact->setName($form->get('name')->getData());
 			}
-			$contact->setEmail($form->get('contactemail')->getData());
-			$contact->setTel($form->get('contacttel')->getData());
-			$contact->setFax($form->get('contactfax')->getData());
-			$contact->setPortable($form->get('contactport')->getData());
-			$contact->setCivilite($form->get('contactcivilite')->getData());
-			$contact->setdefaut(true);
-			$contact->setClient($client);
-			$em->persist($contact);
+
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($client);
 
 			$logofile = $form->get('logofile')->getData();
 			if ($logofile !== null)

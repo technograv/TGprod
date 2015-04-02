@@ -24,7 +24,7 @@ class Client
     private $projets;
 
     /**
-     * @ORM\oneToMany(targetEntity="TG\ClientBundle\Entity\Contact", mappedBy="client", cascade={"remove"})
+     * @ORM\oneToMany(targetEntity="TG\ClientBundle\Entity\Contact", mappedBy="client", cascade={"persist", "remove"})
      */
     private $contacts;
 
@@ -620,7 +620,7 @@ class Client
     {
         $this->contacts[] = $contacts;
 
-        $contact->setClient($this);
+        $contacts->setClient($this);
 
         return $this;
     }

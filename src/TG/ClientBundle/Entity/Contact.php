@@ -35,7 +35,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="civilite", type="string", length=30)
+     * @ORM\Column(name="civilite", type="string", length=30, nullable=true)
      * @Assert\Length(max=4)
      */
     private $civilite;
@@ -195,7 +195,7 @@ class Contact
      * Set email
      *
      * @param string $email
-     * @return Client
+     * @return Contact
      */
     public function setEmail($email)
     {
@@ -218,7 +218,7 @@ class Contact
      * Set fax
      *
      * @param string $fax
-     * @return Client
+     * @return Contact
      */
     public function setFax($fax)
     {

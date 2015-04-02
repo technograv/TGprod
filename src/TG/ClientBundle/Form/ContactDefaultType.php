@@ -1,11 +1,11 @@
 <?php
 
-namespace TG\ProdBundle\Form;
+namespace TG\ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProjetEditType extends AbstractType
+class ContactDefaultType extends AbstractType
 {
 	/**
 	 * @param FormBuilderInterface $builder
@@ -14,15 +14,17 @@ class ProjetEditType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->remove('docfile')
-			->remove('client')
-			->remove('contact')
+			->remove('defaut')
+			->remove('name')
+			->remove('save')
+			->add('name', 'text', array(
+				'required' => false))
 		;
 	}
 	
   	public function getParent()
   	{
-    	return new ProjetType();
+    	return new ContactType();
   	}
 
 	/**
@@ -30,6 +32,6 @@ class ProjetEditType extends AbstractType
 	 */
 	public function getName()
 	{
-		return 'tg_prodbundle_projet_edit';
+		return 'tg_clientbundle_contact_default';
 	}
 }

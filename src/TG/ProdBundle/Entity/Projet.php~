@@ -30,7 +30,6 @@ class Projet
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ClientBundle\Entity\Contact")
-     * @ORM\JoinColumn(nullable=false)
      */
      private $contact;
 
@@ -118,11 +117,19 @@ class Projet
     private $dateadd;
     
      /**
-     * @var \Time
+     * @var \DateTime
      *
-     * @ORM\Column(name="delai", type="time", nullable=true)
+     * @ORM\Column(name="delai", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $delai;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="livraison", type="string", length=255)
+     */
+    private $livraison;
 
     /**
      * @var \DateTime

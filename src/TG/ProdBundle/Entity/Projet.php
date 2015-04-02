@@ -124,6 +124,13 @@ class Projet
      */
     private $delai;
 
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="livraison", type="string", length=255)
+     */
+    private $livraison;
+
     /**
      * @var \DateTime
      *
@@ -797,5 +804,28 @@ class Projet
     public function getContact()
     {
         return $this->contact;
+    }
+
+    /**
+     * Set livraison
+     *
+     * @param string $livraison
+     * @return Projet
+     */
+    public function setLivraison($livraison)
+    {
+        $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * Get livraison
+     *
+     * @return string 
+     */
+    public function getLivraison()
+    {
+        return $this->livraison;
     }
 }

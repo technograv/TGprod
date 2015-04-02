@@ -83,47 +83,47 @@
 
       <h4>Contact par défaut</h4>
       <div class="form-group">
-          {{ form_label(form.contactcivilite, "Civilité", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+          {{ form_label(form.contacts.0.civilite, "Civilité", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       
-      {{ form_errors(form.contactcivilite) }}
+      {{ form_errors(form.contacts.0.civilite) }}
       <div class="col-sm-2">
-        {{ form_widget(form.contactcivilite, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.civilite, {'attr': {'class': 'checkbox-inline' }}) }}
       </div>
 
-          {{ form_label(form.contactname, "Nom", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+         {{ form_label(form.contacts.0.name, "Nom", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
       <div class="col-sm-3">
-        {{ form_widget(form.contactname, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.name, {'attr': {'class': 'form-control'}}) }}
       </div>
-      {{ form_errors(form.contactname) }}
-      {{ form_label(form.contactemail, "Email", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      {{ form_errors(form.contacts.0.name) }}
+      {{ form_label(form.contacts.0.email, "Email", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
       
-      {{ form_errors(form.contactemail) }}
+      {{ form_errors(form.contacts.0.email) }}
       <div class="col-sm-3">
-        {{ form_widget(form.contactemail, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.email, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
     <div class="form-group">
       <div class="required">
-      {{ form_label(form.contacttel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
+      {{ form_label(form.contacts.0.tel, "Téléphone", {'label_attr': {'class': 'col-sm-2 control-label required'}}) }}
 
-      {{ form_errors(form.contacttel) }}
+      {{ form_errors(form.contacts.0.tel) }}
       <div class="col-sm-3">
-        {{ form_widget(form.contacttel, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.tel, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
     
-          {{ form_label(form.contactport, "Portable", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
+          {{ form_label(form.contacts.0.portable, "Portable", {'label_attr': {'class': 'col-sm-1 control-label required'}}) }}
       <div class="col-sm-3">
-        {{ form_widget(form.contactport, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.portable, {'attr': {'class': 'form-control'}}) }}
       </div>
-      {{ form_errors(form.contactport) }}
+      {{ form_errors(form.contacts.0.portable) }}
 
-      {{ form_label(form.contactfax, "Fax", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
+      {{ form_label(form.contacts.0.fax, "Fax", {'label_attr': {'class': 'col-sm-1 control-label'}}) }}
       
-      {{ form_errors(form.contactfax) }}
+      {{ form_errors(form.contacts.0.fax) }}
       <div class="col-sm-2">
-        {{ form_widget(form.contactfax, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.contacts.0.fax, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
     <hr/>
