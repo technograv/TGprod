@@ -25,6 +25,7 @@ class Client
 
     /**
      * @ORM\oneToMany(targetEntity="TG\ClientBundle\Entity\Contact", mappedBy="client", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $contacts;
 

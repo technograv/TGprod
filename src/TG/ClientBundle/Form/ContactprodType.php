@@ -24,7 +24,8 @@ class ContactprodType extends AbstractType
                     return $er->createQueryBuilder('c')
                     ->orderBy('c.name', 'ASC');
                 },
-                'multiple' => false))
+                'multiple' => false,
+                'empty_value' => 'Liste des clients'))
 		;
 	}
 	

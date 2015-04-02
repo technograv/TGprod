@@ -11,7 +11,7 @@
       <strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
           {% for projet in projetsallDays %}
             {% if projet.delai|date('Y-m-d') == item %}
-              <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black; background-color: {{ projet.assign.couleur }};">{{ projet.titre|truncate(12, false, '...') }}</a><br/>
+              <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black; background-color: {{ projet.assign.couleur }};">{{ projet.titre|truncate(15, false, '...')|capitalize }}</a><br/>
             {% endif %}
           {% endfor %}
     </div>
@@ -48,10 +48,10 @@
     <tr bgcolor={{ projet.assign.couleur }}>
       <td>{{ projet.id }}</td>
       <td width="19%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-          {{ projet.titre }}</td>
+          {{ projet.titre|capitalize }}</td>
       <td width="14%">{{ projet.type.name }}</td>
       <td width="14%">{{ projet.user }}</td>
-      <td width="10%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name }}</td>
+      <td width="10%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name|capitalize }}</td>
       <td width="14%">{{ projet.assign }}</td>
       <td width="14%">{{ projet.etape.name }}</td>
       <td width="20%">{% if projet.delai != null %}{{ projet.delai|date('d/m/Y') }}{% endif %}</td>

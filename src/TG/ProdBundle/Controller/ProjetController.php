@@ -14,6 +14,7 @@ use TG\ProdBundle\Entity\Projet;
 use TG\ComptaBundle\Entity\Devis;
 use TG\ClientBundle\Entity\Contact;
 use TG\ClientBundle\Form\ContactprodType;
+use TG\ClientBundle\Form\ContactType;
 use TG\ComptaBundle\Form\DevisaddType;
 use TG\ComptaBundle\Entity\Facture;
 use TG\ComptaBundle\Form\FactureaddType;
@@ -324,6 +325,21 @@ class ProjetController extends Controller
 
 	public function editAction(projet $projet, request $request)
 	{
+		$em = $this->getDoctrine()->getManager();
+		$contact = new Contact();
+		$contact->setClient($projet->getClient());
+		$formcontact = $this->createForm(new ContactType(), $contact);
+
+		if ($formcontact->handleRequest($request)->isValid())
+		{
+			$contact->setClient($projet->getClient());
+			$em->persist($contact);
+			$em->flush();
+
+			$request->getSession()->getFlashBag()->add('info', 'Contact ajouté avec succès');
+			return $this->redirect($this->generateUrl('tg_prod_edit', array('id' => $projet->getId())));
+		}
+
 		$form = $this->createForm(new ProjetEditType(), $projet);
 
 		if ($this->getUser())
@@ -333,7 +349,6 @@ class ProjetController extends Controller
 
 		if ($form->handleRequest($request)->isValid())
 		{
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($projet);
 			$em->flush();
 
@@ -344,7 +359,8 @@ class ProjetController extends Controller
 
 		return $this->render('TGProdBundle:Projet:edit.html.twig', array(
 			'form' => $form->createView(),
-			'projet' => $projet
+			'projet' => $projet,
+			'formcontact' => $formcontact->createView(),
 			));
 	}
 
