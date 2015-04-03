@@ -61,9 +61,10 @@ class ProjetType extends AbstractType
                 },
                 'multiple' => false,
                 'empty_value' => 'Liste des clients'))
-            ->add('docfile',   'file', array(
-                'mapped' => false,
-                'required' => false))                     
+            ->add('documentjoints', 'collection', array(
+                'label' => 'Pièce jointe',
+                'type' => new DocumentjointProdType(),
+                'required' => false))
             ->add('save',       'submit')
         ;
 

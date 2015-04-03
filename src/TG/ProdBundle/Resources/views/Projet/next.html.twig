@@ -9,7 +9,7 @@
   <div class="col-sm-8 no-padding"><h2>Valider une étape</h2></div>
 
 <div class="well col-sm-12">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal required'}}) }}
+{{ form_start(form, {'attr': {'class': 'form-horizontal required'}}) }}
         {{ form_errors(form) }}
            <div class="form-group">
             {{ form_label(form.contenu, "Commentaire", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
@@ -19,24 +19,23 @@
           </div>
           </div>
            <div class="form-group">
-            {{ form_label(form.assign, "Assigner à", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
-            {{ form_errors(form.assign) }}
+            {{ form_label(form.projet.assign, "Assigner à", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(form.projet.assign) }}
           <div class="col-sm-4">
-            {{ form_widget(form.assign, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.projet.assign, {'attr': {'class': 'form-control'}}) }}
           </div>
           </div>
           <div class="form-group">
-            {{ form_label(form.etape, "Nouvelle étape", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
-            {{ form_errors(form.etape) }}
+            {{ form_label(form.projet.etape, "Nouvelle étape", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_errors(form.projet.etape) }}
           <div class="col-sm-4">
-            {{ form_widget(form.etape, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.projet.etape, {'attr': {'class': 'form-control'}}) }}
           </div>
         </div>
           <div class="col-sm-11"></div>
             {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }} 
             {{ form_rest(form) }}
             {{ form_end(form) }}
-          
 
     </div>
 

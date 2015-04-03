@@ -58,7 +58,7 @@ class Projet
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Commentaire", mappedBy="projet", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Commentaire", mappedBy="projet", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $commentaires;

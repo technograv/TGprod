@@ -262,6 +262,8 @@ class ProjetController extends Controller
 	{
 
 		$projet = new Projet();
+		$doc = new Documentjoint();
+		$projet->addDocumentjoint($doc);
 
 		$em = $this->getDoctrine()->getManager();
 		$request = $this->get('request');
@@ -288,20 +290,20 @@ class ProjetController extends Controller
 
 		if ($form->handleRequest($request)->isValid())
 		{
-			$em->persist($projet);
-
-			$docfile = $form->get('docfile')->getData();
-
+			$datadoc = $form->get('documentjoints')->getData();
+			foreach ($datadoc as $doc)
+			{
+				$docfile = $doc->getFile();
+			}
 			if ($docfile !== null)
 			{
-				$doc = new Documentjoint;
-				$doc->setProjet($projet);
-				$doc->setFile($docfile);
-				$doc->setExtention($docfile->guessExtension());
-				$doc->setAlt($docfile->getClientOriginalName());
-				$em->persist($doc);
+			}
+			else
+			{
+				$projet->removeDocumentjoint($doc);
 			}
 
+			$em->persist($projet);
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Projet créé avec succès.'); //Message de confirmation
@@ -370,22 +372,21 @@ class ProjetController extends Controller
 	public function nextAction(projet $projet, request $request)
 	{
 		$commentaire = new Commentaire();
-		$commentaire->setProjet($projet);
+		$projet->addCommentaire($commentaire);
 
 		if ($this->getUser())
 		{
 			$commentaire->setUser($this->getUser());
+			$commentaire->setProjet($projet);
 		}
 
-		$form = $this->get('form.factory')->create(new nextType, $commentaire);
+		$form = $this->get('form.factory')->create(new NextType, $commentaire);
+		$form->remove('projet.contact');
 
 		if ($form->handleRequest($request)->isValid())
 		{
-			$projet->setEtape($form->get('etape')->getData());
-			$projet->setAssign($form->get('assign')->getData());
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($commentaire);
-			$em->persist($projet);
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Projet transformé avec succès.');

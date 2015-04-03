@@ -5,7 +5,7 @@ namespace TG\ProdBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NextType extends AbstractType
+class CommentaireProdType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,7 +14,7 @@ class NextType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('projet', new ProjetNextType())
+            ->remove('save')
         ;
     }
     
@@ -28,6 +28,6 @@ class NextType extends AbstractType
      */
     public function getName()
     {
-        return 'tg_prodbundle_projet_next';
+        return 'tg_prodbundle_commentaire_prod';
     }
 }
