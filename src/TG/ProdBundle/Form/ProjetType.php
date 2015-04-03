@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use TG\ClientBundle\Entity\ClientRepository;
 use TG\ClientBundle\Entity\Client;
-use TG\ClientBundle\Entity\ContactRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -81,7 +80,6 @@ class ProjetType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
             function(FormEvent $event) use ($formModifier)
             {
-               // $form = $event->getForm();
                 $data = $event->getData();
                 $formModifier($event->getForm(), $data->getClient());                    
             });

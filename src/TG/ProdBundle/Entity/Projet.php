@@ -359,7 +359,7 @@ class Projet
     /**
     * @ORM\PreUpdate
     */
-    public function LinkProjet()
+    public function linkProjet()
     {
         $linkprojet = $this->getProjetparent();
 

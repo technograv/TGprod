@@ -40,7 +40,13 @@
 
         <div id="menu" class="col-md-2">
 {% if is_granted('ROLE_STAGIAIRE') %}
-          <h3>Les Projets</h3>
+  <h3>La boîte à outils</h3>
+  <ul class="nav nav-pills nav-stacked">
+    <li><a href="{{ path('tg_prod_home') }}">Liste des projets</a></li>
+    <li><a href="{{ path('tg_client_home') }}">Liste des clients</a></li>
+    <li><a href="{{ path('tg_contact_home') }}">Liste des contacts</a></li>
+  </ul>
+        {#   <h3>Les Projets</h3>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{{ path('tg_prod_home')}}">Accueil</a></li>
           </ul>
@@ -55,8 +61,8 @@
           </ul>
 
           <h4>Derniers clients</h4>
-          {{ render(controller("TGClientBundle:Client:menu", {'limit': 3})) }}
-        {% endif %}
+          {{ render(controller("TGClientBundle:Client:menu", {'limit': 3})) }} #}
+        {% endif %} 
         </div>
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div id="content" class="col-md-10">

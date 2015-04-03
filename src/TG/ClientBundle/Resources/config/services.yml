@@ -1,4 +1,1 @@
 services:
-#    tg_client.example:
-#        class: TG\ClientBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

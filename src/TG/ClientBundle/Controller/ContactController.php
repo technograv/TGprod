@@ -4,12 +4,10 @@
 
 namespace TG\ClientBundle\Controller;
 
-use TG\ClientBundle\Entity\Client;
 use TG\ClientBundle\Form\ContactType;
 use TG\ClientBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,10 +90,10 @@ class ContactController extends Controller
           foreach ($allcontact as $contact) {
             $contact->setDefaut(false);
             $em->persist($contact);
-            $em->flush();
           }
         }
 
+      $em->flush();
       $request->getSession()->getFlashBag()->add('info', 'Contact modifié avec succès.'); //Message de confirmation
 
       return $this->redirect($this->generateUrl('tg_client_view', array('id' => $contact->getClient()->getId()))); //redirection vers vue du nouveau projet

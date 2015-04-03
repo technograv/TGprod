@@ -80,7 +80,6 @@ class ClientController extends Controller
     	{
     		$newcontact->setClient($client);
     		$em->persist($newcontact);
-    		$em->flush();
 
     		if ($newcontact->getDefaut() === true)
     		{
@@ -88,10 +87,10 @@ class ClientController extends Controller
     			foreach ($allcontact as $contact) {
     				$contact->setDefaut(false);
     				$em->persist($contact);
-    				$em->flush();
     			}
     		}
 
+    		$em->flush();
     		$request->getSession()->getFlashBag()->add('info', 'Contact ajouté avec succès.');
 
     		return $this->redirect($this->generateUrl('tg_client_view', array('id' => $client->getId())));
@@ -150,14 +149,11 @@ class ClientController extends Controller
 			{
 				$logofile = $logo->getFile();
 			}
-			if ($logofile !== null)
-			{
-			}
-			else
+			if ($logofile == null)
 			{
 				$client->removeLogo($logo);
 			}
-			
+
 			$em->persist($client);
 			$em->flush();
 

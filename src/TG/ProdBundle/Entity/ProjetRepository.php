@@ -3,7 +3,6 @@
 namespace TG\ProdBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ProjetRepository
@@ -71,7 +70,7 @@ class ProjetRepository extends EntityRepository
 		//	->getResult();
 	}
 
-	public function GetProjetEnfant($projet, $projetparent)
+	public function getProjetEnfant($projet, $projetparent)
 	{
 		$qb = $this->createQueryBuilder('p');
 
