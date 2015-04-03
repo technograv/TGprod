@@ -7,7 +7,7 @@
 {% block tgprod_body %}
 
 <!-- Infos Projet -->
-  <div class="col-sm-8 no-padding"><h2>{{ projet.titre }}</h2></div>
+  <div class="col-sm-8 no-padding"><h2>{{ projet.titre|capitalize }}</h2></div>
   <div class="col-sm-4 no-padding text-right"><h4 style="margin-top:30px;">Projet ID : #{{ projet.id }}</h4></div>
 
   <div class="col-sm-12 no-padding"><p><i>
@@ -16,7 +16,7 @@
       {% elseif projet.datemodif != null %}
       Modifié le {{ projet.datemodif|localizeddate('full', 'none') }} à {{ projet.datemodif|date('G\\hi') }}
     {% endif %}
-     par {{ projet.user }}{% if is_granted('ROLE_ATELIER') %} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{projet.client.name}}</a></i>{% endif %}.</p>
+     par {{ projet.user }}{% if is_granted('ROLE_ATELIER') %} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name|capitalize }}</a></i>{% endif %}.</p>
 
   <p>
     <a href="{{ path('tg_prod_home') }}" class="btn btn-default">
@@ -100,7 +100,7 @@
     {% if listdoc != null %}
     <p><strong>Pièces jointes :<br></strong>
     {% for documentjoint in listdoc %}
-    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ documentjoint.date|localizeddate('full', 'none') }} à {{ documentjoint.date|date('G\\hi') }}">{{ documentjoint.alt }}</i>
+    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ documentjoint.date|localizeddate('full', 'none') }} à {{ documentjoint.date|date('G\\hi') }}">{{ documentjoint.alt|capitalize }}</i>
     <a href="{{ asset(documentjoint.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
     <a href="{{ asset(documentjoint.webPath) }}" download="Piece_jointe{{ documentjoint.id }}-{{ documentjoint.projet.slug }}-{{ documentjoint.projet.client.slug }}.{{ documentjoint.extention }}"><i class="glyphicon glyphicon-download"></i></a><br>
     {% endfor %}</p>
@@ -108,21 +108,21 @@
     
     {% for crea in listcrea %}
     <p><strong>Dernière compo :<br></strong>
-    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt }}</i>
+    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
     <a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
     <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"><i class="glyphicon glyphicon-download"></i></a></p>
     {% endfor %}
 
     {% for devis in listdevis %}
     <p><strong>Devis :<br></strong>
-    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt }}</i>
+    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt|capitalize }}</i>
     <a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
     <a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}.{{ devis.extention }}"><i class="glyphicon glyphicon-download"></i></a></p>
     {% endfor %}
 
     {% for facture in listfacture %}
     <p><strong>Facture :<br></strong>
-    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ facture.dateadd|localizeddate('full', 'none') }} à {{ facture.dateadd|date('G\\hi') }}">{{ facture.alt }}</i>
+    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ facture.dateadd|localizeddate('full', 'none') }} à {{ facture.dateadd|date('G\\hi') }}">{{ facture.alt|capitalize }}</i>
     <a href="{{ asset(facture.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
     <a href="{{ asset(facture.webPath) }}" download="facture{{ facture.id }}-{{ facture.projet.slug }}-{{ facture.projet.client.slug }}.{{ facture.extention }}"><i class="glyphicon glyphicon-download"></i></a></p>
     {% endfor %}
@@ -363,7 +363,7 @@
                       {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
                       {{ form_errors(formlink) }}
                         <div>
-                      <p><i class="glyphicon glyphicon-menu-right" style="margin-right:5px;"> </i><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><strong>{{projet.projetparent.titre }}</strong></a></p>             
+                      <p><i class="glyphicon glyphicon-menu-right" style="margin-right:5px;"> </i><a href="{{ path('tg_prod_view', {'id': projet.projetparent.id}) }}"><strong>{{ projet.projetparent.titre|capitalize }}</strong></a></p>             
                       {{ form_widget(formlink.delier, {'attr': {'class': 'btn btn-default', 'label': 'Supprimer la liaison avec'}}) }}
                       </div>
                       {{ form_rest(formlink) }}
@@ -374,7 +374,7 @@
                             Autres projets enfants :
                               <ul>
                                 {% for projet in listEnfants %}
-                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre }}</a></li>
+                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre|capitalize }}</a></li>
                                 {% endfor %}
                               </ul>
                         </p>
@@ -385,7 +385,7 @@
                             <strong>Devis :</strong>
                               <div>
                                 {% for devis in listdevisparent %}
-                                  <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt }}</i>
+                                  <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt|capitalize }}</i>
                                   <a href="{{ asset(devis.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
                                   <a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}.{{ devis.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
                                 {% endfor %}<br>
@@ -395,7 +395,7 @@
                             <strong>Compos :</strong>
                               <div>
                                 {% for crea in listcreaparent %}
-                                  <p><i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt }}</i>
+                                  <p><i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
                                   <a href="{{ asset(crea.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
                                   <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
                                 {% endfor %}<br>
@@ -424,7 +424,7 @@
                             Autres projets enfants :
                               <ul>
                                 {% for projet in listEnfants %}
-                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre }}</a></li>
+                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre|capitalize }}</a></li>
                                 {% endfor %}
                               </ul>
                         </p>
@@ -435,7 +435,7 @@
                         <strong>Devis :</strong>
                           <div>
                             {% for devis in listdevisparent %}
-                              <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt }}</i>
+                              <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ devis.dateadd|localizeddate('full', 'none') }} à {{ devis.dateadd|date('G\\hi') }}">{{ devis.alt|capitalize }}</i>
                               <a href="{{ asset(devis.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
                               <a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}.{{ devis.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
                             {% endfor %}<br>
@@ -445,7 +445,7 @@
                         <strong>Compos :</strong>
                           <div>
                             {% for crea in listcreaparent %}
-                              <p><i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt }}</i>
+                              <p><i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
                               <a href="{{ asset(crea.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
                               <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
                             {% endfor %}<br>

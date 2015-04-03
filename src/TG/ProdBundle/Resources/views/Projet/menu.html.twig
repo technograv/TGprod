@@ -2,7 +2,7 @@
   {% for projet in listProjets %}
     <li>
       <a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-        {{ projet.titre }}
+        {{ projet.titre|capitalize }}
       </a>
     </li>
   {% endfor %}

@@ -14,7 +14,7 @@ class ProjetEditType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->remove('docfile')
+			->remove('documentjoints')
 			->remove('client')
 			->remove('contact')
 		;

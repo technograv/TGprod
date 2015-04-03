@@ -238,15 +238,20 @@ class ClientController extends Controller
 
 	public function headerAction()
 	{
-		$listClients = $this->getDoctrine()
-			->getManager()
-			->getRepository('TGClientBundle:Client')
+		$em = $this->getDoctrine()->getManager();
+		$listClients = $em->getRepository('TGClientBundle:Client')
 			->findBy(
 				array(),
 				array('name' => 'asc')
 				);
-		
+		$listContacts = $em->getRepository('TGClientBundle:Contact')
+			->findBy(
+				array(),
+				array('name' => 'asc')
+				);
+
 		return $this->render('TGClientBundle:client:header.html.twig', array(
-			'listClients' => $listClients));
+			'listClients' => $listClients,
+			'listContacts' => $listContacts));
 	}
 }

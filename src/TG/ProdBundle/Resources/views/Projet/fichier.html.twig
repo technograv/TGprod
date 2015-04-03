@@ -31,7 +31,7 @@
 		{% for documentjoint in listdoc %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ documentjoint.alt }}</td>
+			<td>{{ documentjoint.alt|capitalize }}</td>
 			<td>{{ documentjoint.date|localizeddate('full', 'none') }}</td>
 			<td><a href="{{ asset(documentjoint.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(documentjoint.webPath) }}" download="Piece_jointe{{ documentjoint.id }}-{{ documentjoint.projet.slug }}-{{ documentjoint.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
@@ -59,7 +59,7 @@
 		{% for crea in listcrea %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ crea.alt }}</td>
+			<td>{{ crea.alt|capitalize }}</td>
 			<td>{{ crea.infos }}</td>
 			<td>{{ crea.dateadd|localizeddate('full', 'none') }}</td>
 			<td><a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
@@ -87,7 +87,7 @@
 		{% for logo in listlogo %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ logo.alt }}</td>
+			<td>{{ logo.alt|capitalize }}</td>
 			<td>{{ logo.infos }}</td>
 			<td>{{ logo.date|localizeddate('full', 'none') }}</td>
 			<td><a href="{{ asset(logo.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
@@ -116,7 +116,7 @@
 		{% for devis in listdevis %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ devis.alt }}</td>
+			<td>{{ devis.alt|capitalize }}</td>
 			<td>{{ devis.infos }}</td>
 			<td>{{ devis.dateadd|localizeddate('full', 'none') }}</td>
 			<td><a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
@@ -145,7 +145,7 @@
 		{% for facture in listfacture %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ facture.alt }}</td>
+			<td>{{ facture.alt|capitalize }}</td>
 			<td>{{ facture.infos }}</td>
 			<td>{{ facture.dateadd|localizeddate('full', 'none') }}</td>
 			<td><a href="{{ asset(facture.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>

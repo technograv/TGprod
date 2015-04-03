@@ -6,7 +6,7 @@
 
 {% block tgclient_body %}
 
-  <h2>Liste des Clients</h2>
+  <h2>Liste des Clients ({{ listClients.getTotalItemCount }})</h2>
 
 {% if listClients is not empty %}
   <table class="table table-hover table-bordered table-striped">

@@ -6,7 +6,7 @@
 
 {% block tgclient_body %}
 
-  <h2>{% if client.code != null %}[{{ client.code }}]{% endif %} {{ client.name }}</h2>
+  <h2>{% if client.code != null %}[{{ client.code }}]{% endif %} {{ client.name|capitalize }}</h2>
   
   <p><i>
   {% if client.datemodif == null %}
@@ -110,10 +110,10 @@
 <div class="tabbable tabs-left">
   <ul class="nav nav-tabs" role="tablist">
     {% for contact in contactdefaut %}
-      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+      <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name|capitalize }}</a></li>
     {% endfor %}
     {% for contact in contactduclient %}
-    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.name }}</a></li>
+    <li role="presentation"><a href="#{{ contact.id }}" aria-controls="main" role="tab" data-toggle="tab">{{ contact.name|capitalize }}</a></li>
     {% endfor %}
   </ul>
 
@@ -231,25 +231,21 @@
             <th>Nom du projet</th>
             <th>Type</th>
             <th>Publié par</th>
-            <th>Pour le client</th>
             <th>Assigné à</th>
             <th>Statut</th>
-            <th>Mis à jour le</th>
-            <th>Factures</th>
+            <th>Date de livraison</th>
           </tr>
         </thead>
         <tbody align="center">
           {% for projet in projets %}
             <tr bgcolor={{ projet.type.couleur }}>
               <td width="16%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-              {{ projet.titre }}</td>
+              {{ projet.titre|capitalize }}</td>
               <td width="12%">{{ projet.type.name }}</td>
               <td width="12%">{{ projet.user }}</td>
-              <td width="12%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name }}</td>
               <td width="12%">{{ projet.assign }}</td>
               <td width="12%">{{ projet.etape.name }}</td>
-              <td width="12%">{{ projet.maj|date('d/m/Y') }}</td>
-              <td width="12%">lien factures</td>
+              <td width="12%">{{ projet.delai|date('d/m/Y') }}</td>
             </tr>
           {% endfor %} 
         </tbody>

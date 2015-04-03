@@ -5,7 +5,7 @@
   {% for client in listClients %}
     <li>
       <a href="{{ path('tg_client_view', {'id': client.id}) }}">
-        {{ client.name }}
+        {{ client.name|capitalize }}
       </a>
     </li>
   {% endfor %}

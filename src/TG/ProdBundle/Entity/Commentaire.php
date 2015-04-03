@@ -17,6 +17,7 @@ class Commentaire
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet", inversedBy="commentaires", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $projet;
 

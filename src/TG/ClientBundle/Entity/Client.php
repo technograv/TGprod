@@ -20,6 +20,7 @@ class Client
 {
     /**
      * @ORM\oneToMany(targetEntity="TG\ProdBundle\Entity\Projet", mappedBy="client", cascade={"remove"})
+     * @Assert\Valid()
      */
     private $projets;
 

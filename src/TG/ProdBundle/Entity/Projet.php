@@ -19,22 +19,26 @@ class Projet
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Etape")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $etape;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
      private $assign;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ClientBundle\Entity\Contact")
+     * @Assert\Valid()
      */
      private $contact;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet")
+     * @Assert\Valid()
      */
     private $projetparent;
 
@@ -48,6 +52,7 @@ class Projet
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Type")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $type;
 
