@@ -149,7 +149,7 @@ class ClientController extends Controller
 			{
 				$logofile = $logo->getFile();
 			}
-			if ($logofile == null)
+			if ($logofile === null)
 			{
 				$client->removeLogo($logo);
 			}
