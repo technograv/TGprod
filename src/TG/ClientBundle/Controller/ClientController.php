@@ -112,10 +112,13 @@ class ClientController extends Controller
 	*/
 	public function addAction(request $request)
 	{
+		$em = $this->getDoctrine()->getManager();
 		$client = new Client();
 		$contact = new Contact();
+		$logo = new Logo();
 		$contact->setDefaut(true);
 		$client->addContact($contact);
+		$client->addLogo($logo);
 
 		if ($this->getUser())
 		{
@@ -128,8 +131,9 @@ class ClientController extends Controller
 
 		if ($form->isValid())
 		{
-			$data = $form->get('contacts')->getData();
-			foreach ($data as $contact) {
+			$datacontact = $form->get('contacts')->getData();
+			foreach ($datacontact as $contact) 
+			{
 				$contactname = $contact->getName();
 			}
 			if ($contactname !== null)
@@ -141,21 +145,20 @@ class ClientController extends Controller
 				$contact->setName($form->get('name')->getData());
 			}
 
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($client);
-
-			$logofile = $form->get('logofile')->getData();
+			$datalogo = $form->get('logos')->getData();
+			foreach ($datalogo as $logo)
+			{
+				$logofile = $logo->getFile();
+			}
 			if ($logofile !== null)
 			{
-				$logo = new Logo;
-				$logo->setClient($client);
-				$logo->setInfos($form->get('logoinfos')->getData());
-				$logo->setExtention($form->get('logofile')->getData()->guessExtension());
-				$logo->setAlt($form->get('logofile')->getData()->getClientOriginalName());
-				$logo->setFile($logofile);
-				$em->persist($logo);
 			}
-
+			else
+			{
+				$client->removeLogo($logo);
+			}
+			
+			$em->persist($client);
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Client créé avec succès.'); //Message de confirmation

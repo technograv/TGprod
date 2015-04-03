@@ -3,6 +3,7 @@
 namespace TG\ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use TG\CreaBundle\Form\LogoType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -22,12 +23,10 @@ class ClientType extends AbstractType
 		->add('pays',		'text')
 		->add('code',		'text', array('required' => false))
 		->add('siret',		'text', array('required' => false))
-		->add('logofile',	'file', array(
-			'mapped' => false,
-			'required' => false))
-		->add('logoinfos',	'textarea', array(
-			'mapped' => false,
-			'required' => false))
+		->add('logos', 'collection', array(
+				'label' => 'Logo',
+				'type' => new LogoType(),
+				'required' => false))
 		->add('notes',		'textarea', array(
 			'required' => false,
 			'attr' =>array('class' => 'ckeditor')))
