@@ -6,21 +6,21 @@
 
 {% block tgprod_body %}
 {% if allDays is not empty %}
+<div class="well no-padding no-padding-bottom" style="min-height:200px; bor">
   {% for item in calendar %}
-    <div class="col-sm-2 well" align="center" style="min-height:150px;">
-      <strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong><br/>
+    <div class="col-sm-2 no-padding" align="center">
+      <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
           {% for projet in projetsallDays %}
             {% if projet.delai|date('Y-m-d') == item %}
-              <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black; background-color: {{ projet.assign.couleur }};">{{ projet.titre|truncate(15, false, '...')|capitalize }}</a><br/>
+              <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+              </div>
             {% endif %}
           {% endfor %}
     </div>
   {% endfor %}
 {% endif %}
-<div class="navigation">
-    {{ knp_pagination_render(calendar) }}
-</div>
 
+</div>
 <div class="col-sm-10 no-padding"><h2>Liste des projets en cours ({{ listProjets.getTotalItemCount }})</h2></div>
 {% if is_granted('ROLE_PAO') %}
 <div class="col-sm-2 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_archives') }}" class="btn btn-default"><i class="glyphicon glyphicon-menu-right"></i> Projets archivés</a></h4></div>

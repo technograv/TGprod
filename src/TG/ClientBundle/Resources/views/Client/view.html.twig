@@ -19,30 +19,37 @@
   <p>
   <a href="{{ path('tg_client_home') }}" class="btn btn-default">
     <i class="glyphicon glyphicon-chevron-left"></i> Retour à la liste</a>
-
     {% if is_granted("ROLE_ATELIER") %}
-  <a href="{{ path('tg_client_edit', {'id': client.id}) }}" class="btn btn-default">
-    <i class="glyphicon glyphicon-edit"></i> Modifier le client</a>
-  {% endif %}
-    {% if is_granted("ROLE_ATELIER") %}
-  <a href="{{ path('tg_prod_add', { 'client':  client.id}) }}" class="btn btn-primary">
-    <i class="glyphicon glyphicon-plus"></i> Ajouter un projet pour ce client</a>
-  {% endif %}
+      <a href="{{ path('tg_client_edit', {'id': client.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-edit"></i> Modifier le client</a>
+    {% endif %}
     {% if is_granted("ROLE_ADMIN") %}
   <a href="{{ path('tg_client_delete', {'id': client.id}) }}" class="btn btn-danger">
     <i class="glyphicon glyphicon-trash"></i> Supprimer le client</a>
   {% endif %}
 </p>
 
-  <div class="well margin-right col-sm-3">
+  <div class="well margin-right col-sm-3" style="width:31%; min-height:238px;">
+    <p>
+      <strong>Adresse de la société :</strong></br>
+      {{ client.adresse }}</br>
+      {{ client.CP }} {{ client.ville }} ({{ client.pays }})
+    </p>
+    <p>
+      {% if client.siret != null %}<strong>N° de Siret :</strong> {{ client.siret }}</br>{% endif %}
+    </p>
+
     {% for logo in logoduclient %}
       <img class="img-rounded" width="100%" src="{{ (logo.webPath) | imagine_filter('logo') }}" alt="{{ logo.alt }}"/>
       </br>
       </br>
     {% endfor %}
-      <a class="btn btn-default" href="#box-logo" role="button" data-toggle="modal" style="vertical-align:baseline;">
-      <i class="glyphicon glyphicon-camera"></i> {% if logoduclient %}Modifier le logo{% else %}Ajouter un logo au client
-    {% endif %}</a>
+
+    <a class="btn btn-default" href="#box-logo" role="button" data-toggle="modal" style="vertical-align:baseline;">
+      {% if logoduclient %}<i class="glyphicon glyphicon-camera"></i> Modifier le logo
+      {% else %}<i class="glyphicon glyphicon-camera"></i> Ajouter un logo
+      {% endif %}
+    </a>
   </div>
 
     <!-- Modal Fichier Logo -->
@@ -82,33 +89,19 @@
       </div>
     </div>
 
-<div class="well col-sm-8 align-right">
-    <p>
-      <strong>Adresse de la société :</strong></br>
-      {{ client.adresse }}</br>
-      {{ client.CP }} {{ client.ville }} ({{ client.pays }})
-    </p>
-    <p>
-      {% if client.siret != null %}<strong>N° de Siret :</strong> {{ client.siret }}</br>{% endif %}
-    </p>
-<hr/
-    {% if client.notes != null %}
-    <h3>Notes</h3>
-    <div class="ckeditor"><p>{{ client.notes|raw }}</p></div>
-    {% endif %}
-</div>    
-
-<div class="well col-sm-11">
-  <div class="col-sm-5"><h4>Contacts pour ce client</h4></div> {% if is_granted("ROLE_ATELIER") %}
-  <div class="col-sm-3">
-  <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
+<div class="well col-sm-8">
+<div class="col-sm-12 no-padding margin-bottom">
+<div class="col-sm-7 no-padding"><h3 class="margin-top-10">Contacts pour ce client</h3></div> {% if is_granted("ROLE_ATELIER") %}
+  <div class="col-sm-5 no-padding" style="text-align:right">
+  <a class="btn btn-primary" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
       <i class="glyphicon glyphicon-plus"></i> Ajouter un contact au client</a>
   {% endif %}
   </div>
+</div>
 
-<div class="col-sm-12">
+<div class="col-sm-12 no-padding">
 <div class="tabbable tabs-left">
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs no-padding col-sm-3 no-margin" role="tablist">
     {% for contact in contactdefaut %}
       <li role="presentation" class="active"><a href="#{{ contact.id }}" aria-controls="{{ contact.id }}" role="tab" data-toggle="tab">{{ contact.name|capitalize }}</a></li>
     {% endfor %}
@@ -117,27 +110,36 @@
     {% endfor %}
   </ul>
 
-  <div class="tab-content">
+  <div class="tab-content col-sm-9 no-padding">
       {% for contact in contactdefaut %}
-      <div role="tabpanel" class="tab-pane fade in active" id="{{ contact.id }}">
-        Téléphone : {{ contact.tel }}<br/>
-        Email : {{ contact.email }}<br/>
-        Portable : {{ contact.portable }}<br/>
-        Fax : {{ contact.fax }}<a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+      <div role="tabpanel" class="tab-pane fade in active col-sm-12" id="{{ contact.id }}">
+        <p>Téléphone : {{ contact.tel }}</p>
+        <p>Email : {{ contact.email }}</p>
+        <p>Portable : {{ contact.portable }}</p>
+        <p>Fax : {{ contact.fax }}</p>
+        <a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Modifier le contact</a>
       </div>
     {% endfor %}
       {% for contact in contactduclient %}
-        <div role="tabpanel" class="tab-pane fade" id="{{ contact.id }}">
-          Téléphone : {{ contact.tel }}<br/>
-        Email : {{ contact.email }}<br/>
-        Portable : {{ contact.portable }}<br/>
-        Fax : {{ contact.fax }}<a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+        <div role="tabpanel" class="tab-pane fade col-sm-8" id="{{ contact.id }}">
+        <p>Téléphone : {{ contact.tel }}</p>
+        <p>Email : {{ contact.email }}</p>
+        <p>Portable : {{ contact.portable }}</p>
+        <p>Fax : {{ contact.fax }}</p>
+        <a href="{{ path('edit_contact', { 'id':  contact.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Modifier le contact</a>
         </div>
       {% endfor %}
   </div>
 </div>
 </div>
+</div>    
+
+{% if client.notes != null %}
+<div class="well col-sm-8 float-right">
+    <h3 class="sticky">Notes</h3>
+    <div class="ckeditor"><p>{{ client.notes|raw }}</p></div> 
 </div>
+{% endif %} 
 
      <!-- Modal Contact -->
     <div id="box-contact" class="modal fade" keyboard="true" backdrop="true">
@@ -220,11 +222,19 @@
         </div>
       </div>
     </div>
-</div>  
+ 
 
 {% if not client.projets.empty %}
-	<div class="col-sm-12">
+	<div class="col-sm-12 no-padding">
+  <div class="col-sm-8 no-padding">
     <h3>Historique des projets pour ce client</h3>
+  </div>
+  <div class="col-sm-4 no-padding margin-top" style="text-align:right"> 
+    {% if is_granted("ROLE_ATELIER") %}
+      <a href="{{ path('tg_prod_add', { 'client':  client.id}) }}" class="btn btn-primary">
+      <i class="glyphicon glyphicon-plus"></i> Ajouter un projet pour ce client</a>
+    {% endif %}
+  </div>
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
@@ -240,7 +250,7 @@
           {% for projet in projets %}
             <tr bgcolor={{ projet.type.couleur }}>
               <td width="16%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-              {{ projet.titre|capitalize }}</td>
+              {{ projet.titre|capitalize }}</a></td>
               <td width="12%">{{ projet.type.name }}</td>
               <td width="12%">{{ projet.user }}</td>
               <td width="12%">{{ projet.assign }}</td>
@@ -252,6 +262,7 @@
       </table>
     </div>
 {% endif %}
-
+</div> 
+</div>
 
 {% endblock %}

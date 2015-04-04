@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * facture
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="TG\ComptaBundle\Entity\factureRepository")
+ * @ORM\Entity(repositoryClass="TG\ComptaBundle\Entity\FactureRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Facture

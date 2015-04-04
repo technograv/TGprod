@@ -9,14 +9,14 @@
     <div>
     <ul class="nav navbar-nav">
         {% if is_granted("ROLE_COMPTA") %}
-          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances client</a></li>
+          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances</a></li>
           <li><a href="{{ path('tg_prod_compta') }}" name="_compta" /><span class="glyphicon glyphicon-piggy-bank"></span> Compta</a></li>
         {% endif %}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ render(controller("TGClientBundle:Client:header")) }}
         {% if is_granted("ROLE_ATELIER") %}
-        <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un client</a></li>
-        <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Ajouter un projet</a></li>
+        <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Client</a></li>
+        <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Projet</a></li>
         {% endif %}
       </div>
       
