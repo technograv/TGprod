@@ -23,7 +23,7 @@
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>
-{% if is_granted('ROLE_COMPTA') %}
+{% if is_granted('ROLE_PAO') %}
     <a href="{{ path('tg_prod_edit', {'id': projet.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-edit"></i>
       Modifier le projet
