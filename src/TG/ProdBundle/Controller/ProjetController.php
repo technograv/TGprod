@@ -34,7 +34,7 @@ class ProjetController extends Controller
 	*/
 	public function indexAction()
 	{
-		$etape = array(26, 24, 3, 4, 25); //26:terminé, 24:facturation, 3:devis, 4:AttenteValidationDevis, 25:AttentePaiement
+		$etape = array(26, 24, 4, 25); //26:terminé, 24:facturation, 4:AttenteValidationDevis, 25:AttentePaiement
 
 		$yesterday = new \Datetime;
 		$yesterday->setTime (0, 0, 0);
