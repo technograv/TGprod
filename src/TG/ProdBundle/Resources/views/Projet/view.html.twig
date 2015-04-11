@@ -29,7 +29,7 @@
       Modifier le projet
     </a>
 {% endif %}
-{% if is_granted('ROLE_ATELIER') %}
+{% if is_granted('ROLE_STAGIAIRE') %}
     <a href="{{ path('tg_prod_next', {'id': projet.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-ok"></i>
       Avancer le projet

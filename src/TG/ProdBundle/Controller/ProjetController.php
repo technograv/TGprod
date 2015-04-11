@@ -367,7 +367,7 @@ class ProjetController extends Controller
 	}
 
 	/**
-	* @Security("has_role('ROLE_ATELIER')")
+	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function nextAction(projet $projet, request $request)
 	{
