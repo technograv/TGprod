@@ -7,6 +7,7 @@
 {% block tgprod_body %}
   <div class="col-sm-2 no-padding margin-top"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-danger"><i class="glyphicon glyphicon-chevron-left"></i> Retour au projet</a></div>
   <div class="col-sm-8 no-padding"><h2>Valider une étape</h2></div>
+  <div class="col-sm-12"><h3>{{ projet.titre }} - Projet ID : #{{ projet.ID }}</h3></div>
 
 <div class="well col-sm-12">
 {{ form_start(form, {'attr': {'class': 'form-horizontal required'}}) }}
