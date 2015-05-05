@@ -516,6 +516,9 @@ class ProjetController extends Controller
 				'listProjets' => $listProjets));
 	}
 
+	/**
+	* @Security("has_role('ROLE_COMPTA')")
+	*/
 	public function comptaAction()
 	{
 		$etape = array(24, 3); //24:facturation, 3:devis
@@ -568,6 +571,9 @@ class ProjetController extends Controller
 				'listProjets' => $listProjets));
 	}
 
+	/**
+	* @Security("has_role('ROLE_PAO')")
+	*/
 	public function relancesAction()
 	{
 		$etape = array(4, 25); //4:AttenteValidationDevis, 25:AttentePaiement
