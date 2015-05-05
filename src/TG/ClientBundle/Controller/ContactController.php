@@ -82,7 +82,6 @@ class ContactController extends Controller
     {
       $em = $this->getDoctrine()->getManager();
       $em->persist($contact);
-      $em->flush();
 
       if ($contact->getDefaut() === true)
         {

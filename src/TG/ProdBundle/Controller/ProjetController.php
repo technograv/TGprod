@@ -315,6 +315,17 @@ class ProjetController extends Controller
 		{
 			$em->persist($contact);
 			$em->flush();
+
+				if ($contact->getDefaut() === true){
+					$client = $contact->getClient();
+         	 		$allcontact = $em->getRepository('TGClientBundle:Contact')->setDefauttrue($client, $contact);
+          			foreach ($allcontact as $contact) {
+            			$contact->setDefaut(false);
+            			$em->persist($contact);
+          			}
+        		}
+
+			$em->flush();
 			$request->getSession()->getFlashBag()->add('info', 'Contact créé avec succès.');
 		}
 
@@ -336,6 +347,17 @@ class ProjetController extends Controller
 		{
 			$contact->setClient($projet->getClient());
 			$em->persist($contact);
+			$em->flush();
+
+			if ($contact->getDefaut() === true){
+				$client = $contact->getClient();
+         	 	$allcontact = $em->getRepository('TGClientBundle:Contact')->setDefauttrue($client, $contact);
+          		foreach ($allcontact as $contact) {
+            		$contact->setDefaut(false);
+            		$em->persist($contact);
+          		}
+        	}
+
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Contact ajouté avec succès');
