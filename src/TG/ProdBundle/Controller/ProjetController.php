@@ -612,16 +612,14 @@ class ProjetController extends Controller
 	*/
 	public function menuAction($limit = 3)
 	{
-		$listProjets = $this->getDoctrine()
-			->getManager()
-			->getRepository('TGProdBundle:Projet')
-			->findBy(
-				array(),					// Pas de critère
-				array('maj' => 'desc'),	// On trie par date décroissante
-				$limit,					// On sélectionne $limit projets
-				0);							// A partir du premier
+		$ya2jour = new \Datetime;
+		$ya2jour->setTime (0, 0, 0);
+		$ya2jour->sub(new \DateInterval('P2D'));
 
-		return $this->render('TGProdBundle:projet:menu.html.twig', array('listProjets' => $listProjets));
+	$retards = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetRetard($ya2jour);
+
+		return $this->render('TGProdBundle:projet:menu.html.twig', array(
+			'retards' => $retards));
 	}
 
 	/**
