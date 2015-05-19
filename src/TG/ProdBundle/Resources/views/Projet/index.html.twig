@@ -12,7 +12,10 @@
       <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
           {% for projet in projetsallDays %}
             {% if projet.delai|date('Y-m-d') == item %}
-              <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+            <script type="text/javascript">
+                $('.tooltip-test').tooltip();
+              </script>
+              <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
               </div>
             {% endif %}
           {% endfor %}
