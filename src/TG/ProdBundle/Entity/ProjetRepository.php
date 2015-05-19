@@ -114,13 +114,16 @@ class ProjetRepository extends EntityRepository
 		return $qb->getQuery()->getResult();
 	}
 
-	public function getProjetRetard($end)
+	public function getProjetRetard($end, $etape)
 	{
 		$qb = $this->createQueryBuilder('p');
 
 		$qb
 			->where('p.delai <= :end')
-			->setParameter('end', $end);
+			->andwhere('p.etape NOT IN (:etape)')
+			->setParameter('end', $end)
+			->setParameter('etape', $etape)
+			->orderBy('p.delai', 'DESC');
 
 		return $qb->getQuery()->getResult();
 	}

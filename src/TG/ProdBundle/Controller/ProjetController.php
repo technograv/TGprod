@@ -612,11 +612,14 @@ class ProjetController extends Controller
 	*/
 	public function menuAction($limit = 3)
 	{
+	$etape = array(26, 24, 25); //26:terminé, 24:facturation, 25:AttentePaiement
+
+
 		$ya2jour = new \Datetime;
 		$ya2jour->setTime (0, 0, 0);
 		$ya2jour->sub(new \DateInterval('P2D'));
 
-	$retards = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetRetard($ya2jour);
+	$retards = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetRetard($ya2jour, $etape);
 
 		return $this->render('TGProdBundle:projet:menu.html.twig', array(
 			'retards' => $retards));
