@@ -93,7 +93,7 @@ class Devis
     private $dateadd;
 
     /**
-     * @Assert\File(maxSize="1M", mimeTypes={"application/pdf", "application/x-pdf"})
+     * @Assert\File(maxSize="5M", mimeTypes={"application/pdf", "application/x-pdf"})
      */
     private $file;
 
@@ -384,7 +384,7 @@ class Devis
   public function preRemoveUpload()
   {
     // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
-    $this->tempFilename = $this->getUploadRootDir().'/'.$this->getProjet()->getClient()->getSlug().'/'.$this->getProjet()->getSlug().'/'.'Devis'.$this->id.'.'.$this->extention;
+    $this->tempFilename = $this->getUploadRootDir().'/'.'Devis'.$this->id.'.'.$this->extention;
   }
 
   /**

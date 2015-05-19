@@ -575,7 +575,7 @@ class Projet
         $this->nbcommentaires++;
     }
 
-    public function decreaseCommenctaire()
+    public function decreaseCommentaire()
     {
         $this->nbcommentaires--;
     }

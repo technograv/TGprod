@@ -21,10 +21,8 @@ tg_prod_edit:
         id: ^[0-9]+$
 
 tg_prod_delete:
-    path:      /delete/{id}
+    path:      /delete
     defaults:  { _controller: TGProdBundle:Projet:delete }
-    requirements:
-        id: ^[0-9]+$
 
 tg_prod_next:
     path: /next/{id}

@@ -85,7 +85,7 @@ class Facture
     private $dateadd;
 
     /**
-     * @Assert\File(maxSize="1M", mimeTypes={"application/pdf", "application/x-pdf"})
+     * @Assert\File(maxSize="5M", mimeTypes={"application/pdf", "application/x-pdf"})
      */
     private $file;
 
@@ -353,7 +353,7 @@ class Facture
   public function preRemoveUpload()
   {
     // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
-    $this->tempFilename = $this->getUploadRootDir().'/'.$this->getProjet()->getClient()->getSlug().'/'.$this->getProjet()->getSlug().'/'.'Facture'.$this->id.'.'.$this->extention;
+    $this->tempFilename = $this->getUploadRootDir().'/'.'Facture'.$this->id.'.'.$this->extention;
   }
 
   /**

@@ -36,7 +36,7 @@
     </a>
 {% endif %}
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('tg_prod_delete', {'id': projet.id}) }}" class="btn btn-danger">
+    <a value="projet" href="{{ path('tg_prod_delete', {'type': 'projet', 'id': projet.id,}) }}" class="btn btn-danger">
       <i class="glyphicon glyphicon-trash"></i>
       Supprimer le projet
     </a>
@@ -67,7 +67,8 @@
                 $('.tooltip-test').tooltip();
               </script>
               <i class="glyphicon glyphicon-comment tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ commentaire.date|localizeddate('full', 'none') }} à {{ commentaire.date|date('G\\hi') }}"></i>
-          <strong>{{ commentaire.user }}</strong> </br>
+          <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_ADMIN") %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
+    {% endif %}</br>
             {{ commentaire.contenu|raw }}</br>
             </p>
         {% endfor %}
