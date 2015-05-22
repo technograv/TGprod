@@ -146,6 +146,9 @@ class ProjetController extends Controller
 		$listEnfants = $emprojet
 			->getProjetEnfant($projet, $projetparent);
 
+		$enfants = $emprojet
+			->getEnfants($projet);
+
 		$listcreaparent = $em
 			->getRepository('TGCreaBundle:Crea')
 			->getLastCrea($projetparent);
@@ -253,7 +256,8 @@ class ProjetController extends Controller
 				'projetparent' => $projetparent,
 				'listEnfants' => $listEnfants,
 				'listdevisparent' => $listdevisparent,
-				'listcreaparent' => $listcreaparent
+				'listcreaparent' => $listcreaparent,
+				'enfants' => $enfants
 				));
 	}
 

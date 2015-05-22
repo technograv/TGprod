@@ -47,10 +47,12 @@
 <!-- Notes & commentaires Projet - Colonne de gauche -->
   <div class="well" style="margin-right:20px; width:64%; float:left;">
     <div>
-      <div class="col-sm-6 sticky"><p class="sticky"><strong>Assigné à :</strong> {{ projet.assign }} 
+      <div class="col-sm-6 sticky"><p class="sticky"><strong>Assigné à : </strong> {{ projet.assign }}<br/>
+        <strong>Statut : </strong> {{ projet.etape.name }}
       {# Ajouter un lien vers un tableau des projets qui lui sont assignés ? #}
       </p></div> 
-      <div><p class="sticky"><strong>Statut :</strong> {{ projet.etape.name }}</p></div>
+      <div><p class="sticky"><strong>Contact pour le projet : </strong><a href="{{ path('tg_client_view', {'id': projet.contact.client.id}) }}">{{ projet.contact|capitalize }}</a><br/>
+        <strong>Date d'échéance : </strong> {{ projet.delai|localizeddate('full', 'none') }}</p></div>
     </div>
 
     <hr>
@@ -346,6 +348,16 @@
             {% if is_granted('ROLE_PAO') %}
 
               {% if projet.projetparent == null %}
+                {% if enfants != null %}
+                       <div> <p>
+                            Projets enfants :
+                              <ul>
+                                {% for projet in enfants %}
+                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre|capitalize }}</a></li>
+                                {% endfor %}
+                              </ul>
+                        </p></div>
+                {% else %}
                 <div>
                   {{ form_start(formlink, {'attr': {'class': 'form-vertical'}}) }}
                   {{ form_errors(formlink) }}
@@ -357,6 +369,7 @@
                   {{ form_widget(formlink.lier, {'attr': {'class': 'btn btn-default'}}) }}
                   {{ form_rest(formlink) }}
                   {{ form_end(formlink) }}
+                {% endif %}
               {% else %}
                  <div>
                   <h4>Projet parent :</h4>
@@ -370,6 +383,10 @@
                       {{ form_rest(formlink) }}
                       {{ form_end(formlink) }}
                     </div>
+                      
+ 
+
+
                       {% if listEnfants != null %}
                         <p>
                             Autres projets enfants :
@@ -408,9 +425,20 @@
 
             {% else %}
               {% if projet.projetparent == null %}
+                {% if enfants != null %}
+                       <div> <p>
+                            Projets enfants :
+                              <ul>
+                                {% for projet in enfants %}
+                                  <li><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">{{ projet.titre|capitalize }}</a></li>
+                                {% endfor %}
+                              </ul>
+                        </p></div>
+                {% else %}
                 <div style="width:100%; float:left; margin-bottom:20px;">
                   <p>Pas de projet lié</p>
                 </div>
+              {% endif %}
               {% else %}
 
                     <div>
