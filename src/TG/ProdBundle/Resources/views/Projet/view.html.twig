@@ -51,7 +51,7 @@
         <strong>Statut : </strong> {{ projet.etape.name }}
       {# Ajouter un lien vers un tableau des projets qui lui sont assignés ? #}
       </p></div> 
-      <div><p class="sticky"><strong>Contact pour le projet : </strong><a href="{{ path('tg_client_view', {'id': projet.contact.client.id}) }}">{{ projet.contact|capitalize }}</a><br/>
+      <div><p class="sticky"><strong>Contact pour le projet : </strong><a class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ projet.contact.tel }}" href="{{ path('tg_client_view', {'id': projet.contact.client.id}) }}">{{ projet.contact|capitalize }}</a><br/>
         <strong>Date d'échéance : </strong> {{ projet.delai|localizeddate('full', 'none') }}</p></div>
     </div>
 
