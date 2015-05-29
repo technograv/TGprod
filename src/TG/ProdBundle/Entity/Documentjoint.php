@@ -221,7 +221,7 @@ class Documentjoint
        */
       public function preRemoveUpload()
       {
-        $this->tempFilename = $this->getUploadRootDir().'/'.$this->getProjet()->getClient()->getSlug().'/'.$this->getProjet()->getSlug().'/'.'Piece_jointe'.$this->id.'.'.$this->extention;
+        $this->tempFilename = $this->getUploadRootDir().'/'.'Piece_jointe'.$this->id.'.'.$this->extention;
       }
 
       /**

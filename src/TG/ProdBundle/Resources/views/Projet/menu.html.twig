@@ -1,9 +1,11 @@
 <ul class="nav nav-pills nav-stacked">
-  {% for projet in listProjets %}
+  {% for projet in retards %}
     <li>
-      <a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-        {{ projet.titre|capitalize }}
-      </a>
+      <script type="text/javascript">
+                $('.tooltip-test').tooltip();
+              </script>
+      <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.delai|localizeddate('full', 'none') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(15, false, '...')|capitalize }}</a>
+              </div>
     </li>
   {% endfor %}
 </ul>

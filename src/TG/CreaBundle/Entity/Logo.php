@@ -204,7 +204,7 @@ class Logo
   public function preRemoveUpload()
   {
     // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
-    $this->tempFilename = $this->getUploadRootDir().'/'.$this->getClient()->getSlug().'/'.$this->getClient()->getSlug().'-logo'.$this->getId().'.'.$this->getExtention();
+    $this->tempFilename = $this->getUploadRootDir().'/'.$this->getClient()->getSlug().'-logo'.$this->getId().'.'.$this->getExtention();
   }
 
   /**

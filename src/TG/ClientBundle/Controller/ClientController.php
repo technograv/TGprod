@@ -80,6 +80,7 @@ class ClientController extends Controller
     	{
     		$newcontact->setClient($client);
     		$em->persist($newcontact);
+    		$em->flush();
 
     		if ($newcontact->getDefaut() === true)
     		{

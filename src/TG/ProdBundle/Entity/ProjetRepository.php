@@ -86,6 +86,20 @@ class ProjetRepository extends EntityRepository
 			->getResult();
 	}
 
+	public function getEnfants($projet)
+	{
+		$qb = $this->createQueryBuilder('p');
+
+		$qb
+			->where('p.projetparent = :projetID')
+			->setParameter('projetID', $projet)
+			->orderBy('p.maj', 'ASC');
+
+		return $qb
+			->getQuery()
+			->getResult();
+	}
+
 	public function getProjetAgenda($start, $end, $etape)
 	{
 		$qb = $this->createQueryBuilder('p');
@@ -110,6 +124,20 @@ class ProjetRepository extends EntityRepository
 			->setParameter('start', $start)
 			->setParameter('end', $end)
 			->setParameter('etape', $etape);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function getProjetRetard($end, $etape)
+	{
+		$qb = $this->createQueryBuilder('p');
+
+		$qb
+			->where('p.delai <= :end')
+			->andwhere('p.etape NOT IN (:etape)')
+			->setParameter('end', $end)
+			->setParameter('etape', $etape)
+			->orderBy('p.delai', 'DESC');
 
 		return $qb->getQuery()->getResult();
 	}

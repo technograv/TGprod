@@ -60,7 +60,7 @@ class Crea
     private $dateadd;
 
     /**
-     * @Assert\File(maxSize="150M", mimeTypes={"application/pdf", "application/x-pdf", "jpeg", "image/png", "image/vnd.adobe.photoshop", "image/jpeg", "application/octet-stream", "application/postscript", "image/bmp", "application/zip"})
+     * @Assert\File(maxSize="150M", mimeTypes={"application/pdf", "application/x-pdf", "jpeg", "image/png", "image/vnd.adobe.photoshop", "image/jpeg", "application/octet-stream", "application/postscript", "image/bmp", "application/zip", "application/x-cdlink", "image/x-icon"})
      */
     private $file;
 
