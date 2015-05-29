@@ -49,3 +49,7 @@ tg_prod_compta:
 tg_prod_relances:
     path: /relances/
     defaults:   { _controller: TGProdBundle:Projet:relances }
+
+tg_prod_search:
+    paths: /resultats/
+    defaults: { _controller: TGPAdminBundle:Admin:search }

@@ -195,4 +195,18 @@ class AdminController extends Controller
         }
         return $this->redirect($this->generateUrl('tg_prod_home'));
     }
+
+    public function searchAction(request $request)
+    {
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($form->handleRequest($request)->isValid())
+        {
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $clientrésults = $elasticaManager->getRepository('TGClientBundle:Client')->search($clientSearch);
+
+        return $this->render('TGProdBundle:Recherche:resultats.html.twig', array(
+            'clientresults' => $clientresults));
+        }
+    }
 }
