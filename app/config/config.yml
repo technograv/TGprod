@@ -162,3 +162,13 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+                projet:
+                    mappings:
+                        titre: ~
+                        contenu: ~
+                    persistence:
+                        driver: orm
+                        model: TG\ProdBundle\Entity\Projet
+                        provider: ~
+                        listener: ~
+                        finder: ~

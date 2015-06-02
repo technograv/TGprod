@@ -26,11 +26,13 @@
       <ul class="nav navbar-nav">
       {% if is_granted("ROLE_ADMIN") %}
          <li><a href="{{ path('tg_admin_home') }}"><span class="glyphicon glyphicon-cog"></span> Admin</a></li>
+      {% endif %}
+      {% if is_granted("ROLE_ATELIER") %}
          <li>
-          <form action="{{ path('tg_prod_search') }}" methode="post" class="navbar-form inline-form" role="form">
+          <form action="{{ path('tg_prod_search') }}" method="post" class="navbar-form inline-form" role="form">
             <div class="form-group">
-              <input type="search" class="input-sm form-control" placeholder="Recherche">
-              <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Chercher</button>
+              <input type="search" name="search" id="search" class="input-sm form-control" placeholder="Recherche">
+              <input type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Chercher</button>
             </div>
           </form>
         </li>

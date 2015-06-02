@@ -49,5 +49,5 @@ tg_prod_relances:
     defaults:   { _controller: TGProdBundle:Projet:relances }
 
 tg_prod_search:
-    paths: /resultats/
-    defaults: { _controller: TGPAdminBundle:Admin:search }
+    path: /resultats/
+    defaults: { _controller: TGAdminBundle:Admin:search }

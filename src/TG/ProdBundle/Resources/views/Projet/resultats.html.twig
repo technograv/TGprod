@@ -1,0 +1,37 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Recherche - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+<h3>Résultats de votre recherche</h3>
+
+{% if clients %}
+<h4>Clients</h4>
+<ul>
+{% for client in clients %}
+<li><a href="{{ path('tg_client_view', {'id': client.id})}}">{{ client.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if contacts %}
+<h4>Contacts</h4>
+<ul>
+{% for contact in contacts %}
+<li><a href="{{ path('tg_client_view', {'id': contact.client.id})}}">{{ contact.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if projets %}
+<h4>Projets</h4>
+<ul>
+{% for projet in projets %}
+<li>ID : {{ projet.id }} | <a href="{{ path('tg_prod_view', {'id': projet.id})}}">{{ projet.titre }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

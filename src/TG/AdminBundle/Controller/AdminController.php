@@ -198,15 +198,26 @@ class AdminController extends Controller
 
     public function searchAction(request $request)
     {
-        $form = $this->createFormBuilder()->getForm();
-
-        if ($form->handleRequest($request)->isValid())
+        if (isset($_POST['search']))
         {
-            $elasticaManager = $this->container->get('fos_elastica.manager');
-            $clientrésults = $elasticaManager->getRepository('TGClientBundle:Client')->search($clientSearch);
+            $request = $_POST['search'];
 
-        return $this->render('TGProdBundle:Recherche:resultats.html.twig', array(
-            'clientresults' => $clientresults));
+            $repositoryManager = $this->container->get('fos_elastica.manager.orm');
+
+            $repositoryclient = $repositoryManager->getRepository('TGClientBundle:Client');
+            $clients = $repositoryclient->find($request);
+
+            $repositorycontact = $repositoryManager->getRepository('TGClientBundle:Contact');
+            $contacts = $repositorycontact->find($request);
+
+            $repositoryprojet = $repositoryManager->getRepository('TGProdBundle:Projet');
+            $projets = $repositoryprojet->find($request);
+
+
+            return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
+                'clients' => $clients,
+                'contacts' => $contacts,
+                'projets' => $projets));    
         }
     }
 }
