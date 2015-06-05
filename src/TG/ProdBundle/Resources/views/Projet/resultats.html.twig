@@ -20,7 +20,7 @@
 <h4>Contacts</h4>
 <ul>
 {% for contact in contacts %}
-<li><a href="{{ path('tg_client_view', {'id': contact.client.id})}}">{{ contact.name }}</a></li>
+<li><a href="{{ path('tg_client_view', {'id': contact.client.id}) }}">{{ contact.name|capitalize }}</a></li>
 {% endfor %}
 </ul>
 {% endif %}

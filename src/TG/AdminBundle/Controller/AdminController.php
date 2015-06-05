@@ -198,26 +198,56 @@ class AdminController extends Controller
 
     public function searchAction(request $request)
     {
-        if (isset($_POST['search']))
-        {
-            $request = $_POST['search'];
+        $query = $request->get('search');
 
-            $repositoryManager = $this->container->get('fos_elastica.manager.orm');
+        $indexclient = $this->container->get('fos_elastica.index.test1.client');
+        $boolclient = new \Elastica\Query\Bool();
+        $searchclient = new \Elastica\Query\QueryString();
+        $searchclient->setDefaultField('name');
+        $searchclient->setQuery($query);
+        $searchclient->setDefaultOperator('AND');
+        $boolclient->addMust($searchclient);
+        $clients = $indexclient->search($boolclient)->getResults();
 
-            $repositoryclient = $repositoryManager->getRepository('TGClientBundle:Client');
-            $clients = $repositoryclient->find($request);
+        $indexcontact = $this->container->get('fos_elastica.index.test1.contact');
+        $boolcontact = new \Elastica\Query\Bool();
+        $searchcontact = new \Elastica\Query\QueryString();
+        $searchcontact->setDefaultField('name');
+        $searchcontact->setQuery($query);
+        $searchcontact->setDefaultOperator('AND');
+        $boolcontact->addMust($searchcontact);
+        $contacts = $indexcontact->search($boolcontact)->getResults();
 
-            $repositorycontact = $repositoryManager->getRepository('TGClientBundle:Contact');
-            $contacts = $repositorycontact->find($request);
+        $indexprojet = $this->container->get('fos_elastica.index.test1.projet');
+        $searchprojet = new \Elastica\Query\QueryString();
+        $boolprojet = new \Elastica\Query\Bool();
+        $searchprojet->setDefaultField('titre', 'contenu');
+        $searchprojet->setQuery($query);
+        $searchprojet->setDefaultOperator('AND');
+        $boolprojet->addMust($searchprojet);
+        $projets = $indexprojet->search($boolprojet)->getResults();
 
-            $repositoryprojet = $repositoryManager->getRepository('TGProdBundle:Projet');
-            $projets = $repositoryprojet->find($request);
+
+        // if (isset($_POST['search']))
+        // {
+        //     $request = $_POST['search'];
+
+        //     $repositoryManager = $this->container->get('fos_elastica.manager.orm');
+
+        //     $repositoryclient = $repositoryManager->getRepository('TGClientBundle:Client');
+        //     $clients = $repositoryclient->find($request);
+
+        //     $repositorycontact = $repositoryManager->getRepository('TGClientBundle:Contact');
+        //     $contacts = $repositorycontact->find($request);
+
+        //     $repositoryprojet = $repositoryManager->getRepository('TGProdBundle:Projet');
+        //     $projets = $repositoryprojet->find($request);
 
 
             return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
                 'clients' => $clients,
                 'contacts' => $contacts,
                 'projets' => $projets));    
-        }
+      //  }
     }
 }

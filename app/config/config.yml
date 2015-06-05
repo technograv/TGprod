@@ -142,10 +142,43 @@ fos_elastica:
     indexes:
         test1:
             client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_analyzer :
+                                type     :    custom
+                                tokenizer:    nGram
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            custom_search_analyzer :
+                                type     :    custom
+                                tokenizer:    standard
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                        tokenizer:
+                            nGram:
+                                type:     nGram
+                                min_gram: 3
+                                max_gram: 20
+                        filter:
+                            snowball:
+                                type:     snowball
+                                language: French
+                            elision:
+                                type:     elision
+                                articles: [l, m, t, qu, n, s, j, d]
+                            stopwords:
+                                type:      stop
+                                stopwords: [_french_]
+                                ignore_case : true
+                            worddelimiter :
+                                type:      word_delimiter
             types:
                 client:
                     mappings:
-                        name: ~
+                        name:
+                            boost: 3
+                            index_analyzer : custom_analyzer
+                            search_analyzer : custom_search_analyzer
                     persistence:
                         driver: orm
                         model: TG\ClientBundle\Entity\Client
@@ -154,8 +187,17 @@ fos_elastica:
                         finder: ~
                 contact:
                     mappings:
-                        name: ~
+                        name:
+                            boost: 3
+                            index_analyzer : custom_analyzer
+                            search_analyzer : custom_search_analyzer
                         email: ~
+                        client:
+                            type: object
+                            properties:
+                                name: ~
+                                id:
+                                    type: integer
                     persistence:
                         driver: orm
                         model: TG\ClientBundle\Entity\Contact
@@ -164,8 +206,14 @@ fos_elastica:
                         finder: ~
                 projet:
                     mappings:
-                        titre: ~
-                        contenu: ~
+                        titre:
+                            boost: 3
+                            index_analyzer : custom_analyzer
+                            search_analyzer : custom_search_analyzer
+                        contenu:
+                            boost: 3
+                            index_analyzer : custom_analyzer
+                            search_analyzer : custom_search_analyzer
                     persistence:
                         driver: orm
                         model: TG\ProdBundle\Entity\Projet
