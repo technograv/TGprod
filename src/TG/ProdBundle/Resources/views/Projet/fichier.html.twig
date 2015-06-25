@@ -15,6 +15,10 @@
 <h3>Fichiers rattachés au projet "{{ projet.titre }}"</h3>
 </div>
 
+<script type="text/javascript">
+                $('.tooltip-test').tooltip();
+              </script>
+
 {% if listdoc %}
 <div class="col-sm-12 no-padding"><h4>Liste des pièces jointes :</h4>
 <table class="table table-hover table-bordered table-striped">
@@ -34,7 +38,7 @@
 			<td>{{ documentjoint.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'documentjoint', 'id': documentjoint.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
-			<td>{{ documentjoint.date|localizeddate('full', 'none') }}</td>
+			<td> <span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ documentjoint.date|date('G\\hi') }}">{{ documentjoint.date|localizeddate('full', 'none') }}</span></td>
 			<td><a href="{{ asset(documentjoint.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(documentjoint.webPath) }}" download="Piece_jointe{{ documentjoint.id }}-{{ documentjoint.projet.slug }}-{{ documentjoint.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
 			</tr>
@@ -65,7 +69,7 @@
       <a href="{{ path('tg_prod_delete', { 'type': 'crea', 'id': crea.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ crea.infos }}</td>
-			<td>{{ crea.dateadd|localizeddate('full', 'none') }}</td>
+			<td><span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ crea.dateadd|date('G\\hi') }}">{{ crea.dateadd|localizeddate('full', 'none') }}</span></td>
 			<td><a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
 			</tr>
@@ -95,7 +99,7 @@
       <a href="{{ path('tg_prod_delete', { 'type': 'logo', 'id': logo.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ logo.infos }}</td>
-			<td>{{ logo.date|localizeddate('full', 'none') }}</td>
+			<td><span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ logo.date|date('G\\hi') }}">{{ logo.date|localizeddate('full', 'none') }}</span></td>
 			<td><a href="{{ asset(logo.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(logo.webPath) }}" download="Logo{{ logo.id }}-{{ logo.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
 			</tr>
@@ -126,7 +130,7 @@
       <a href="{{ path('tg_prod_delete', { 'type': 'devis', 'id': devis.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ devis.infos }}</td>
-			<td>{{ devis.dateadd|localizeddate('full', 'none') }}</td>
+			<td><span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ devis.dateadd|date('G\\hi') }}">{{ devis.dateadd|localizeddate('full', 'none') }}</span></td>
 			<td><a href="{{ asset(devis.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(devis.webPath) }}" download="Devis{{ devis.id }}-{{ devis.projet.slug }}-{{ devis.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
 			</tr>
@@ -157,7 +161,7 @@
       <a href="{{ path('tg_prod_delete', { 'type': 'facture', 'id': facture.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ facture.infos }}</td>
-			<td>{{ facture.dateadd|localizeddate('full', 'none') }}</td>
+			<td><span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ facture.dateadd|date('G\\hi') }}">{{ facture.dateadd|localizeddate('full', 'none') }}</span></td>
 			<td><a href="{{ asset(facture.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
 			<td><a href="{{ asset(facture.webPath) }}" download="Facture{{ facture.id }}-{{ facture.projet.slug }}-{{ facture.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
 			</tr>
