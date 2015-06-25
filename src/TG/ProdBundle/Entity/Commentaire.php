@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Commentaire
 {
     /**
-     * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet", inversedBy="commentaires", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet", inversedBy="commentaires")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
