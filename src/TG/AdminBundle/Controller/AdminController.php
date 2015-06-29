@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use TG\ProdBundle\Entity\Type;
 use TG\ProdBundle\Form\TypeType;
 use TG\ProdBundle\Entity\Etape;
+use TG\ComptaBundle\Entity\Stock;
+use TG\ComptaBundle\Form\StockType;
+use TG\ComptaBundle\Entity\Dimension;
+use TG\ComptaBundle\Form\DimensionType;
 use TG\ProdBundle\Form\EtapeType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -249,5 +253,59 @@ class AdminController extends Controller
                 'contacts' => $contacts,
                 'projets' => $projets));    
       //  }
+    }
+
+        /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
+    public function stockAction(request $request)
+    {
+        $stock = new Stock;
+        $dimension = new Dimension;
+
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+
+        $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAll();
+        $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAll();
+
+        // if (isset($_GET['etape']))
+        // {
+        //     $editetape = $em->getRepository('TGProdBundle:Etape')->find($request->query->get('etape'));
+
+        //     if ($editetape !== null)
+        //     {
+        //         $etape = $editetape;
+        //     }
+        // }
+
+        $formstock = $this->get('form.factory')->create(new StockType, $stock);
+        $formdimension = $this->get('form.factory')->create(new DimensionType, $dimension);
+
+         if ($formstock->handleRequest($request)->isValid())
+         {
+             $em->persist($stock);
+             $em->flush();
+
+             $request->getSession()->getFlashBag()->add('info', 'Matière ajoutée avec succès.');
+
+             return $this->redirect($this->generateUrl('tg_admin_stocks'));
+         }
+
+         if ($formdimension->handleRequest($request)->isValid())
+         {
+             $em->persist($dimension);
+             $em->flush();
+
+             $request->getSession()->getFlashBag()->add('info', 'Dimension ajoutée avec succès.');
+
+             return $this->redirect($this->generateUrl('tg_admin_stocks'));
+         }
+
+        return $this->render('TGAdminBundle:Admin:stocks.html.twig', array(
+            'stocklist' => $stocklist,
+            'dimensionlist' => $dimensionlist,
+            'formstock' => $formstock->createView(),
+            'formdimension' => $formdimension->createView()));
     }
 }

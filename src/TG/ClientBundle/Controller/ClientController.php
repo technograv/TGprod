@@ -14,6 +14,7 @@ use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Finder\Finder;
 
 class ClientController extends Controller
 {
@@ -180,9 +181,22 @@ class ClientController extends Controller
 			{
 			$client->setUsermodif($this->getUser());
 			}
-			
+			//$tempslug = $client->getSlug();
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
+
+			// $finder = new Finder;
+			// $finder->files()->in(__DIR__.'/../../../../web/uploads'.'/'.$tempslug);
+			// foreach ($finder as $file) {
+			//  	$file->file->rename('/uploads'.'/'.$tempslug.'/'.$tempslug.'-logo'.$this->id.'.'.$this->extention, '/uploads'.'/'.$this->getClient()->getSlug().'/'.$this->getClient()->getSlug().'-logo'.$this->id.'.'.$this->extention);
+			//  } 
+
+			// = $em->getRepository('TGCreaBundle:Logo')->findByClient($client);
+			// foreach ($logos as $logo) {
+			// 	$logo->Update();
+			// 	$em->persist($logo);
+			// }
+
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('info', 'Client modifié avec succès.'); //Message de confirmation

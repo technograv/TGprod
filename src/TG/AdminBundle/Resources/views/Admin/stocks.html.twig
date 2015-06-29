@@ -1,0 +1,104 @@
+{% extends "TGAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Etapes de projet - {{ parent() }}
+{% endblock %}
+
+{% block tgadmin_body %}
+
+<div class="col-sm-6">
+
+{% if stocklist %}
+	<h4>Liste des matières existantes</h4>
+	<ul>
+		{% for stock in stocklist %}
+			<li><strong>{{ stock.name }}</strong></li>
+				<ul>
+					{% for dimension in stock.dimensions %}
+					<li>{{ dimension.longueur }} x {{ dimension.largeur }}</li>
+					{% endfor %}
+				</ul>
+
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if stocklist %}
+	<h4>Liste des dimensions existantes</h4>
+	<ul>
+		{% for dimension in dimensionlist %}
+			<li>{{ dimension.longueur }} x {{ dimension.largeur }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+</div>
+<div class="well col-sm-6">
+
+<h3 class="sticky">Ajouter une matière</h3>
+
+{{ form_start(formstock, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(formstock) }}
+
+    <div class="form-group required">
+      {{ form_label(formstock.name, "Nom de la matière", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+           {{ form_errors(formstock.name) }}
+      <div class="col-sm-7">
+        {{ form_widget(formstock.name, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+   <div class="form-group required">
+      {{ form_label(formstock.prix, "Prix au m²", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+      {{ form_errors(formstock.prix) }}
+      <div class="col-sm-7">
+        {{ form_widget(formstock.prix, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group required">
+      {{ form_label(formstock.dimensions, "Dimensions existantes", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+      {{ form_errors(formstock.dimensions) }}
+      <div class="col-sm-7">
+        {{ form_widget(formstock.dimensions, {'attr': {'class': 'form-control', 'size': 10}}) }}
+      </div>
+    </div>
+<div class="col-sm-10">
+</div>
+{{ form_widget(formstock.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_rest(formstock) }}
+{{ form_end(formstock) }}
+<hr>
+
+
+<h3>Ajouter des dimensions</h3>
+{{ form_start(formdimension, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(formdimension) }}
+
+    <div class="form-group required">
+      {{ form_label(formdimension.longueur, "Longueur", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+           {{ form_errors(formdimension.longueur) }}
+      <div class="col-sm-7">
+        {{ form_widget(formdimension.longueur, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+   <div class="form-group required">
+      {{ form_label(formdimension.largeur, "Largeur", {'label_attr': {'class': 'col-sm-5 control-label'}}) }}
+      {{ form_errors(formdimension.largeur) }}
+      <div class="col-sm-7">
+        {{ form_widget(formdimension.largeur, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+<div class="col-sm-10">
+</div>
+{{ form_widget(formdimension.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_rest(formdimension) }}
+{{ form_end(formdimension) }}
+</div>
+</div>
+
+{% endblock %}

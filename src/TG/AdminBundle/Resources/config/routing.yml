@@ -21,3 +21,7 @@ tg_admin_droits:
 tg_admin_recette:
     path: /recette
     defaults: { _controller: TGAdminBundle:Admin:recette }
+
+tg_admin_stocks:
+    path: /stocks
+    defaults: { _controller: TGAdminBundle:Admin:stock }

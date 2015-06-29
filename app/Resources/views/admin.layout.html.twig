@@ -1,35 +1,49 @@
   <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Technograv{% endblock %}</title>
+  <title>{% block title %}DECOR-PUB{% endblock %}</title>
 
-    {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap.css') }}">
+  {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/tgadmin/ckeditor/contents.css') }}" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    {% endblock %}
-  </head>
+  {% endblock %}
+</head>
 
-  <body>
-    {% include "::nav-bar.html.twig" %}
-        <div class="container">
-      <div id="header" class="jumbotron">
-      <h1>Technograv</h1>
-        <p>
-          Panneau d'administration
-        </p>
-      </div>
+<body>
+{% include "::nav-bar.html.twig" %}
 
+  <div class="container">
+    <div id="header" class="jumbotron">
+      <table width="100%">
+        <tr>
+          <td width="70%">
+      <h1><a href="{{ path('tg_prod_home')}}" class="no-style">Technograv</a></h1>
+      <p>
+        Panneau d'administration
+      </p>
+          </td>
+          <div align="right">
+          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+          <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
+          </div>
+        {% endif %}
+        </tr>
+      </table> 
+    </div>
       <div class="row">
-        <div id="menu" class="col-md-3">
+        <div id="menu" class="col-md-2">
+        {% if is_granted('ROLE_ADMIN') %}
           <h3>Paramètres</h3>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{{ path('tg_admin_types') }}">Types de projet</a></li>
             <li><a href="{{ path('tg_admin_etapes') }}">Etapes de projet</a></li>
+            <li><a href="{{ path('tg_admin_stocks') }}">Gestion des stocks</a></li>
           </ul>
 
           <h3>Utilisateurs</h3>
@@ -37,9 +51,18 @@
             <li><a href="{{ path('tg_admin_comptes') }}">Comptes</a></li>
             <li><a href="{{ path('tg_admin_droits') }}">Droits</a></li>
           </ul>
+          {% endif %}
 
         </div>
-        <div id="content" class="col-md-9">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <div id="content" class="col-md-10">
+            {% for flashMessage in app.session.flashbag.get('info') %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ flashMessage }}
+              </div>
+            {% endfor %}
+          {% endif %}
           {% block body %}
           {% endblock %}
         </div>
@@ -47,19 +70,18 @@
     </div>
   </div>
 
-      <hr>
+  <hr>
 
-      <footer align="center">
-        <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-      </footer>
-    </div>
+  <footer align="center">
+    <p>Technograv | Decor Pub © {{ 'now'|date('Y') }}</p>
+  </footer>
+</div>
 
-    {% block javascripts %}
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% block javascripts %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('bundles/tgadmin/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('bundles/tgadmin/ckeditor/ckeditor.js') }}"></script>
-    {% endblock %}
+{% endblock %}
 
-  </body>
-
-  </html>
+</body>
+</html>
