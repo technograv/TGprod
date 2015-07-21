@@ -1,0 +1,42 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Gestion des commandes - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+<div class="well">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>#</th>
+					{% for dimension in dimensionslist %}
+						<th>{{ dimension.name }}</th>
+					{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+				{% for stock in materiauxlist %}
+					<tr>
+						<td>{{ stock.name }}</td>
+						{% set newArray = [] %}
+						{% for tableau in besoins %}
+							{% if tableau.stock.name == stock.name %}
+								{% set newArray = newArray|merge([tableau]) %}
+							{% endif %}
+						{% endfor %}
+						{% for key, value in newArray %}
+   							{% if key == "besoin" %}
+      							<td>{{ value.nombre }}</td>
+   							{% endif %}
+						{% endfor %}
+					</tr>
+				{% endfor %}
+	</tbody>
+	</table>
+</div>
+
+{{ dump(besoins) }}
+
+{% endblock %}
