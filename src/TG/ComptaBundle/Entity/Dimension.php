@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Dimension
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TG\ComptaBundle\Entity\DimensionRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Dimension
@@ -167,5 +167,39 @@ class Dimension
         $this->name = $this->getLongueur().' x '.$this->getLargeur();
 
         return $this;
+    }
+
+    /**
+     * Add besoin
+     *
+     * @param \TG\ComptaBundle\Entity\Besoin $besoin
+     *
+     * @return Dimension
+     */
+    public function addBesoin(\TG\ComptaBundle\Entity\Besoin $besoin)
+    {
+        $this->besoins[] = $besoin;
+
+        return $this;
+    }
+
+    /**
+     * Remove besoin
+     *
+     * @param \TG\ComptaBundle\Entity\Besoin $besoin
+     */
+    public function removeBesoin(\TG\ComptaBundle\Entity\Besoin $besoin)
+    {
+        $this->besoins->removeElement($besoin);
+    }
+
+    /**
+     * Get besoins
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBesoins()
+    {
+        return $this->besoins;
     }
 }

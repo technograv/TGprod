@@ -3,12 +3,14 @@
 namespace TG\ComptaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Dimension
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Dimension
 {
@@ -16,6 +18,11 @@ class Dimension
      * @ORM\ManyToMany(targetEntity="TG\ComptaBundle\Entity\Stock", cascade={"persist"})
      */
     private $stocks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TG\ComptaBundle\Entity\Besoin", cascade={"persist"})
+     */
+    private $besoins;
 
     /**
      * @var integer
@@ -27,7 +34,7 @@ class Dimension
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
@@ -111,7 +118,6 @@ class Dimension
     public function __construct()
     {
         $this->stocks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->name = $this->longueur.' x '.$this->largeur;
     }
 
     /**
@@ -146,5 +152,25 @@ class Dimension
     public function getStocks()
     {
         return $this->stocks;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function SetName()
+    {
+        $this->name = $this->getLongueur().' x '.$this->getLargeur();
+
+        return $this;
     }
 }

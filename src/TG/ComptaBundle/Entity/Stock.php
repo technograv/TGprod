@@ -41,13 +41,6 @@ class Stock
     private $prix;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="besoin", type="integer", nullable=false)
-     */
-    private $besoin;
-
-    /**
      * Get id
      *
      * @return integer
@@ -106,35 +99,11 @@ class Stock
     }
 
     /**
-     * Set besoin
-     *
-     * @param integer $besoin
-     *
-     * @return Stock
-     */
-    public function setBesoin($besoin)
-    {
-        $this->besoin = $besoin;
-
-        return $this;
-    }
-
-    /**
-     * Get besoin
-     *
-     * @return integer
-     */
-    public function getBesoin()
-    {
-        return $this->besoin;
-    }
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->dimensions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->besoin = 0;
     }
 
     /**

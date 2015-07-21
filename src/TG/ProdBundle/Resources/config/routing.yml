@@ -51,3 +51,7 @@ tg_prod_relances:
 tg_prod_search:
     path: /resultats/
     defaults: { _controller: TGAdminBundle:Admin:search }
+
+tg_prod_stocks:
+    path: /stocks/
+    defaults: { _controller: TGComptaBundle:Stock:commande }

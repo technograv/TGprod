@@ -42,7 +42,7 @@ class Contact
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Length(min=4)
+     * @Assert\Length(min=2)
      */
     private $name;
 

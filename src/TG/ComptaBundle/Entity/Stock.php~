@@ -29,24 +29,16 @@ class Stock
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="prix", type="integer")
+     * @ORM\Column(name="prix", type="integer", nullable=false)
      */
     private $prix;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="besoin", type="integer")
-     */
-    private $besoin;
-
 
     /**
      * Get id
@@ -107,27 +99,44 @@ class Stock
     }
 
     /**
-     * Set besoin
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dimensions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add dimension
      *
-     * @param integer $besoin
+     * @param \TG\ComptaBundle\Entity\Dimension $dimension
      *
      * @return Stock
      */
-    public function setBesoin($besoin)
+    public function addDimension(\TG\ComptaBundle\Entity\Dimension $dimension)
     {
-        $this->besoin = $besoin;
+        $this->dimensions[] = $dimension;
 
         return $this;
     }
 
     /**
-     * Get besoin
+     * Remove dimension
      *
-     * @return integer
+     * @param \TG\ComptaBundle\Entity\Dimension $dimension
      */
-    public function getBesoin()
+    public function removeDimension(\TG\ComptaBundle\Entity\Dimension $dimension)
     {
-        return $this->besoin;
+        $this->dimensions->removeElement($dimension);
+    }
+
+    /**
+     * Get dimensions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDimensions()
+    {
+        return $this->dimensions;
     }
 }
-
