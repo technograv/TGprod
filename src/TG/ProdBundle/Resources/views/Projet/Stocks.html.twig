@@ -26,10 +26,14 @@
 								{% set newArray = newArray|merge([tableau]) %}
 							{% endif %}
 						{% endfor %}
-						{% for key, value in newArray %}
-   							{% if key == "besoin" %}
-      							<td>{{ value.nombre }}</td>
-   							{% endif %}
+						{% for values in newArray %}
+   							{% for key,value in values %}
+      							{% if key == "besoin" %}
+      								{% if besoin %}
+         								<td>{{ value.nombre }}</td>
+      								{% endif %}
+      							{% endif %}
+   							{% endfor %}
 						{% endfor %}
 					</tr>
 				{% endfor %}
