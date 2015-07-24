@@ -616,8 +616,8 @@ class ProjetController extends Controller
 	*/
 	public function menuAction($limit = 3)
 	{
-	$etape = array(4, 6, 26, 24, 25); //4:AttenteValidationDevis 6:AttenteValidationGraphique 26:terminé, 24:facturation, 25:AttentePaiement
 
+	$etape = array(1, 4, 6, 24, 25, 26); //1:attente données client, 4:attente validation devis, 6:attente validation graphique, 24:facturation, 25:AttentePaiement, 26:terminé
 
 		$ya2jour = new \Datetime;
 		$ya2jour->setTime (0, 0, 0);

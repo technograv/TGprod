@@ -35,7 +35,7 @@
 		{% for documentjoint in listdoc %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ documentjoint.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
+			<td>{{ documentjoint.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'documentjoint', 'id': documentjoint.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td> <span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ documentjoint.date|date('G\\hi') }}">{{ documentjoint.date|localizeddate('full', 'none') }}</span></td>
@@ -65,7 +65,7 @@
 		{% for crea in listcrea %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ crea.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
+			<td>{{ crea.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'crea', 'id': crea.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ crea.infos }}</td>
@@ -95,7 +95,7 @@
 		{% for logo in listlogo %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ logo.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
+			<td>{{ logo.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'logo', 'id': logo.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ logo.infos }}</td>
@@ -126,7 +126,7 @@
 		{% for devis in listdevis %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ devis.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
+			<td>{{ devis.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'devis', 'id': devis.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ devis.infos }}</td>
@@ -157,7 +157,7 @@
 		{% for facture in listfacture %}
 			<tr>
 			<td><i class="glyphicon glyphicon-file"></i></td>
-			<td>{{ facture.alt|capitalize }}{% if is_granted("ROLE_ADMIN") %}
+			<td>{{ facture.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
       <a href="{{ path('tg_prod_delete', { 'type': 'facture', 'id': facture.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</td>
 			<td>{{ facture.infos }}</td>
