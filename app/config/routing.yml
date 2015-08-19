@@ -6,6 +6,10 @@ tg_client:
     resource: "@TGClientBundle/Resources/config/routing.yml"
     prefix:   /commercial
 
+tg_compta:
+    resource: "@TGComptaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 tg_prod:
     resource: "@TGProdBundle/Resources/config/routing.yml"
     prefix:   /prod

@@ -43,15 +43,6 @@ class Besoin
     private $nombre;
 
     /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="dateadd", type="datetime")
-    * @Assert\DateTime()
-    */
-    private $dateadd;
-
-
-    /**
      * Get id
      *
      * @return integer
@@ -131,29 +122,5 @@ class Besoin
     public function getDimension()
     {
         return $this->dimension;
-    }
-
-    /**
-     * Set dateadd
-     *
-     * @param \DateTime $dateadd
-     *
-     * @return Besoin
-     */
-    public function setDateadd($dateadd)
-    {
-        $this->dateadd = $dateadd;
-
-        return $this;
-    }
-
-    /**
-     * Get dateadd
-     *
-     * @return \DateTime
-     */
-    public function getDateadd()
-    {
-        return $this->dateadd;
     }
 }

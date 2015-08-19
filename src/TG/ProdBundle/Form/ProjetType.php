@@ -50,7 +50,7 @@ class ProjetType extends AbstractType
             ->add('contenu',    'textarea', array(
                 'attr' =>array('class' => 'ckeditor')))
             ->add('client', 'entity', array(
-                'label'=> 'Liste des Clients',
+                'label' => 'Liste des Clients',
                 'class' => 'TGClientBundle:Client',
                 'property' => 'name',
                 'query_builder' => function(ClientRepository $er)

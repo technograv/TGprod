@@ -29,9 +29,13 @@
 						{% for values in newArray %}
    							{% for key,value in values %}
       							{% if key == "besoin" %}
-      								{% if besoin %}
-         								<td>{{ value.nombre }}</td>
-      								{% endif %}
+      								{% if value %}
+         								{% for besoin in value %}
+            								<td>{{ besoin.nombre }}</td>
+         								{% endfor %}
+         							{% else %}
+         								<td>X</td>
+         							{% endif %}
       							{% endif %}
    							{% endfor %}
 						{% endfor %}
@@ -39,8 +43,64 @@
 				{% endfor %}
 	</tbody>
 	</table>
+
+<div class="row">
+    <div class="col-xs-6" style="text-align:center"><h4>Ajouter un besoin</h4>
+    	{{ form_start(besoinform, {'attr': {'class': 'form-horizontal'}}) }}
+
+    	{{ form_errors(besoinform) }}
+
+    	<div class="form-group required">
+    		{{ form_label(besoinform.stock, "Materiaux", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+    		{{ form_errors(besoinform.stock) }}
+      		<div class="col-sm-4">
+        		{{ form_widget(besoinform.stock, {'attr': {'class': 'form-control', 'onChange': 'setdimensions();'}}) }}
+      		</div>
+      	</div>
+
+<script type="text/javascript">
+function setdimensions(){
+var id_select = $('#tg_comptabundle_besoin_stock').val();
+  $.ajax({
+    url: "{{ path('set_dimensions') }}",
+    type: 'POST',
+    data: {'id': id_select},
+    dataType: 'json',
+    success: function(json){ // quand la réponse de la requete arrive
+      $('#tg_comptabundle_besoin_dimension').html(''); // tu vides le select2
+      $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
+    $('#tg_comptabundle_besoin_dimension').append('<option value="'+ value.idD +'">'+ value.nameD +'</option>');
+      });
+    }
+  });
+}
+</script>
+      			
+      <div class="form-group required">
+      {{ form_label(besoinform.dimension, "Dimension", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(besoinform.dimension) }}
+      <div class="col-sm-4">
+        {{ form_widget(besoinform.dimension, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      </div>
+
+      <div class="form-group required">
+      {{ form_label(besoinform.nombre, "Quantité", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(besoinform.nombre) }}
+      <div class="col-sm-4">
+        {{ form_widget(besoinform.nombre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      </div>
+
+        {{ form_widget(besoinform.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        {{ form_rest(besoinform) }}
+  		{{ form_end(besoinform) }}
+
+    </div>
+    <div class="col-xs-6" style="text-align:center"><h4>Ajouter une commande</h4></div>
 </div>
 
-{{ dump(besoins) }}
+</div>
 
 {% endblock %}

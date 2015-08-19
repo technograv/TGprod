@@ -137,6 +137,6 @@ class Stock
      */
     public function getDimensions()
     {
-        return $this->dimensions;
+        return $this->dimensions->toArray();
     }
 }
