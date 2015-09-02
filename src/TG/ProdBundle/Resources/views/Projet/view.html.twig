@@ -70,7 +70,7 @@
                 $('.tooltip-test').tooltip();
               </script>
               <i class="glyphicon glyphicon-comment tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ commentaire.date|localizeddate('full', 'none') }} à {{ commentaire.date|date('G\\hi') }}"></i>
-          <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_ADMIN") %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
+          <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_GERANT") %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</br>
             {{ commentaire.contenu|raw }}</br>
             </p>
