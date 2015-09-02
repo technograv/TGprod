@@ -207,7 +207,7 @@ class AdminController extends Controller
         $indexclient = $this->container->get('fos_elastica.index.test1.client');
         $boolclient = new \Elastica\Query\Bool();
         $searchclient = new \Elastica\Query\QueryString();
-        $searchclient->setDefaultField('name');
+        $searchclient->setDefaultField('_all');
         $searchclient->setQuery($query);
         $searchclient->setDefaultOperator('AND');
         $boolclient->addMust($searchclient);
@@ -216,7 +216,7 @@ class AdminController extends Controller
         $indexcontact = $this->container->get('fos_elastica.index.test1.contact');
         $boolcontact = new \Elastica\Query\Bool();
         $searchcontact = new \Elastica\Query\QueryString();
-        $searchcontact->setDefaultField('name');
+        $searchcontact->setDefaultField('_all');
         $searchcontact->setQuery($query);
         $searchcontact->setDefaultOperator('AND');
         $boolcontact->addMust($searchcontact);
@@ -225,7 +225,7 @@ class AdminController extends Controller
         $indexprojet = $this->container->get('fos_elastica.index.test1.projet');
         $searchprojet = new \Elastica\Query\QueryString();
         $boolprojet = new \Elastica\Query\Bool();
-        $searchprojet->setDefaultField('titre', 'contenu');
+        $searchprojet->setDefaultField('_all');
         $searchprojet->setQuery($query);
         $searchprojet->setDefaultOperator('AND');
         $boolprojet->addMust($searchprojet);
