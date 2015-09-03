@@ -45,7 +45,7 @@
 	</table>
 
 <div class="row">
-    <div class="col-xs-6" style="text-align:center"><h4>Ajouter un besoin</h4>
+    <div style="text-align:center"><h4>Mettre à jour le tableau</h4>
     	{{ form_start(besoinform, {'attr': {'class': 'form-horizontal'}}) }}
 
     	{{ form_errors(besoinform) }}
@@ -53,7 +53,7 @@
     	<div class="form-group required">
     		{{ form_label(besoinform.stock, "Materiaux", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
     		{{ form_errors(besoinform.stock) }}
-      		<div class="col-sm-4">
+      		<div class="col-sm-6">
         		{{ form_widget(besoinform.stock, {'attr': {'class': 'form-control', 'onChange': 'setdimensions();'}}) }}
       		</div>
       	</div>
@@ -79,7 +79,7 @@ var id_select = $('#tg_comptabundle_besoin_stock').val();
       <div class="form-group required">
       {{ form_label(besoinform.dimension, "Dimension", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
       {{ form_errors(besoinform.dimension) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(besoinform.dimension, {'attr': {'class': 'form-control'}}) }}
       </div>
       </div>
@@ -87,19 +87,18 @@ var id_select = $('#tg_comptabundle_besoin_stock').val();
       <div class="form-group required">
       {{ form_label(besoinform.nombre, "Quantité", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
       {{ form_errors(besoinform.nombre) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(besoinform.nombre, {'attr': {'class': 'form-control'}}) }}
       </div>
       </div>
 
-        {{ form_widget(besoinform.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_widget(besoinform.besoin, {'attr': {'class': 'btn btn-primary', 'name': 'besoin', 'value': 'besoin'}, 'label': 'Indiquer un besoin'}) }}
+        {{ form_widget(besoinform.commande, {'attr': {'class': 'btn btn-primary', 'name': 'commande', 'value': 'commande'}, 'label': 'Valider une commande'}) }}
 
         {{ form_rest(besoinform) }}
   		{{ form_end(besoinform) }}
 
     </div>
-    <div class="col-xs-6" style="text-align:center"><h4>Ajouter une commande</h4></div>
-</div>
 
 </div>
 

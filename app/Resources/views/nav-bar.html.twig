@@ -9,10 +9,10 @@
     <div>
     <ul class="nav navbar-nav">
         {% if is_granted("ROLE_PAO") %}
-          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Devis</a></li>
+          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances</a></li>
         {% endif %}
         {% if is_granted("ROLE_COMPTA") %}
-          <li><a href="{{ path('tg_prod_compta') }}" name="_compta" /><span class="glyphicon glyphicon-piggy-bank"></span> Compta</a></li>
+          <li><a href="{{ path('tg_prod_facturation') }}" name="_facturation" /><span class="glyphicon glyphicon-piggy-bank"></span> Facturation</a></li>
         {% endif %}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ render(controller("TGClientBundle:Client:header")) }}

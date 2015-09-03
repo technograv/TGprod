@@ -11,12 +11,10 @@
   <div class="col-sm-4 no-padding text-right"><h4 style="margin-top:30px;">Projet ID : #{{ projet.id }}</h4></div>
 
   <div class="col-sm-12 no-padding"><p><i>
-    {% if projet.datemodif == null %}
       Créé le {{ projet.dateadd|localizeddate('full', 'none') }} à {{ projet.dateadd|date('G\\hi') }}
-      {% elseif projet.datemodif != null %}
-      Modifié le {{ projet.datemodif|localizeddate('full', 'none') }} à {{ projet.datemodif|date('G\\hi') }}
-    {% endif %}
      par {{ projet.user }}{% if is_granted('ROLE_ATELIER') %} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name|capitalize }}</a></i>{% endif %}.</p>
+     {% if projet.usermodif %}
+     <p><i>Modifié le {{ projet.datemodif|localizeddate('full', 'none') }} à {{ projet.datemodif|date('G\\hi') }} par {{ projet.usermodif }}.</p>{% endif %}
 
   <p>
     <a href="{{ path('tg_prod_home') }}" class="btn btn-default">

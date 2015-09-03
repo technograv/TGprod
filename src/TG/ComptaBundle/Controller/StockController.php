@@ -46,13 +46,24 @@ class StockController extends Controller
 			$besoin = $em->getRepository('TGComptaBundle:Besoin')->findOneBy(array('stock' => $datastock, 'dimension' => $datadimension), null, 1);
 			if ($besoin !== null) {
 				$tempnombre = $besoin->getNombre();
-				$nombre = $tempnombre + $datanombre;
-				$besoin->setNombre($nombre);
 
-			$em->persist($besoin);
-			$em->flush();
+				if (isset($_POST['besoin']))
+				{
+					$nombre = $tempnombre + $datanombre;
+					$besoin->setNombre($nombre);
+					$em->persist($besoin);
+					$em->flush();
+					$request->getSession()->getFlashBag()->add('info', 'Besoin ajouté avec succès');
+				}
 
-			$request->getSession()->getFlashBag()->add('info', 'Besoin ajouté avec succès');
+				elseif (isset($_POST['commande'])) 
+				{
+					$nombre = $tempnombre - $datanombre;
+					$besoin->setNombre($nombre);
+					$em->persist($besoin);
+					$em->flush();
+					$request->getSession()->getFlashBag()->add('info', 'Commande validée avec succès');
+				}
 
 			return $this->redirect($this->generateUrl('tg_prod_stocks'));
 			}

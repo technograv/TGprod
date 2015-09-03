@@ -145,6 +145,13 @@ class Projet
     private $datemodif;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="usermodif", type="string", nullable=true)
+     */
+    private $usermodif;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
@@ -414,7 +421,7 @@ class Projet
 
     /**
      * Set datemodif
-     * @ORM\PreUpdate
+     *
      * @param \DateTime $datemodif
      * @return Projet
      */
@@ -832,5 +839,29 @@ class Projet
     public function getLivraison()
     {
         return $this->livraison;
+    }
+
+    /**
+     * Set usermodif
+     *
+     * @param string $usermodif
+     *
+     * @return Projet
+     */
+    public function setUsermodif($usermodif)
+    {
+        $this->usermodif = $usermodif;
+
+        return $this;
+    }
+
+    /**
+     * Get usermodif
+     *
+     * @return string
+     */
+    public function getUsermodif()
+    {
+        return $this->usermodif;
     }
 }

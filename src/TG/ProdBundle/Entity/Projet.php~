@@ -19,22 +19,26 @@ class Projet
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Etape")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $etape;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
      private $assign;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ClientBundle\Entity\Contact")
+     * @Assert\Valid()
      */
      private $contact;
 
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Projet")
+     * @Assert\Valid()
      */
     private $projetparent;
 
@@ -48,6 +52,7 @@ class Projet
     /**
      * @ORM\ManyToOne(targetEntity="TG\ProdBundle\Entity\Type")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $type;
 
@@ -58,7 +63,7 @@ class Projet
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Commentaire", mappedBy="projet", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="TG\ProdBundle\Entity\Commentaire", mappedBy="projet", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $commentaires;
@@ -138,6 +143,13 @@ class Projet
      * @Assert\DateTime()
      */
     private $datemodif;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="usermodif", type="string", nullable=true)
+     */
+    private $usermodif;
 
     /**
      * @var string
@@ -354,7 +366,7 @@ class Projet
     /**
     * @ORM\PreUpdate
     */
-    public function LinkProjet()
+    public function linkProjet()
     {
         $linkprojet = $this->getProjetparent();
 
@@ -570,7 +582,7 @@ class Projet
         $this->nbcommentaires++;
     }
 
-    public function decreaseCommenctaire()
+    public function decreaseCommentaire()
     {
         $this->nbcommentaires--;
     }
@@ -804,5 +816,28 @@ class Projet
     public function getContact()
     {
         return $this->contact;
+    }
+
+    /**
+     * Set livraison
+     *
+     * @param string $livraison
+     * @return Projet
+     */
+    public function setLivraison($livraison)
+    {
+        $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * Get livraison
+     *
+     * @return string 
+     */
+    public function getLivraison()
+    {
+        return $this->livraison;
     }
 }
