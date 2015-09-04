@@ -6,7 +6,7 @@
 
 {% block tgprod_body %}
 {% if allDays is not empty %}
-<div class="well no-padding no-padding-bottom" style="min-height:200px; bor">
+<div class="well no-padding no-padding-bottom col-sm-12" style="min-height:200px; bor">
   {% for item in calendar %}
     <div class="col-sm-2 no-padding" align="center">
       <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
@@ -22,8 +22,8 @@
     </div>
   {% endfor %}
 {% endif %}
-
 </div>
+
 <div class="col-sm-6 no-padding"><h2>Liste des projets en cours ({{ listProjets.getTotalItemCount }})</h2></div>
 {% if is_granted('ROLE_GERANT') %}
 <div class="col-sm-2 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_archives') }}" class="btn btn-default"><i class="glyphicon glyphicon-menu-right"></i> Projets archivés</a></h4></div>

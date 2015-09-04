@@ -207,7 +207,7 @@ class AdminController extends Controller
         $indexclient = $this->container->get('fos_elastica.index.test1.client');
         $boolclient = new \Elastica\Query\Bool();
         $searchclient = new \Elastica\Query\QueryString();
-        $searchclient->setDefaultField('_all');
+        $searchclient->setDefaultField('name');
         $searchclient->setQuery($query);
         $searchclient->setDefaultOperator('AND');
         $boolclient->addMust($searchclient);
@@ -222,14 +222,25 @@ class AdminController extends Controller
         $boolcontact->addMust($searchcontact);
         $contacts = $indexcontact->search($boolcontact)->getResults();
 
-        $indexprojet = $this->container->get('fos_elastica.index.test1.projet');
-        $searchprojet = new \Elastica\Query\QueryString();
-        $boolprojet = new \Elastica\Query\Bool();
-        $searchprojet->setDefaultField('_all');
-        $searchprojet->setQuery($query);
-        $searchprojet->setDefaultOperator('AND');
-        $boolprojet->addMust($searchprojet);
-        $projets = $indexprojet->search($boolprojet)->getResults();
+        $indexprojet1 = $this->container->get('fos_elastica.index.test1.projet');
+        $searchprojet1 = new \Elastica\Query\QueryString();
+        $boolprojet1 = new \Elastica\Query\Bool();
+        $searchprojet1->setDefaultField('titre');
+        $searchprojet1->setQuery($query);
+        $searchprojet1->setDefaultOperator('AND');
+        $boolprojet1->addMust($searchprojet1);
+        $projets1 = $indexprojet1->search($boolprojet1)->getResults();
+
+        $indexprojet2 = $this->container->get('fos_elastica.index.test1.projet');
+        $searchprojet2 = new \Elastica\Query\QueryString();
+        $boolprojet2 = new \Elastica\Query\Bool();
+        $searchprojet2->setDefaultField('contenu');
+        $searchprojet2->setQuery($query);
+        $searchprojet2->setDefaultOperator('AND');
+        $boolprojet2->addMust($searchprojet2);
+        $projets2 = $indexprojet2->search($boolprojet2)->getResults();
+
+        $projets = array_merge($projets1, $projets2);
 
 
         // if (isset($_POST['search']))
