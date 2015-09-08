@@ -47,7 +47,7 @@ class ProjetRepository extends EntityRepository
 		$qb
 			->where('p.client = :client')
 			->setParameter('client', $client)
-			->orderBy('p.etape', 'ASC');
+			->orderBy('p.dateadd', 'DESC');
 
 		return $qb
 			->getQuery()
