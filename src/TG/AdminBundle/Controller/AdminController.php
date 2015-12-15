@@ -278,7 +278,7 @@ class AdminController extends Controller
         $request = $this->get('request');
 
         $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAll();
-        $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAll();
+        $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAllOrderedByName();
 
         // if (isset($_GET['etape']))
         // {
