@@ -10,6 +10,7 @@ use TG\ComptaBundle\Entity\Stock;
 use TG\ComptaBundle\Form\StockType;
 use TG\ComptaBundle\Entity\Dimension;
 use TG\ComptaBundle\Form\DimensionType;
+use TG\ComptaBundle\Entity\Besoin;
 use TG\ProdBundle\Form\EtapeType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -277,7 +278,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->get('request');
 
-        $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAll();
+        $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAllOrderedByName();
         $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAllOrderedByName();
 
         // if (isset($_GET['etape']))
@@ -296,6 +297,14 @@ class AdminController extends Controller
          if ($formstock->handleRequest($request)->isValid())
          {
              $em->persist($stock);
+             $dimensions = $stock->getDimensions();
+             foreach ($dimensions as $dimension) {
+                 $besoin = new Besoin;
+                 $besoin->setNombre(0);
+                 $besoin->setStock($stock);
+                 $besoin->setDimension($dimension);
+                 $em->persist($besoin);
+             }
              $em->flush();
 
              $request->getSession()->getFlashBag()->add('info', 'Matière ajoutée avec succès.');

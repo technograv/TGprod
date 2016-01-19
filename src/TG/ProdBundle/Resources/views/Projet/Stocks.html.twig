@@ -34,7 +34,7 @@
             								<td>{{ besoin.nombre }}</td>
          								{% endfor %}
          							{% else %}
-         								<td>X</td>
+         								<td style="color:red">X</td>
          							{% endif %}
       							{% endif %}
    							{% endfor %}
@@ -92,11 +92,12 @@ var id_select = $('#tg_comptabundle_besoin_stock').val();
       </div>
       </div>
 
-        {{ form_widget(besoinform.besoin, {'attr': {'class': 'btn btn-primary', 'name': 'besoin', 'value': 'besoin'}, 'label': 'Indiquer un besoin'}) }}
-        {{ form_widget(besoinform.commande, {'attr': {'class': 'btn btn-primary', 'name': 'commande', 'value': 'commande'}, 'label': 'Valider une commande'}) }}
+      <input type="submit" name="submitAction" value="besoin" class="btn btn-primary">
+      <input type="submit" name="submitAction" value="commande" class="btn btn-primary">
 
         {{ form_rest(besoinform) }}
   		{{ form_end(besoinform) }}
+
 
     </div>
 
