@@ -46,7 +46,7 @@
 
 <div class="row">
     <div style="text-align:center"><h4>Mettre à jour le tableau</h4>
-    	{{ form_start(besoinform, {'attr': {'class': 'form-horizontal'}}) }}
+    	{{ form_start(besoinform, {'attr': {'class': 'form-horizontal', 'id': 'besoinform'}}) }}
 
     	{{ form_errors(besoinform) }}
 
@@ -92,8 +92,27 @@ var id_select = $('#tg_comptabundle_besoin_stock').val();
       </div>
       </div>
 
-      <input type="submit" name="submitAction" value="besoin" class="btn btn-primary">
-      <input type="submit" name="submitAction" value="commande" class="btn btn-primary">
+      <input type="submit" name="submitAction" id="besoin" value="besoin" class="btn btn-primary" onclick="enable()">
+      <input type="submit" name="submitAction" id="commande" value="commande" class="btn btn-primary" onclick="disable()">
+      <input type="hidden" name="bouton" id="bouton" />
+
+      <script type="text/javascript">
+      function enable()
+      {
+        document.getElementById("besoin").disabled = true;
+        document.getElementById("commande").disabled = true;
+        document.getElementById("bouton").value = 'besoin';
+        document.getElementById("besoinform").submit();
+      }
+
+      function disable()
+      {
+        document.getElementById("besoin").disabled = true;
+        document.getElementById("commande").disabled = true;
+        document.getElementById("bouton").value = 'commande';
+        document.getElementById("besoinform").submit();
+      }
+      </script>
 
         {{ form_rest(besoinform) }}
   		{{ form_end(besoinform) }}

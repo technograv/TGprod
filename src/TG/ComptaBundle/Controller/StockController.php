@@ -51,7 +51,7 @@ class StockController extends Controller
 			if ($besoin !== null) {
 				$tempnombre = $besoin->getNombre();
 				
-				if ($this->getRequest()->request->get('submitAction') == 'besoin')
+				if(isset($_POST['bouton']) && $_POST['bouton'] == "besoin")
 				{
 				$nombre = $tempnombre + $datanombre;
 				$besoin->setNombre($nombre);
@@ -61,7 +61,7 @@ class StockController extends Controller
 				return $this->redirect($this->generateUrl('tg_prod_stocks'));
 				}
 
-				elseif ($this->getRequest()->request->get('submitAction') == 'commande')
+				elseif (isset($_POST['bouton']) && $_POST['bouton'] == "commande")
 				{
 				$nombre = $tempnombre - $datanombre;
 				$besoin->setNombre($nombre);
