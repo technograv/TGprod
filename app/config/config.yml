@@ -41,13 +41,13 @@ assetic:
     use_controller: false
     write_to:             '%kernel.root_dir%/../web'
     bundles:
-        - "TGAdminBundle"
-    java: /usr/bin/java
+    #java: /usr/bin/java
     assets:
         bootstrap_css:
             inputs:
                 - %%kernel.root_dir%/Resources/less/bootstrap.less
                 - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/less/form.less
+                - %kernel.root_dir%/../vendor/pinano/select2-bundle/Pinano/Select2Bundle/Resources/public/css/select2.css
             filters:
                 - less
                 - cssrewrite
@@ -72,6 +72,10 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
             output: js/jquery.js
+        jsperso:
+            inputs:
+                - %kernel.root_dir%/Resources/js/jsperso.js
+            output: js/jsperso.js
 
 braincrafted_bootstrap:
     output_dir: %kernel.root_dir%/../web/bootstrap

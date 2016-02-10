@@ -15,7 +15,7 @@
           <li><a href="{{ path('tg_prod_facturation') }}" name="_facturation" /><span class="glyphicon glyphicon-usd"></span> Facturation</a></li>
         {% endif %}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ render(controller("TGClientBundle:Client:header")) }}
+        {{ render(controller("TGClientBundle:Client:headerform")) }}
         {% if is_granted("ROLE_ATELIER") %}
         <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Client</a></li>
         <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Projet</a></li>

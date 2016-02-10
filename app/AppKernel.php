@@ -31,7 +31,7 @@ class AppKernel extends Kernel
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-            new Lifo\TypeaheadBundle\LifoTypeaheadBundle(),
+            new Pinano\Select2Bundle\PinanoSelect2Bundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

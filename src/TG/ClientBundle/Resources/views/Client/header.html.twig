@@ -1,24 +1,17 @@
-<li class="dropdown">
-	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		<span class="glyphicon glyphicon-list"></span> Clients <span class="caret"></span>
-	</a>
-    <ul class="dropdown-menu scrollable-menu">
-	    {% for client in listClients %}
-	      <li>
-	        <a href="{{ path('tg_client_view', {'id': client.id}) }}">{{ client.name|capitalize }}</a>
-	      </li>
-	     {% endfor %}
-     </ul>
- </li>
- <li class="dropdown">
-	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		<span class="glyphicon glyphicon-list"></span> Contacts <span class="caret"></span>
-	</a>
-    <ul class="dropdown-menu scrollable-menu">
-	    {% for contact in listContacts %}
-	      <li>
-	        <a href="{{ path('tg_client_view', {'id': contact.client.id}) }}">{{ contact.name|capitalize }}</a>
-	      </li>
-	     {% endfor %}
-     </ul>
- </li>
+	 <li class="dropdown">	 
+		<select class="selectclient">
+		<option disabled="disabled" selected="selected" value>Liste des clients</option>
+		{% for client in listClients %}
+		<option value="{{ client.id }}">{{ client.name|capitalize }}</option>
+		{% endfor %}
+		</select>
+	</li>
+
+	<li class="dropdown">	 
+		<select class="selectcontact">
+		<option disabled="disabled" selected="selected" value>Liste des contacts</option>
+		{% for contact in listContacts %}
+		<option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>
+		{% endfor %}
+		</select>
+	</li>

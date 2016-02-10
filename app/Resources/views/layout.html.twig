@@ -12,6 +12,9 @@
     %}
     <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheets" type="text/css">
     {% endstylesheets %}
+    {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
+      <link rel="stylesheet" href="{{ asset('bundles/tgadmin/ckeditor/contents.css') }}" />
+      <link rel="stylesheet" href="{{ asset('bundles/pinanoselect2/css/select2.min.css') }}" />
   {% endblock %}
 </head>
 
@@ -79,9 +82,14 @@
   {% javascripts output='js/compiled/core.js'
     'js/jquery.js'
     'js/bootstrap.js'
+    'js/jsperso.js'
      %}
     <script src="{{ asset_url }}" charset="utf-8"></script>
   {% endjavascripts %}
+  {% if form is defined %}{{ form_javascript(form) }}{% endif %}
+  <script src="{{ asset('bundles/tgadmin/ckeditor/ckeditor.js') }}"></script>
+  <script src="{{ asset('bundles/pinanoselect2/js/select2.min.js') }}"></script>
+  <script src="{{ asset('bundles/pinanoselect2/js/i18n/fr.js') }}"></script>
 {% endblock %}
 
 </body>
