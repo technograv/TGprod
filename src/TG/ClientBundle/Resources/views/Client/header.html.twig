@@ -1,17 +1,20 @@
-	 <li class="dropdown">	 
-		<select class="selectclient">
-		<option disabled="disabled" selected="selected" value>Liste des clients</option>
+	 <li>	 
+		<form class="navbar-form inline-form">
+		<select class="selectclient select-sm" style="width:100%;">
+		<option disabled="disabled" selected="selected" value>clients</option>
 		{% for client in listClients %}
 		<option value="{{ client.id }}">{{ client.name|capitalize }}</option>
 		{% endfor %}
 		</select>
+		</form>
 	</li>
-
-	<li class="dropdown">	 
-		<select class="selectcontact">
-		<option disabled="disabled" selected="selected" value>Liste des contacts</option>
+	<li>
+		<form class="navbar-form inline-form">
+		<select class="selectcontact select-sm" style="width: 100%;">
+		<option disabled="disabled" selected="selected" value>contacts</option>
 		{% for contact in listContacts %}
 		<option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>
 		{% endfor %}
 		</select>
+	</form>
 	</li>

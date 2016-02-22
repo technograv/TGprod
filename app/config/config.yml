@@ -47,7 +47,6 @@ assetic:
             inputs:
                 - %%kernel.root_dir%/Resources/less/bootstrap.less
                 - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/less/form.less
-                - %kernel.root_dir%/../vendor/pinano/select2-bundle/Pinano/Select2Bundle/Resources/public/css/select2.css
             filters:
                 - less
                 - cssrewrite
@@ -179,6 +178,7 @@ services:
 
 genemu_form:
     date: ~
+    select2: ~
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

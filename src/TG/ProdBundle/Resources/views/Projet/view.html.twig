@@ -64,9 +64,6 @@
       <div class="ckeditor">
         {% for commentaire in listComments %}
             <p>-----------------</br></br>
-            <script type="text/javascript">
-                $('.tooltip-test').tooltip();
-              </script>
               <i class="glyphicon glyphicon-comment tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ commentaire.date|localizeddate('full', 'none') }} à {{ commentaire.date|date('G\\hi') }}"></i>
           <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_GERANT") %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</br>
