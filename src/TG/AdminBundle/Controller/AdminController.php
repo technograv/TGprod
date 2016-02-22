@@ -243,23 +243,6 @@ class AdminController extends Controller
 
         $projets = array_merge($projets1, $projets2);
 
-
-        // if (isset($_POST['search']))
-        // {
-        //     $request = $_POST['search'];
-
-        //     $repositoryManager = $this->container->get('fos_elastica.manager.orm');
-
-        //     $repositoryclient = $repositoryManager->getRepository('TGClientBundle:Client');
-        //     $clients = $repositoryclient->find($request);
-
-        //     $repositorycontact = $repositoryManager->getRepository('TGClientBundle:Contact');
-        //     $contacts = $repositorycontact->find($request);
-
-        //     $repositoryprojet = $repositoryManager->getRepository('TGProdBundle:Projet');
-        //     $projets = $repositoryprojet->find($request);
-
-
             return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
                 'clients' => $clients,
                 'contacts' => $contacts,
@@ -280,16 +263,6 @@ class AdminController extends Controller
 
         $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAllOrderedByName();
         $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAllOrderedByName();
-
-        // if (isset($_GET['etape']))
-        // {
-        //     $editetape = $em->getRepository('TGProdBundle:Etape')->find($request->query->get('etape'));
-
-        //     if ($editetape !== null)
-        //     {
-        //         $etape = $editetape;
-        //     }
-        // }
 
         $formstock = $this->get('form.factory')->create(new StockType, $stock);
         $formdimension = $this->get('form.factory')->create(new DimensionType, $dimension);

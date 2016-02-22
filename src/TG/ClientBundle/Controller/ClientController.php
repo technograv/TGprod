@@ -6,7 +6,6 @@ namespace TG\ClientBundle\Controller;
 
 use TG\ClientBundle\Form\ClientType;
 use TG\ClientBundle\Form\ClientEditType;
-use TG\ClientBundle\Form\HeaderType;
 use TG\ClientBundle\Entity\Client;
 use TG\ClientBundle\Entity\Contact;
 use TG\ClientBundle\Form\ContactType;
@@ -15,8 +14,6 @@ use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {

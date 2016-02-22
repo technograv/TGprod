@@ -5,8 +5,6 @@
 namespace TG\ComptaBundle\Controller;
 
 use TG\ComptaBundle\Entity\Besoin;
-use TG\ComptaBundle\Entity\Stock;
-use TG\ComptaBundle\Entity\Dimension;
 use TG\ComptaBundle\Form\BesoinType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,7 +23,6 @@ class StockController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$materiauxlist = $em->getRepository('TGComptaBundle:Stock')->findAllOrderedByName();
 		$dimensionslist = $em->getRepository('TGComptaBundle:Dimension')->findAllOrderedByName();
-		$tab1 = array_merge($materiauxlist, $dimensionslist);
 		$besoins = array();
 
 		foreach ($materiauxlist as $stock) {
