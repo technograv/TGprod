@@ -10,13 +10,13 @@
 	<table class="table table-hover table-bordered">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th style="text-align:center;">#</th>
 					{% for dimension in dimensionslist %}
-						<th>{{ dimension.name }}</th>
+						<th style="text-align:center;">{{ dimension.name }}</th>
 					{% endfor %}
 			</tr>
 		</thead>
-		<tbody align="center">
+		<tbody style="text-align:center;">
 				{% for stock in materiauxlist %}
 					<tr>
 						<td>{{ stock.name }}</td>
@@ -54,7 +54,7 @@
     		{{ form_label(besoinform.stock, "Materiaux", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
     		{{ form_errors(besoinform.stock) }}
       		<div class="col-sm-6">
-        		{{ form_widget(besoinform.stock, {'attr': {'class': 'form-control', 'onChange': 'setdimensions();'}}) }}
+        		{{ form_widget(besoinform.stock, {'attr': {'class': 'form-control'}}) }}
       		</div>
       	</div>
 
@@ -80,7 +80,7 @@ var id_select = $('#tg_comptabundle_besoin_stock').val();
       {{ form_label(besoinform.dimension, "Dimension", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
       {{ form_errors(besoinform.dimension) }}
       <div class="col-sm-6">
-        {{ form_widget(besoinform.dimension, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(besoinform.dimension, {'attr': {'class': 'form-control special'}}) }}
       </div>
       </div>
 

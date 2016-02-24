@@ -51,6 +51,10 @@ assetic:
                 - less
                 - cssrewrite
             output: css/bootstrap.css
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
+            output: js/jquery.js
         bootstrap_js:
             inputs:
                 - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
@@ -67,10 +71,6 @@ assetic:
                 - %kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js
                 - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
             output: js/bootstrap.js
-        jquery:
-            inputs:
-                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
-            output: js/jquery.js
         jsperso:
             inputs:
                 - %kernel.root_dir%/Resources/js/jsperso.js
@@ -92,6 +92,9 @@ braincrafted_bootstrap:
         bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
         bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
     icon_prefix: glyphicon fontawesome_dir: %kernel.root_dir%/../vendor/fortawesome/font-awesome
+
+fos_js_routing:
+    routes_to_expose: [ tg_client_view, set_dimensions ]
 
 # Doctrine Configuration
 doctrine:
