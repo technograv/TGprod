@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block tgprod_body %}
+
+  Test
+ <span id="texteJQ"></span>
+
 {% if allDays is not empty %}
 <div class="well no-padding no-padding-bottom col-sm-12" style="min-height:200px; bor">
   {% for item in calendar %}
@@ -12,9 +16,7 @@
       <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
           {% for projet in projetsallDays %}
             {% if projet.delai|date('Y-m-d') == item %}
-            <script type="text/javascript">
-                $('.tooltip-test').tooltip();
-              </script>
+            
               <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
               </div>
             {% endif %}
@@ -74,5 +76,7 @@
 <div class="navigation">
     {{ knp_pagination_render(listProjets) }}
 </div>
+
+
 
 {% endblock %}

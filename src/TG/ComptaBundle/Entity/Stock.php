@@ -14,6 +14,7 @@ class Stock
 {
     /**
      * @ORM\ManyToMany(targetEntity="TG\ComptaBundle\Entity\Dimension", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $dimensions;
 

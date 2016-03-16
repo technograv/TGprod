@@ -31,10 +31,7 @@ class BesoinType extends AbstractType
                 },
                 'multiple' => false,
                 'empty_value' => 'Liste des materiaux'))
-            ->add('nombre', 'integer')
-            ->add('besoin', 'submit')
-            ->add('commande', 'submit')
-        ;
+            ->add('nombre', 'integer');
 
     $formModifier = function (FormInterface $form, Stock $stock = null) {
         $dimensions = null === $stock ? array() : $stock->getDimensions();

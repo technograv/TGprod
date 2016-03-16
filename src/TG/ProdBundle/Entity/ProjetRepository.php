@@ -66,8 +66,6 @@ class ProjetRepository extends EntityRepository
 			->orderBy('p.maj', 'DESC');
 
 		return $qb;
-		//	->getQuery()
-		//	->getResult();
 	}
 
 	public function getProjetEnfant($projet, $projetparent)

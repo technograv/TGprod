@@ -5,6 +5,7 @@ namespace TG\ComptaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use TG\ComptaBundle\Entity\DimensionRepository;
 
 class StockType extends AbstractType
 {
@@ -20,6 +21,11 @@ class StockType extends AbstractType
             ->add('dimensions', 'entity', array(
                 'class' => 'TGComptaBundle:Dimension',
                 'property' => 'name',
+                'query_builder' => function(DimensionRepository $er)
+                                            {
+                                                return $er->getDimensionASC();
+                                            },
+
                 'multiple' => true))
             ->add('valider', 'submit')
         ;

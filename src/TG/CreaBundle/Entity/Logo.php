@@ -281,13 +281,4 @@ class Logo
     {
         return $this->date;
     }
-
-    // public function Update()
-    // {
-    //   $file = $this->getFile();
-    //   $this->file->move(
-    //   $this->getUploadRootDir(), // Le répertoire de destination
-    //   $this->getClient()->getSlug().'-logo'.$this->id.'.'.$this->extention
-    //   );
-    // }
 }

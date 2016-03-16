@@ -10,18 +10,4 @@ namespace TG\ComptaBundle\Entity;
  */
 class BesoinRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function findBesoins($stock, $dimension)
-	{
-		$qb = $this->createQueryBuilder('b');
-
-		$qb
-			->where('b.stock = :stock')
-			->andwhere('b.dimension = :dimension')
-			->setParameter('stock', $stock)
-			->setParameter('dimension', $dimension);
-
-		$qb
-			->getQuery()
-			->getResult();
-	}
 }

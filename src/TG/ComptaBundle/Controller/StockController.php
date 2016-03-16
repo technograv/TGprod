@@ -21,9 +21,8 @@ class StockController extends Controller
 	public function commandeAction(request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$materiauxlist = $em->getRepository('TGComptaBundle:Stock')->findAll();
-		$dimensionslist = $em->getRepository('TGComptaBundle:Dimension')->findAll();
-		$tab1 = array_merge($materiauxlist, $dimensionslist);
+		$materiauxlist = $em->getRepository('TGComptaBundle:Stock')->findAllOrderedByName();
+		$dimensionslist = $em->getRepository('TGComptaBundle:Dimension')->findAllOrderedByName();
 		$besoins = array();
 
 		foreach ($materiauxlist as $stock) {
@@ -43,43 +42,41 @@ class StockController extends Controller
 			$datadimension = $besoinform->get('dimension')->getData();
 			$datanombre = $besoinform->get('nombre')->getData();
 
-			$besoin = $em->getRepository('TGComptaBundle:Besoin')->findOneBy(array('stock' => $datastock, 'dimension' => $datadimension), null, 1);
+			$besoin = new Besoin;
+			$besoin = $em->getRepository('TGComptaBundle:Besoin')->findOneBy(array('stock' => $datastock, 'dimension' => $datadimension));
+			
 			if ($besoin !== null) {
 				$tempnombre = $besoin->getNombre();
-
-				if (isset($_POST['besoin']))
+				
+				if(isset($_POST['bouton']) && $_POST['bouton'] == "besoin")
 				{
-					$nombre = $tempnombre + $datanombre;
-					$besoin->setNombre($nombre);
-					$em->persist($besoin);
-					$em->flush();
-					$request->getSession()->getFlashBag()->add('info', 'Besoin ajouté avec succès');
+				$nombre = $tempnombre + $datanombre;
+				$besoin->setNombre($nombre);
+				$em->persist($besoin);
+				$em->flush();
+				$request->getSession()->getFlashBag()->add('info', 'Besoin ajouté avec succès');
+				return $this->redirect($this->generateUrl('tg_prod_stocks'));
 				}
 
-				elseif (isset($_POST['commande'])) 
+				elseif (isset($_POST['bouton']) && $_POST['bouton'] == "commande")
 				{
-					$nombre = $tempnombre - $datanombre;
-					$besoin->setNombre($nombre);
-					$em->persist($besoin);
-					$em->flush();
-					$request->getSession()->getFlashBag()->add('info', 'Commande validée avec succès');
-				}
+				$nombre = $tempnombre - $datanombre;
+				$besoin->setNombre($nombre);
+				$em->persist($besoin);
+				$em->flush();
+				$request->getSession()->getFlashBag()->add('info', 'Commande validée avec succès');
+				return $this->redirect($this->generateUrl('tg_prod_stocks'));
 
-			return $this->redirect($this->generateUrl('tg_prod_stocks'));
+				}
 			}
-			
-			else {			
 
+			else {
 			$request->getSession()->getFlashBag()->add('info', 'Désolé, le matériaux ou la dimension sélectionné n\'existe pas');
-
-			return $this->redirect($this->generateUrl('tg_prod_stocks'));
 			}
 		}
-
-		return $this->render('TGProdBundle:Projet:stocks.html.twig', array(
+			return $this->render('TGProdBundle:Projet:stocks.html.twig', array(
 				'materiauxlist' => $materiauxlist,
 				'dimensionslist' => $dimensionslist,
-				'besoin' => $besoin,
 				'tableau' => $tableau,
 				'besoins' => $besoins,
 				'besoinform' => $besoinform->createView()));

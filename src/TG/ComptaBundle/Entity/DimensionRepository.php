@@ -10,4 +10,25 @@ namespace TG\ComptaBundle\Entity;
  */
 class DimensionRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findAllOrderedByName()
+	{
+		$qb = $this->createQueryBuilder('d');
+
+		$qb
+			->orderBy('d.name', 'ASC');
+
+		return $qb
+			->getQuery()
+			->getResult();
+	}
+
+	public function getDimensionASC()
+	{
+		$qb = $this->createQueryBuilder('d');
+
+		$qb
+			->orderBy('d.name', 'ASC');
+
+		return $qb;
+	}
 }

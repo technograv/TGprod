@@ -1,4 +1,4 @@
-/web/*
+/web/
 /app/cache/*
 /app/logs/*
 /vendor/

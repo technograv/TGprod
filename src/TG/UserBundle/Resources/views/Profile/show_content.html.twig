@@ -1,0 +1,91 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+</div>
+
+	<a data-target="#box-panier" role="button" data-toggle="modal" class="btn btn-primary">
+      <i class="glyphicon glyphicon-ok"></i>
+      Ajouter un panier repas
+    </a>
+
+    <a data-target="#box-heuresup" role="button" data-toggle="modal" class="btn btn-primary">
+      <i class="glyphicon glyphicon-ok"></i>
+      Ajouter du temps de travail supplémentaire
+    </a>
+
+ <!-- Modal Panier -->
+        <div id="box-panier" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" align="center">Ajouter un panier repas</h4>
+              </div>
+              <div class="modal-body">
+                {{ form_start(panierform, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(panierform) }}
+              <div class="form-group">
+                {{ form_label(panierform.chantier, "Chantier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(panierform.chantier) }}
+              <div class="col-sm-7">
+                {{ form_widget(panierform.chantier, {'attr': {'class': 'form-control'}}) }}
+              </div>
+          </div>
+          <div class="form-group">
+              {{ form_label(panierform.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(panierform.date) }}
+              <div class="col-sm-7">
+                {{ form_widget(panierform.date, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="col-sm-8"></div>
+                {{ form_widget(panierform.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                {{ form_rest(panierform) }}
+                {{ form_end(panierform) }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+ <!-- Modal Heuresup -->
+        <div id="box-heuresup" class="modal fade" keyboard="true" backdrop="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" align="center">Ajouter du temps de travail supplémentaire</h4>
+              </div>
+              <div class="modal-body">
+                {{ form_start(heuresupform, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(heuresupform) }}
+              <div class="form-group">
+                {{ form_label(heuresupform.chantier, "Chantier", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(heuresupform.chantier) }}
+              <div class="col-sm-7">
+                {{ form_widget(heuresupform.chantier, {'attr': {'class': 'form-control'}}) }}
+              </div>
+         	 </div>
+              <div class="form-group">
+                {{ form_label(heuresupform.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(heuresupform.date) }}
+              <div class="col-sm-7">
+                {{ form_widget(heuresupform.date, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="form-group">
+                {{ form_label(heuresupform.nombre, "Nombre", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+                {{ form_errors(heuresupform.nombre) }}
+              <div class="col-sm-7">
+                {{ form_widget(heuresupform.nombre, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              </div>
+              <div class="col-sm-8"></div>
+                {{ form_widget(heuresupform.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }}
+                {{ form_rest(heuresupform) }}
+                {{ form_end(heuresupform) }}
+              </div>
+            </div>
+          </div>
+        </div>

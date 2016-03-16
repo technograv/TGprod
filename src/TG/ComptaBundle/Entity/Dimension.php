@@ -3,7 +3,6 @@
 namespace TG\ComptaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Dimension
@@ -162,7 +161,7 @@ class Dimension
     /**
     * @ORM\PrePersist
     */
-    public function SetName()
+    public function setName()
     {
         $this->name = $this->getLongueur().' x '.$this->getLargeur();
 

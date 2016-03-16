@@ -14,7 +14,6 @@ use TG\CreaBundle\Form\LogoEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Finder\Finder;
 
 class ClientController extends Controller
 {
@@ -181,21 +180,8 @@ class ClientController extends Controller
 			{
 			$client->setUsermodif($this->getUser());
 			}
-			//$tempslug = $client->getSlug();
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
-
-			// $finder = new Finder;
-			// $finder->files()->in(__DIR__.'/../../../../web/uploads'.'/'.$tempslug);
-			// foreach ($finder as $file) {
-			//  	$file->file->rename('/uploads'.'/'.$tempslug.'/'.$tempslug.'-logo'.$this->id.'.'.$this->extention, '/uploads'.'/'.$this->getClient()->getSlug().'/'.$this->getClient()->getSlug().'-logo'.$this->id.'.'.$this->extention);
-			//  } 
-
-			// = $em->getRepository('TGCreaBundle:Logo')->findByClient($client);
-			// foreach ($logos as $logo) {
-			// 	$logo->Update();
-			// 	$em->persist($logo);
-			// }
 
 			$em->flush();
 
@@ -247,7 +233,7 @@ class ClientController extends Controller
 		return $this->render('TGClientBundle:client:menu.html.twig', array('listClients' => $listClients));
 	}
 
-	public function headerAction()
+	public function headerformAction()
 	{
 		$em = $this->getDoctrine()->getManager();
 		$listClients = $em->getRepository('TGClientBundle:Client')
@@ -261,8 +247,10 @@ class ClientController extends Controller
 				array('name' => 'asc')
 				);
 
+
 		return $this->render('TGClientBundle:client:header.html.twig', array(
 			'listClients' => $listClients,
-			'listContacts' => $listContacts));
+			'listContacts' => $listContacts
+			));
 	}
 }

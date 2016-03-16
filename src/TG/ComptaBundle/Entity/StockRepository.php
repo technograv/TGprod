@@ -10,4 +10,15 @@ namespace TG\ComptaBundle\Entity;
  */
 class StockRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findAllOrderedByName()
+	{
+		$qb = $this->createQueryBuilder('s');
+
+		$qb
+			->orderBy('s.name', 'ASC');
+
+		return $qb
+			->getQuery()
+			->getResult();
+	}
 }

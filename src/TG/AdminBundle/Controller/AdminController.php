@@ -10,6 +10,7 @@ use TG\ComptaBundle\Entity\Stock;
 use TG\ComptaBundle\Form\StockType;
 use TG\ComptaBundle\Entity\Dimension;
 use TG\ComptaBundle\Form\DimensionType;
+use TG\ComptaBundle\Entity\Besoin;
 use TG\ProdBundle\Form\EtapeType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -242,23 +243,6 @@ class AdminController extends Controller
 
         $projets = array_merge($projets1, $projets2);
 
-
-        // if (isset($_POST['search']))
-        // {
-        //     $request = $_POST['search'];
-
-        //     $repositoryManager = $this->container->get('fos_elastica.manager.orm');
-
-        //     $repositoryclient = $repositoryManager->getRepository('TGClientBundle:Client');
-        //     $clients = $repositoryclient->find($request);
-
-        //     $repositorycontact = $repositoryManager->getRepository('TGClientBundle:Contact');
-        //     $contacts = $repositorycontact->find($request);
-
-        //     $repositoryprojet = $repositoryManager->getRepository('TGProdBundle:Projet');
-        //     $projets = $repositoryprojet->find($request);
-
-
             return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
                 'clients' => $clients,
                 'contacts' => $contacts,
@@ -277,18 +261,8 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->get('request');
 
-        $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAll();
-        $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAll();
-
-        // if (isset($_GET['etape']))
-        // {
-        //     $editetape = $em->getRepository('TGProdBundle:Etape')->find($request->query->get('etape'));
-
-        //     if ($editetape !== null)
-        //     {
-        //         $etape = $editetape;
-        //     }
-        // }
+        $stocklist = $em->getRepository('TGComptaBundle:Stock')->FindAllOrderedByName();
+        $dimensionlist = $em->getRepository('TGComptaBundle:Dimension')->FindAllOrderedByName();
 
         $formstock = $this->get('form.factory')->create(new StockType, $stock);
         $formdimension = $this->get('form.factory')->create(new DimensionType, $dimension);
@@ -296,6 +270,14 @@ class AdminController extends Controller
          if ($formstock->handleRequest($request)->isValid())
          {
              $em->persist($stock);
+             $dimensions = $stock->getDimensions();
+             foreach ($dimensions as $dimension) {
+                 $besoin = new Besoin;
+                 $besoin->setNombre(0);
+                 $besoin->setStock($stock);
+                 $besoin->setDimension($dimension);
+                 $em->persist($besoin);
+             }
              $em->flush();
 
              $request->getSession()->getFlashBag()->add('info', 'Matière ajoutée avec succès.');

@@ -7,11 +7,14 @@
   <title>{% block title %}DECOR-PUB{% endblock %}</title>
 
   {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/tgadmin/bootstrap/css/bootstrap-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/tgadmin/ckeditor/contents.css') }}" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
+    {% stylesheets output="css/compiled/main.css" filter='cssrewrite,less'
+    'css/bootstrap.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheets" type="text/css">
+    {% endstylesheets %}
+      <link rel="stylesheet" href="{{ asset('bundles/tgadmin/ckeditor/contents.css') }}" />
+      <link rel="stylesheet" href="{{ asset('bundles/tgadmin/select2/css/select2.css') }}" />
+      {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
   {% endblock %}
 </head>
 
@@ -76,9 +79,16 @@
 </div>
 
 {% block javascripts %}
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="{{ asset('bundles/tgadmin/bootstrap/js/bootstrap.min.js') }}"></script>
+  {% javascripts output='js/compiled/core.js'
+    'js/jquery.js'
+    'js/bootstrap.js'
+    'js/jsperso.js'
+     %}
+    <script src="{{ asset_url }}" charset="utf-8"></script>
+  {% endjavascripts %}
   <script src="{{ asset('bundles/tgadmin/ckeditor/ckeditor.js') }}"></script>
+  <script src="{{ asset('bundles/tgadmin/select2/js/select2.min.js') }}"></script>
+  {% if form is defined %}{{ form_javascript(form) }}{% endif %}
 {% endblock %}
 
 </body>
