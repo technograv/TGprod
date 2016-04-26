@@ -18,27 +18,12 @@
   {% endblock %}
 </head>
 
-<body>
+<body style="padding-top:50px;">
 {% include "::nav-bar.html.twig" %}
 
   <div class="container">
-    <div id="header" class="jumbotron">
-      <table width="100%">
-        <tr>
-          <td width="70%">
-      <h1><a href="{{ path('tg_prod_home')}}" class="no-style">DECOR-PUB</a></h1>
-      <p>
-        Suivi de production
-      </p>
-          </td>
-          <div align="right">
-          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-          <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
-          </div>
-        {% endif %}
-        </tr>
-      </table> 
-    </div>
+{#     <div id="header" class="jumbotron">
+    </div> #}
       <div class="row">
 
         <div id="menu" class="col-md-2">
@@ -71,7 +56,13 @@
     </div>
   </div>
 
-  <hr>
+  <div class="container" align="center">
+          {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+          <td>{{ include('TGAdminBundle:Admin:recette.html.twig') }}</td>
+        {% endif %}
+    </div>
+    
+    <hr>
 
   <footer align="center">
     <p>Technograv | Decor Pub © {{ 'now'|date('Y') }}</p>
