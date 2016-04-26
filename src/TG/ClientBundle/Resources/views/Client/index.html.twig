@@ -13,18 +13,18 @@
     <thead>
       <tr>
         <th>{{ knp_pagination_sortable(listClients, 'Nom du client', 'c.name') }}</th>
-        <th>Date de création</th>
-        <th>{{ knp_pagination_sortable(listClients, 'Dernière modification le', 'c.maj') }}</th>
-        <th>Nombre de projet</th>
+        <th class="text-center">Date de création</th>
+        <th class="text-center">{{ knp_pagination_sortable(listClients, 'Dernière modification le', 'c.maj') }}</th>
+        <th class="text-center">Nombre de projet</th>
       </tr>
     </thead>
-    <tbody align="center">
+    <tbody>
       {% for client in listClients %}
       <tr>
         <td><a href="{{ path('tg_client_view', {'id': client.id}) }}">{{ client.name }}</a></td>
-        <td>{{ client.dateadd|date('d/m/Y') }}</td>
-        <td>{{ client.maj|date('d/m/Y') }}</td>
-        <td>{{ client.nbprojets }}</td>
+        <td align="center">{{ client.dateadd|date('d/m/Y') }}</td>
+        <td align="center">{{ client.maj|date('d/m/Y') }}</td>
+        <td align="center">{{ client.nbprojets }}</td>
       </tr>
     {% endfor %}
    </tbody>

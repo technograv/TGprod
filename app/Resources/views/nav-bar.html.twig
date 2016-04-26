@@ -1,38 +1,43 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+--- essai mobile ---
+{#
+ <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       {% if is_granted('ROLE_STAGIAIRE') %}
       <a class="navbar-brand" href="{{ path('tg_prod_home')}}">Accueil Projets</a>
+      <button type="button" class="navbar-toggle collapsed btn btn-info" data-toggle="collapse" data-target="#menu-collapse" aria-expended="true">
+        <span>Menu</span>
+        <span class="glyphicon glyphicon-th-list"></span>
+      </button>
       {% endif %}
     </div>
   
-    <div>
+    <div class="collapse navbar-collapse" id="menu-collapse">
     <ul class="nav navbar-nav">
         {% if is_granted("ROLE_PAO") %}
-          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances</a></li>
+          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></a></li>
         {% endif %}
         {% if is_granted("ROLE_COMPTA") %}
-          <li><a href="{{ path('tg_prod_facturation') }}" name="_facturation" /><span class="glyphicon glyphicon-usd"></span> Facturation</a></li>
+          <li><a href="{{ path('tg_prod_facturation') }}" name="_facturation" /><span class="glyphicon glyphicon-usd"></a></li>
         {% endif %}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ render(controller("TGClientBundle:Client:headerform")) }}
         {% if is_granted("ROLE_ATELIER") %}
-        <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Client</a></li>
-        <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Projet</a></li>
+          <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"><span class="glyphicon glyphicon-user"></span></a></li>
+          <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus glyphicon"><span class="glyphicon-folder-open"></span></a></li>
         {% endif %}
-      </div>
+      </ul>
       
-    <div class="navbar-right">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
       {% if is_granted("ROLE_ADMIN") %}
-         <li><a href="{{ path('tg_admin_home') }}"><span class="glyphicon glyphicon-cog"></span> Admin</a></li>
+         <li><a href="{{ path('tg_admin_home') }}"><span class="glyphicon glyphicon-cog"></span></a></li>
       {% endif %}
       {% if is_granted("ROLE_ATELIER") %}
          <li>
-          <form action="{{ path('tg_prod_search') }}" method="post" class="navbar-form inline-form" role="form">
+   +       <form action="{{ path('tg_prod_search') }}" method="post" class="navbar-form inline-form" role="form">
             <div class="form-group">
               <input type="search" name="search" id="search" class="input-sm" placeholder="Recherche">
-              <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Chercher</button>
+              <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
             </div>
           </form>
         </li>
@@ -60,3 +65,73 @@
     </ul>  
   </div>
 </nav>
+#}
+--- existante ---
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      {% if is_granted('ROLE_STAGIAIRE') %}
+      <a class="navbar-brand" href="{{ path('tg_prod_home')}}">Accueil Projets</a>
+      <button type="button" class="navbar-toggle collapsed btn btn-info" data-toggle="collapse" data-target="#menu-collapse" aria-expended="true">
+        <span>Menu</span>
+        <span class="glyphicon glyphicon-th-list"></span>
+      </button>
+      {% endif %}
+    </div>
+  
+    <div class="collapse navbar-collapse" id="menu-collapse">
+    <ul class="nav navbar-nav">
+        {% if is_granted("ROLE_PAO") %}
+          <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances</a></li>
+        {% endif %}
+        {% if is_granted("ROLE_COMPTA") %}
+          <li><a href="{{ path('tg_prod_facturation') }}" name="_facturation" /><span class="glyphicon glyphicon-usd"></span> Facturation</a></li>
+        {% endif %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ render(controller("TGClientBundle:Client:headerform")) }}
+        {% if is_granted("ROLE_ATELIER") %}
+        <li><a href="{{ path('tg_client_add') }}" name="_clientadd" /><span class="glyphicon glyphicon-plus"></span> Client</a></li>
+        <li><a href="{{ path('tg_prod_add') }}" name="_prodadd" /><span class="glyphicon glyphicon-plus"></span> Projet</a></li>
+        {% endif %}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      {% if is_granted("ROLE_ATELIER") %}
+         <li>
+          <form action="{{ path('tg_prod_search') }}" method="post" class="navbar-form inline-form" role="form">
+            <div class="form-group">
+              <input type="search" name="search" id="search" class="input-sm" placeholder="Recherche">
+              <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+          </form>
+        </li>
+      {% endif %} 
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ path('fos_user_profile_show') }}">Voir le profil</a></li>
+              <li><a href="{{ path('fos_user_change_password') }}">Changer de mot de passe</a></li>
+              <li class="divider"></li>
+              {% if is_granted("ROLE_ADMIN") %}
+              <li><a href="{{ path('tg_admin_home') }}"><span class="glyphicon glyphicon-cog"></span> Administration</a></li>
+              {% endif %}
+              <li class="divider"></li>
+              <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+            </ul>
+          </li>    
+        </ul>
+      </div>
+
+
+      {% else %}
+      </ul>
+      <div class="navbar-right">
+      <ul class="nav navbar-nav">
+      <li>{% render(controller('FOSUserBundle:Security:loginnav')) %}</li>
+      </div>  
+    {% endif %}
+    </ul>  
+  </div>
+</nav>
+
