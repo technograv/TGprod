@@ -1,6 +1,6 @@
 	 <li>	 
 		<form class="navbar-form inline-form">
-		<select class="selectclient select-sm" style="width:100%;">
+		<select class="selectclient select-sm navbar" style="width:100%;">
 		<option disabled="disabled" selected="selected" value>clients</option>
 		{% for client in listClients %}
 		<option value="{{ client.id }}">{{ client.name|capitalize }}</option>
@@ -10,7 +10,7 @@
 	</li>
 	<li>
 		<form class="navbar-form inline-form">
-		<select class="selectcontact select-sm" style="width: 100%;">
+		<select class="selectcontact select-sm navbar" style="width: 100%;">
 		<option disabled="disabled" selected="selected" value>contacts</option>
 		{% for contact in listContacts %}
 		<option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>

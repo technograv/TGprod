@@ -29,7 +29,7 @@
   {% endif %}
 </p>
 
-  <div class="well margin-right col-sm-3" style="width:31%; min-height:238px;">
+  <div class="well margin-right col-sm-3" style="min-height:238px;">
     <p>
       <strong>Adresse de la société :</strong></br>
       {{ client.adresse }}</br>
@@ -229,34 +229,49 @@
     <h3>Historique des projets pour ce client</h3>
     {% endif %}
   </div>
+
   <div class="col-sm-4 no-padding margin-top" style="text-align:right"> 
     {% if is_granted("ROLE_ATELIER") %}
       <a href="{{ path('tg_prod_add', { 'client':  client.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-plus"></i> Ajouter un projet pour ce client</a>
     {% endif %}
+
     {% if not client.projets.empty %}
   </div>
-      <table class="table table-hover table-bordered">
+
+  <div class="col-sm-6 no-padding margin-bottom">
+    <select class="triparcontact select-sm" style="width: 100%;">
+      <option disabled="disabled" selected="selected" value>Trier les projets par contact</option>
+      {% for contact in contactduclient %}
+      <option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+
+      <table class="table table-hover table-striped">
         <thead>
           <tr>
+            <th>Id</th>
             <th>Nom du projet</th>
-            <th>Type</th>
-            <th>Publié par</th>
-            <th>Assigné à</th>
-            <th>Statut</th>
-            <th>Date de livraison</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Publié par</th>
+            <th class="text-center">Assigné à</th>
+            <th class="text-center">Statut</th>
+            <th class="text-center">Date de livraison</th>
           </tr>
         </thead>
-        <tbody align="center">
+        <tbody>
           {% for projet in projets %}
             <tr bgcolor={{ projet.type.couleur }}>
-              <td width="16%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
+              <td width="6%">{{projet.id}}</td>
+              <td width="14%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
               {{ projet.titre|capitalize }}</a></td>
-              <td width="12%">{{ projet.type.name }}</td>
-              <td width="12%">{{ projet.user }}</td>
-              <td width="12%">{{ projet.assign }}</td>
-              <td width="12%">{{ projet.etape.name }}</td>
-              <td width="12%">{{ projet.delai|date('d/m/Y') }}</td>
+              <td width="12%" align="center">{{ projet.type.name }}</td>
+              <td width="10%" align="center">{{ projet.user }}</td>
+              <td width="10%" align="center">{{ projet.assign }}</td>
+              <td width="14%" align="center">{{ projet.etape.name }}</td>
+              <td width="10%" align="center">{{ projet.delai|date('d/m/Y') }}</td>
             </tr>
           {% endfor %} 
         </tbody>

@@ -36,7 +36,7 @@ class ProjetController extends Controller
 	*/
 	public function indexAction()
 	{
-		$etape = array(1, 26, 24, 4, 6, 25); //1,AttenteDonnéesClient, 26:terminé, 24:facturation, 4:AttenteValidationDevis, 6:AttenteValidationGraphique , 25:AttentePaiement
+		$etape = array(1, 26, 24, 4, 6, 25, 18); //1,AttenteDonnéesClient, 26:terminé, 24:facturation, 4:AttenteValidationDevis, 6:AttenteValidationGraphique , 25:AttentePaiement, 18:AttenteLivraisonFournisseur
 
 		$yesterday = new \Datetime;
 		$yesterday->setTime (0, 0, 0);
@@ -743,7 +743,7 @@ class ProjetController extends Controller
 	*/
 	public function relancesAction()
 	{
-		$etape = array(1, 4, 25, 6); //1:attenteDonnéesClient, 4:AttenteValidationDevis, 25:AttentePaiement, 6:AttenteValidationGraphique
+		$etape = array(1, 4, 25, 6, 18); //1:attenteDonnéesClient, 4:AttenteValidationDevis, 25:AttentePaiement, 6:AttenteValidationGraphique, 18:AttenteLivraisonFournisseur
 
 		if($this->get('request')->query->has('sort'))
         {

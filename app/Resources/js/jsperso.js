@@ -63,3 +63,21 @@ $(function() {
   });
 });
 });
+
+
+// $(function() {
+// 	$(':input.triparcontact').change(function() { 
+// 		var $id = $(':input.selectcontact option:selected').val();
+// 		 $.ajax({
+// 			url: "{{ path('set_projets') }}",
+//     		type: 'POST',
+//     		data: {'id': $id},
+//     		dataType: 'json',
+//     		success: function(json){ // quand la réponse de la requete arrive
+//       			$('#tg_prodbundle_projet_contact').html(''); // tu vides le select2
+//       			$.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
+//     			$('#tg_prodbundle_projet_contact').append('<option value="'+ value.idC +'">'+ value.nameC +'</option>');
+//       });
+// 		};
+// 	});
+// })
