@@ -240,9 +240,9 @@
   </div>
 
   <div class="col-sm-6 no-padding margin-bottom">
-    <select class="triparcontact select-sm" style="width: 100%;">
+    <select class="triparcontact select-sm width-auto" style="width: 100%;">
       <option disabled="disabled" selected="selected" value>Trier les projets par contact</option>
-      {% for contact in contactduclient %}
+      {% for contact in allcontacts %}
       <option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>
       {% endfor %}
     </select>

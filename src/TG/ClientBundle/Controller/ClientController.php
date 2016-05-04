@@ -56,6 +56,8 @@ class ClientController extends Controller
     	$contactdefaut = $em
     		->getRepository('TGClientBundle:Contact')->getContactdefaut($client);
 
+    	$allcontacts = array_merge($contactdefaut, $contactduclient);
+
     	$logo = new Logo;
 
     	$form = $this->get('form.factory')->create(new LogoEditType, $logo);
@@ -80,12 +82,10 @@ class ClientController extends Controller
     	{
     		$newcontact->setClient($client);
     		$em->persist($newcontact);
-    		$em->flush();
 
     		if ($newcontact->getDefaut() === true)
     		{
-    			$allcontact = $em->getRepository('TGClientBundle:Contact')->setDefauttrue($client, $newcontact);
-    			foreach ($allcontact as $contact) {
+    			foreach ($allcontacts as $contact) {
     				$contact->setDefaut(false);
     				$em->persist($contact);
     			}
@@ -103,6 +103,7 @@ class ClientController extends Controller
 			'logoduclient' => $logoduclient,
 			'contactduclient' => $contactduclient,
 			'contactdefaut' => $contactdefaut,
+			'allcontacts' => $allcontacts,
 			'form' => $form->createView(),
 			'formcontact' => $formcontact->createView()));
 	}
