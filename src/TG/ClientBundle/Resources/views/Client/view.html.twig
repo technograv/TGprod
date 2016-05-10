@@ -243,7 +243,7 @@
     <select class="triparcontact select-sm width-auto" style="width: 100%;">
       <option disabled="disabled" selected="selected" value>Trier les projets par contact</option>
       {% for contact in allcontacts %}
-      <option value="{{ contact.client.id }}">{{ contact.name|capitalize }}</option>
+      <option value="{{ contact.id }}">{{ contact.name|capitalize }}</option>
       {% endfor %}
     </select>
   </div>
@@ -261,9 +261,9 @@
             <th class="text-center">Date de livraison</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="triparcontact">
           {% for projet in projets %}
-            <tr bgcolor={{ projet.type.couleur }}>
+            <tr>
               <td width="6%">{{projet.id}}</td>
               <td width="14%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
               {{ projet.titre|capitalize }}</a></td>

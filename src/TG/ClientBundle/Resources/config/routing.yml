@@ -41,3 +41,9 @@ edit_contact:
 tg_contact_home:
     path:   /contact
     defaults: { _controller: TGClientBundle:Contact:index }
+
+set_projets:
+    pattern: /set_projets
+    defaults: { _controller:TGClientBundle:Contact:setprojets }
+    requirements:
+        _method: POST

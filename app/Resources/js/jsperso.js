@@ -64,20 +64,23 @@ $(function() {
 });
 });
 
-
-// $(function() {
-// 	$(':input.triparcontact').change(function() { 
-// 		var $id = $(':input.selectcontact option:selected').val();
-// 		 $.ajax({
-// 			url: "{{ path('set_projets') }}",
-//     		type: 'POST',
-//     		data: {'id': $id},
-//     		dataType: 'json',
-//     		success: function(json){ // quand la réponse de la requete arrive
-//       			$('#tg_prodbundle_projet_contact').html(''); // tu vides le select2
-//       			$.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
-//     			$('#tg_prodbundle_projet_contact').append('<option value="'+ value.idC +'">'+ value.nameC +'</option>');
-//       });
-// 		};
-// 	});
-// })
+//trier projets par contact
+$(function() {
+	$(':input.triparcontact').change(function() { 
+		var $id = $(this).val();
+		 $.ajax({
+			url: Routing.generate('set_projets'),
+    		type: 'POST',
+    		data: {'id': $id},
+    		dataType: 'json',
+    		success: function(json){ // quand la réponse de la requete arrive
+      			$('tbody#triparcontact').html(''); // tu vides le tableau des projets
+      			$.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
+      			var twig = json_decode(json);
+      			console.log(twig);
+    			$('tbody#triparcontact').append('<tr><td width="6%">'+ value.idP +'</td><td width="14%"><a href="{{ path("tg_prod_view", {"id": '+ value.idP +'}) }}">' + value.titreP +'|capitalize</a></td><td width="12%" align="center">'+ value.typeP +'</td><td width="10%" align="center">'+ value.userP +'</td><td width="10%" align="center">'+ value.assignP +'</td><td width="14%" align="center">'+ value.etapeP +'</td><td width="10%" align="center">'+ value.delaiP +'</td></tr>');
+      });
+    }
+  });
+});
+});

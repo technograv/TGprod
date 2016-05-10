@@ -103,4 +103,44 @@ class ContactController extends Controller
       'contact' => $contact
       ));
   }
+
+  /**
+  * Combobox.
+  *
+  * @Route("/set_projets", name="set_projets")
+  * @Method("post")
+  */
+  public function setprojetsAction()
+  {
+      $request = $this->getRequest();
+      $em = $this->getDoctrine()->getManager();
+  if($request->isXmlHttpRequest()) // pour vérifier la présence d'une requete Ajax
+  {
+    $id = '';
+    $id = $request->get('id');
+    if ($id != '')
+    {
+      $projets = $em->getRepository('TGProdBundle:Projet')->findByContact($id); // qui retourne une collection d'objet je présume
+      $tabProjets = array();
+      $i = 0;
+      foreach($projets as $projet) // pour transformer la réponse à ta requete en tableau qui replira le select2
+      {
+        $tabProjets[$i]['idP'] = $projet->getId();
+        $tabProjets[$i]['titreP'] = $projet->getTitre();
+        $tabProjets[$i]['typeP'] = $projet->getType()->getName();
+        $tabProjets[$i]['userP'] = $projet->getUser()->getUsername();
+        $tabProjets[$i]['assignP'] = $projet->getAssign()->getUsername();
+        $tabProjets[$i]['etapeP'] = $projet->getEtape()->getName();
+        $tabProjets[$i]['delaiP'] = $projet->getDelai();
+        $i++;
+      }
+      $response = new Response();
+      $data = json_encode($tabProjets); // c'est pour formater la réponse de la requete en format que jquery va comprendre
+      $response->headers->set('Content-Type', 'application/json');
+      $response->setContent($data);
+      return $response;
+    }
+  }
+  return new Response('Erreur');
+  }
 }
