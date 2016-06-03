@@ -39,6 +39,9 @@ class ProjetType extends AbstractType
                 'property' => 'name',
                 'multiple' => false,
                 'empty_value' => 'Liste des étapes'))
+            ->add('avancement', 'genemu_jquerydate', array(
+                'widget' => 'single_text',
+                'required' => true))
             ->add('titre',      'text')
             ->add('livraison', 'choice', array(
                     'choices' => array('Retrait au magasin', 'Envoi postal', 'Déplacement chez le client'),
@@ -46,7 +49,7 @@ class ProjetType extends AbstractType
                     'empty_value' => 'Liste des types de livraison'))
             ->add('delai', 'genemu_jquerydate', array(
                 'widget' => 'single_text',
-                'required' => false))
+                'required' => true))
             ->add('contenu',    'textarea', array(
                 'attr' =>array('class' => 'ckeditor')))
             ->add('client', 'entity', array(
@@ -73,7 +76,6 @@ class ProjetType extends AbstractType
             $form->add('contact', 'entity', array(
                 'class' => 'TGClientBundle:Contact',
                 'choices' => $contacts,
-                'empty_value' => 'Liste des contacts',
                 ));
         };
 

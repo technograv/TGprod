@@ -129,6 +129,14 @@ class Projet
      */
     private $delai;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="avancement", type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
+    private $avancement;
+
      /**
      * @var string
      *
@@ -281,6 +289,29 @@ class Projet
     public function getDelai()
     {
         return $this->delai;
+    }
+
+    /**
+     * Set avancement
+     *
+     * @param \DateTime $avancement
+     * @return Projet
+     */
+    public function setAvancement($avancement)
+    {
+        $this->avancement = $avancement;
+
+        return $this;
+    }
+
+    /**
+     * Get avancement
+     *
+     * @return \DateTime
+     */
+    public function getAvancement()
+    {
+        return $this->avancement;
     }
 
     /**

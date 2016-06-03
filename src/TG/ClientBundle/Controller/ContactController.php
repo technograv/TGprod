@@ -51,15 +51,25 @@ class ContactController extends Controller
     $id = $request->get('id');
     if ($id != '')
     {
-      $contacts = $em->getRepository('TGClientBundle:Contact')->setcontactsbyclient($id); // qui retourne une collection d'objet je présume
+      $contacts = $em
+        ->getRepository('TGClientBundle:Contact')->getContactduclient($id);
+
+      $contactdefaut = $em
+        ->getRepository('TGClientBundle:Contact')->getContactdefaut($id);
+
+      $allcontacts = array_merge($contactdefaut, $contacts);
+
+      //$contacts = array_merge($contactdefaut, $contactduclient);
       $tabContacts = array();
       $i = 0;
-      foreach($contacts as $contact) // pour transformer la réponse à ta requete en tableau qui replira le select2
+      foreach($allcontacts as $contact) // pour transformer la réponse à ta requete en tableau qui replira le select2
       {
         $tabContacts[$i]['idC'] = $contact->getId();
         $tabContacts[$i]['nameC'] = $contact->getName();
+        $tabContacts[$i]['defautC'] = $contact->getDefaut();
         $i++;
       }
+
       $response = new Response();
       $data = json_encode($tabContacts); // c'est pour formater la réponse de la requete en format que jquery va comprendre
       $response->headers->set('Content-Type', 'application/json');

@@ -38,23 +38,25 @@ class ContactRepository extends EntityRepository
 		return $qb->getQuery()->getResult();
 	}
 
-		public function setcontactsbyclient($id)
-		{
-			$qb = $this->createQueryBuilder('c');
-
-			$qb
-				->where('c.client = :id')
-				->setParameter('id', $id);
-
-			return $qb->getQuery()->getResult();
-		}
-
 		public function contactIndex($sort, $direction)
 		{
 			$qb = $this->createQueryBuilder('c');
 
 			$qb
 				->orderBy($sort, $direction);
+
+			return $qb->getQuery()->getResult();
+		}
+
+		public function setDefauttrue($client, $contact)
+		{
+			$qb = $this->createQueryBuilder('c');
+
+			$qb
+				->where('c.client = :client')
+				->andwhere('c != :contact')
+				->setParameter('client', $client)
+				->setParameter('contact', $contact);
 
 			return $qb->getQuery()->getResult();
 		}

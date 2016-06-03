@@ -47,8 +47,8 @@ $(function() {
 
 //stocks
 $(function() {
-	$('#tg_comptabundle_besoin_stock').on('change', function() {
-	var id_select = $('#tg_comptabundle_besoin_stock').val();
+	$('#tg_comptabundle_besoin_stock').change(function() {
+	var id_select = $(this).val();
   $.ajax({
     url: Routing.generate('set_dimensions'),
     type: 'POST',
@@ -76,9 +76,9 @@ $(function() {
     		success: function(json){ // quand la réponse de la requete arrive
       			$('tbody#triparcontact').html(''); // tu vides le tableau des projets
       			$.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
-      			var twig = json_decode(json);
-      			console.log(twig);
-    			$('tbody#triparcontact').append('<tr><td width="6%">'+ value.idP +'</td><td width="14%"><a href="{{ path("tg_prod_view", {"id": '+ value.idP +'}) }}">' + value.titreP +'|capitalize</a></td><td width="12%" align="center">'+ value.typeP +'</td><td width="10%" align="center">'+ value.userP +'</td><td width="10%" align="center">'+ value.assignP +'</td><td width="14%" align="center">'+ value.etapeP +'</td><td width="10%" align="center">'+ value.delaiP +'</td></tr>');
+    			$('tbody#triparcontact').append('<tr><td width="6%">'+ value.idP +'</td><td width="14%"><a href="{{ path("tg_prod_view", {"id": '+ value.idP +'}) }}">' + value.titreP +'</a></td><td width="12%" align="center">'+ value.typeP +'</td><td width="10%" align="center">'+ value.userP +'</td><td width="10%" align="center">'+ value.assignP +'</td><td width="14%" align="center">'+ value.etapeP +'</td><td width="10%" align="center">'+ value.delaiP +'</td></tr>');
+      // var obj = JSON.stringify(json);
+      // console.log(obj);
       });
     }
   });

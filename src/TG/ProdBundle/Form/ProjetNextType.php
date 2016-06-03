@@ -27,7 +27,10 @@ class ProjetNextType extends AbstractType
                 'class' => 'TGProdBundle:Etape',
                 'property' => 'name',
                 'multiple' => false,
-                'empty_value' => 'Liste des étapes'));
+                'empty_value' => 'Liste des étapes'))
+            ->add('avancement', 'genemu_jquerydate', array(
+                'widget' => 'single_text',
+                'required' => true));
     }
     
     /**
