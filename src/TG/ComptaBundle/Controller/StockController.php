@@ -45,7 +45,7 @@ class StockController extends Controller
 			$besoin = new Besoin;
 			$besoin = $em->getRepository('TGComptaBundle:Besoin')->findOneBy(array('stock' => $datastock, 'dimension' => $datadimension));
 			
-			if ($besoin !== null) {
+			if ($besoin !== null and $datanombre >= 1) {
 				$tempnombre = $besoin->getNombre();
 				
 				if(isset($_POST['bouton']) && $_POST['bouton'] == "besoin")
@@ -71,7 +71,7 @@ class StockController extends Controller
 			}
 
 			else {
-			$request->getSession()->getFlashBag()->add('info', 'Désolé, le matériaux ou la dimension sélectionné n\'existe pas');
+			$request->getSession()->getFlashBag()->add('info', 'Désolé, le matériaux ou la dimension sélectionné n\'existe pas. La quantité ne peut pas être inférieure à 1');
 			}
 		}
 			return $this->render('TGProdBundle:Projet:stocks.html.twig', array(

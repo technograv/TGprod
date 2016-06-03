@@ -74,8 +74,13 @@
       </div>
       </div>
 
-      <input type="submit" name="submitAction" id="besoin" value="besoin" class="btn btn-primary" onclick="enable()">
-      <input type="submit" name="submitAction" id="commande" value="commande" class="btn btn-primary" onclick="disable()">
+      
+      {% if is_granted("ROLE_ATELIER") %}
+      <input type="submit" name="submitAction" id="besoin" value="Besoin en atelier" class="btn btn-primary" onclick="enable()">
+      {% endif %}
+      {% if is_granted("ROLE_COMPTA") %}
+      <input type="submit" name="submitAction" id="commande" value="Commande passée" class="btn btn-primary" onclick="disable()">
+      {% endif %}
       <input type="hidden" name="bouton" id="bouton" />
 
       <script type="text/javascript">

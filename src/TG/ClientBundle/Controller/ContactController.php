@@ -59,7 +59,6 @@ class ContactController extends Controller
 
       $allcontacts = array_merge($contactdefaut, $contacts);
 
-      //$contacts = array_merge($contactdefaut, $contactduclient);
       $tabContacts = array();
       $i = 0;
       foreach($allcontacts as $contact) // pour transformer la réponse à ta requete en tableau qui replira le select2
