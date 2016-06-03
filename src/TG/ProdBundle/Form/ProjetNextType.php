@@ -15,7 +15,6 @@ class ProjetNextType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('published',  'checkbox', array('required' => false))
             ->add('assign',     'entity', array(
                 'label' => 'Assigner à',
                 'class' => 'TGUserBundle:User',

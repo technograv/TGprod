@@ -2,7 +2,7 @@
 
 tg_prod_home:
     path:      /
-    defaults:  { _controller: TGProdBundle:Projet:index }
+    defaults:  { _controller: TGProdBundle:Calendrier:index }
 
 tg_prod_view:
     path:      /projet/{id}

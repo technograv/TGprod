@@ -5,11 +5,13 @@
 namespace TG\ProdBundle\Controller;
 
 use TG\ProdBundle\Form\ProjetType;
+use TG\ProdBundle\Entity\EtapeRepository;
 use TG\ProdBundle\Form\ProjetEditType;
 use TG\ProdBundle\Form\ProjetLinkType;
 use TG\ProdBundle\Form\ProjetUnlinkType;
 use TG\ProdBundle\Form\CommentaireType;
 use TG\ProdBundle\Form\NextType;
+use TG\ProdBundle\Form\NextAtelierType;
 use TG\ProdBundle\Entity\Projet;
 use TG\ComptaBundle\Entity\Devis;
 use TG\ClientBundle\Entity\Contact;
@@ -31,61 +33,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProjetController extends Controller
 {
-	/**
-	* @Security("has_role('ROLE_STAGIAIRE')")
-	*/
-	public function indexAction()
-	{
-		$etape = array(1, 26, 24, 4, 6, 25, 18); //1,AttenteDonnéesClient, 26:terminé, 24:facturation, 4:AttenteValidationDevis, 6:AttenteValidationGraphique , 25:AttentePaiement, 18:AttenteLivraisonFournisseur
-
-		$yesterday = new \Datetime;
-		$yesterday->setTime (0, 0, 0);
-		$yesterday->sub(new \DateInterval('P1D'));
-		$d12 = new \DateTime;
-		$d12->setTime (0, 0, 0);
-		$d12->add(new \DateInterval('P9D'));
-
-		$allDays = array();
-		$allDays[] = $yesterday->format('Y-m-d');
-		
-		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, $etape);
-		
-		while ($yesterday <= $d12) {
-		 	$yesterday->add(new \DateInterval('P1D'));
-		 	$allDays[] = $yesterday->format('Y-m-d');
-		 }
-
-		 $pagename = 'calendar';
-		 $page1 = $this->get('request')->query->get($pagename, 1);
-
-		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 6, array('pageParameterName' => $pagename));
-
-		if($this->get('request')->query->has('sort'))
-        {
-            $sort = $this->get('request')->query->get('sort');
-            $direction = $this->get('request')->query->get('direction');
-        }
-        else
-        {
-            $sort = 'p.maj';
-            $direction = 'desc';
-        }
-			
-			$findprojets = $this
-				->getDoctrine()
-				->getManager()
-				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts($etape, $sort, $direction);
-
-			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
-
-			return $this->render('TGProdBundle:Projet:index.html.twig', array(
-				'calendar' => $calendar,
-   				'allDays' => $allDays,
-   				'projetsallDays' => $projetsallDays,
-				'listProjets' => $listProjets));
-	}
-
 	/**
 	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
@@ -372,10 +319,27 @@ class ProjetController extends Controller
 
 		if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
 			$form = $this->createForm(new ProjetType(), $projet);
-			$form->remove('documentjoints');
+			$form
+				->remove('documentjoints');
 		}
 		else {
 		$form = $this->createForm(new ProjetEditType(), $projet);
+		$form
+			->remove('contact')
+			->remove('etape')
+			->add('etape',     'entity', array(
+                'label' => 'Etape en cours',
+                'class' => 'TGProdBundle:Etape',
+                'property' => 'name',
+                'query_builder' => function(EtapeRepository $er)
+                {
+                    return $er->createQueryBuilder('e')
+                    ->where('e.id NOT IN (:id)')
+                    ->setParameter('id', array(1, 4, 6, 18, 25, 26))
+                    ->orderBy('e.name', 'ASC');
+                },
+                'multiple' => false,
+                'empty_value' => 'Liste des étapes'));
 		}
 
 		if ($this->getUser())
@@ -415,8 +379,13 @@ class ProjetController extends Controller
 			$commentaire->setProjet($projet);
 		}
 
-		$form = $this->get('form.factory')->create(new NextType, $commentaire);
-		$form->remove('projet.contact');
+		if ($this->get('security.context')->isGranted('ROLE_COMPTA')) {
+			$form = $this->get('form.factory')->create(new NextType, $commentaire);
+		}
+		else {
+		$form = $this->get('form.factory')->create(new NextAtelierType, $commentaire);
+		}
+
 
 		if ($form->handleRequest($request)->isValid())
 		{
