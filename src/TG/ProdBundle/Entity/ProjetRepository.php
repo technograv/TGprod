@@ -103,7 +103,7 @@ class ProjetRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('p');
 
 		$qb
-			->where('p.delai BETWEEN :start and :end')
+			->where('p.avancement BETWEEN :start and :end')
 			->andwhere('p.etape NOT IN (:etape)')
 			->setParameter('start', $start)
 			->setParameter('end', $end)

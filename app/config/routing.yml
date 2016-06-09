@@ -38,7 +38,7 @@ _liip_imagine:
 
 tg_accueil:
     pattern:   /
-    defaults:  { _controller: TGProdBundle:Projet:index, page: 1 }
+    defaults:  { _controller: TGProdBundle:Calendrier:index, page: 1 }
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

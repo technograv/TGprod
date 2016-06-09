@@ -176,6 +176,14 @@ class Projet
     private $contenu;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="recap", type="text")
+     * @Assert\NotBlank()
+     */
+    private $recap;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="maj", type="datetime")
@@ -243,6 +251,29 @@ class Projet
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Set recap
+     *
+     * @param string $recap
+     * @return Projet
+     */
+    public function setRecap($recap)
+    {
+        $this->recap = $recap;
+
+        return $this;
+    }
+
+    /**
+     * Get recap
+     *
+     * @return string 
+     */
+    public function getRecap()
+    {
+        return $this->recap;
     }
 
     /**

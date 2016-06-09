@@ -15,7 +15,8 @@ class ProjetNextType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('assign',     'entity', array(
+            ->add('recap', 'textarea')
+            ->add('assign', 'entity', array(
                 'label' => 'Assigner à',
                 'class' => 'TGUserBundle:User',
                 'property' => 'username',

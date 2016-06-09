@@ -67,7 +67,13 @@ class ProjetType extends AbstractType
                 'label' => 'Pièce jointe',
                 'type' => new DocumentjointProdType(),
                 'required' => false))
-            ->add('save',       'submit')
+            ->add('recap',    'textarea', array(
+                'data' => 
+                'Matière :
+Dimensions :
+Quantité :',))
+            ->add('save',       'submit', array(
+                'label' => 'Enregistrer'))
         ;
 
         $formModifier = function (FormInterface $form, Client $client = null) {

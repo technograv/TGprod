@@ -38,15 +38,15 @@ tg_prod_fichier:
 
 tg_prod_archives:
     path: /archives/
-    defaults:   { _controller: TGProdBundle:Projet:archives }
+    defaults:   { _controller: TGProdBundle:Calendrier:archives }
 
 tg_prod_facturation:
     path: /facturation/
-    defaults:   { _controller: TGProdBundle:Projet:compta }
+    defaults:   { _controller: TGProdBundle:Calendrier:compta }
 
 tg_prod_relances:
     path: /relances/
-    defaults:   { _controller: TGProdBundle:Projet:relances }
+    defaults:   { _controller: TGProdBundle:Calendrier:relances }
 
 tg_prod_search:
     path: /resultats/

@@ -14,35 +14,43 @@
 {{ form_start(form, {'attr': {'class': 'form-horizontal required'}}) }}
         {{ form_errors(form) }}
            <div class="form-group">
-            {{ form_label(form.contenu, "Commentaire", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_label(form.contenu, "Commentaire", {'label_attr': {'class': 'col-sm-2 control-label' }}) }}
             {{ form_errors(form.contenu) }}
-          <div class="col-sm-9">
+          <div class="col-sm-6">
             {{ form_widget(form.contenu, {'attr': {'class': 'ckeditor'}}) }}
           </div>
-          </div>
+
+        <div class="col-sm-4" style="float:left;">
+      {{ form_label(form.projet.recap, "Récap", {'label_attr': {'class': 'control-label'}}) }}
+      {{ form_errors(form.projet.recap) }}
+        {{ form_widget(form.projet.recap, {'attr': {'class': 'form-control', 'style': 'height: 262px'}}) }}
+        </div>
+      </div>
+
            <div class="form-group">
-            {{ form_label(form.projet.assign, "Assigner à", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_label(form.projet.assign, "Assigner à", {'label_attr': {'class': 'col-sm-2 control-label' }}) }}
             {{ form_errors(form.projet.assign) }}
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             {{ form_widget(form.projet.assign, {'attr': {'class': 'form-control'}}) }}
           </div>
           </div>
           <div class="form-group">
-            {{ form_label(form.projet.etape, "Nouvelle étape", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+            {{ form_label(form.projet.etape, "Nouvelle étape", {'label_attr': {'class': 'col-sm-2 control-label' }}) }}
             {{ form_errors(form.projet.etape) }}
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             {{ form_widget(form.projet.etape, {'attr': {'class': 'form-control'}}) }}
           </div>
         </div>
          <div class="form-group required">
-          {{ form_label(form.projet.avancement, "Nouvelle échéance", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+          {{ form_label(form.projet.avancement, "Nouvelle échéance", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
           {{ form_errors(form.projet.avancement) }}
-          <div class="col-sm-4">
+          <div class="col-sm-6">
           {{ form_widget(form.projet.avancement, {'attr': {'class': 'form-control'}}) }}
           </div>
         </div>
-          <div class="col-sm-11"></div>
-            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary', 'label': 'Valider'}}) }} 
+        <div class="form-group">
+          <div class="col-sm-6"></div>
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary col-sm-6', 'label': 'Valider'}}) }} 
             {{ form_rest(form) }}
             {{ form_end(form) }}
 

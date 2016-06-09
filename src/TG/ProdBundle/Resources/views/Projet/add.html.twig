@@ -14,97 +14,105 @@
     {{ form_errors(form) }}
 
     <div class="form-group required">
-      {{ form_label(form.titre, "Titre du projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      <div class="col-sm-4">
+      {{ form_label(form.titre, "Titre du projet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      <div class="col-sm-6">
         {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
       </div>
       {{ form_errors(form.titre) }}
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.client, "Pour le client", {'label_attr': {'class': 'col-sm-3 control-label' }}) }}
+      {{ form_label(form.client, "Pour le client", {'label_attr': {'class': 'col-sm-2 control-label' }}) }}
       {{ form_errors(form.client) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
         <div class="form-group required">
-      {{ form_label(form.contact, "Contact", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_label(form.contact, "Contact", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.contact) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(form.contact, {'attr': {'class': 'form-control special'}}) }}
       </div>
-      <a class="btn btn-default" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
+      <a class="btn btn-default col-sm-4" href="#box-contact" role="button" data-toggle="modal" style="vertical-align:baseline;">
       <i class="glyphicon glyphicon-plus"></i> Ajouter un nouveau contact</a>
 
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.type, "Type de projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.titre) }}
-      <div class="col-sm-4">
+      {{ form_label(form.type, "Type de projet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.type) }}
+      <div class="col-sm-6">
         {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.delai, "Date de livraison", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_label(form.delai, "Date de livraison", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.delai) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(form.delai, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.livraison, "Type de livraison", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_label(form.livraison, "Type de livraison", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.livraison) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(form.livraison, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.contenu, "Consignes", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.titre) }}
-      <div class="col-sm-9">
+      {{ form_label(form.contenu, "Consignes", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.contenu) }}
+      <div class="col-sm-6">
         {{ form_widget(form.contenu, {'attr': {'class': 'ckeditor'}}) }}
+      </div>
+
+      <div class="col-sm-4" style="float:left;">
+      {{ form_label(form.recap, "Récap", {'label_attr': {'class': 'control-label'}}) }}
+      {{ form_errors(form.recap) }}
+        {{ form_widget(form.recap, {'attr': {'class': 'form-control', 'style': 'height: 262px'}}) }}
       </div>
     </div>
 
     <div class="form-group">
-      {{ form_label(form.documentjoints.0.file, "Pièce jointe", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_label(form.documentjoints.0.file, "Pièce jointe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.documentjoints.0.file )}}
-      <div class="col-sm-9">
+      <div class="col-sm-6">
         {{ form_widget(form.documentjoints.0.file, {'attr': {'class': 'form-control'}}) }}
     </div>
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.assign, "Assigné à", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.titre) }}
-      <div class="col-sm-4">
+      {{ form_label(form.assign, "Assigné à", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.assign) }}
+      <div class="col-sm-6">
         {{ form_widget(form.assign, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>      
 
     <div class="form-group required">
-      {{ form_label(form.etape, "Etape du projet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.titre) }}
-      <div class="col-sm-4">
+      {{ form_label(form.etape, "Etape du projet", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+      {{ form_errors(form.etape) }}
+      <div class="col-sm-6">
         {{ form_widget(form.etape, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
 
     <div class="form-group required">
-      {{ form_label(form.avancement, "Echéance de l'étape", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_label(form.avancement, "Echéance de l'étape", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
       {{ form_errors(form.avancement) }}
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         {{ form_widget(form.avancement, {'attr': {'class': 'form-control'}}) }}
       </div>
     </div>
-
-  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    <div class="form-group">
+  <div class="col-sm-6"></div>
+  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary col-sm-2'}}) }}
+    </div>
 
   {{ form_rest(form) }}
   {{ form_end(form) }}

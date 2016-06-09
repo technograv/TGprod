@@ -205,24 +205,6 @@ class AdminController extends Controller
     {
         $query = $request->get('search');
 
-        $indexclient = $this->container->get('fos_elastica.index.test1.client');
-        $boolclient = new \Elastica\Query\Bool();
-        $searchclient = new \Elastica\Query\QueryString();
-        $searchclient->setDefaultField('name');
-        $searchclient->setQuery($query);
-        $searchclient->setDefaultOperator('AND');
-        $boolclient->addMust($searchclient);
-        $clients = $indexclient->search($boolclient)->getResults();
-
-        $indexcontact = $this->container->get('fos_elastica.index.test1.contact');
-        $boolcontact = new \Elastica\Query\Bool();
-        $searchcontact = new \Elastica\Query\QueryString();
-        $searchcontact->setDefaultField('_all');
-        $searchcontact->setQuery($query);
-        $searchcontact->setDefaultOperator('AND');
-        $boolcontact->addMust($searchcontact);
-        $contacts = $indexcontact->search($boolcontact)->getResults();
-
         $indexprojet1 = $this->container->get('fos_elastica.index.test1.projet');
         $searchprojet1 = new \Elastica\Query\QueryString();
         $boolprojet1 = new \Elastica\Query\Bool();
@@ -244,8 +226,6 @@ class AdminController extends Controller
         $projets = array_merge($projets1, $projets2);
 
             return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
-                'clients' => $clients,
-                'contacts' => $contacts,
                 'projets' => $projets));    
       //  }
     }
