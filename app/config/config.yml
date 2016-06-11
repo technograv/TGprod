@@ -94,7 +94,7 @@ braincrafted_bootstrap:
     icon_prefix: glyphicon fontawesome_dir: %kernel.root_dir%/../vendor/fortawesome/font-awesome
 
 fos_js_routing:
-    routes_to_expose: [ tg_client_view, set_dimensions, set_projets, set_contacts ]
+    routes_to_expose: [ tg_client_view, set_dimensions, set_projets, set_contacts, tg_prod_view ]
 
 # Doctrine Configuration
 doctrine:
