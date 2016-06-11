@@ -1,0 +1,164 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un projet - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+   {% if is_granted('ROLE_PAO') %}
+
+{% if entity == 'projet' %}
+
+  <h2>Supprimer un projet</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer le projet "<strong>{{ projet.titre }}</strong>" et tous ses commentaires associés ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': projet.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="projet" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'documentjoint' %}
+
+  <h2>Supprimer une pièce jointe</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer la pièce jointe "<strong>{{ doc.alt }}</strong>" ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': doc.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="documentjoint" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'devis' %}
+
+  <h2>Supprimer un Devis</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer le devis "<strong>{{ devis.alt }}</strong>" ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': devis.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="devis" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'facture' %}
+
+  <h2>Supprimer une facture</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer la facture "<strong>{{ facture.alt }}</strong>" ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': facture.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="facture" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'crea' %}
+
+  <h2>Supprimer une compo</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer la compo "<strong>{{ crea.alt }}</strong>" ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': crea.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="crea" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'logo' %}
+
+  <h2>Supprimer un logo</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer le logo "<strong>{{ logo.alt }}</strong>" ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': logo.id}) }}" method="post">
+    <a href="{{ path('tg_client_view', {'id': client.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="logo" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% if entity == 'commentaire' %}
+
+  <h2>Supprimer un commentaire</h2><br/>
+  <div class="well">
+
+  <p>
+    Etes-vous certain de vouloir supprimer le commentaire <strong>{{ commentaire.contenu|raw }}</strong> de <strong>{{ commentaire.user }}</strong> ?
+  </p>
+
+  <form action="{{ path('tg_prod_delete', {'id': commentaire.id}) }}" method="post">
+    <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+    <input type="submit" id="special" name="commentaire" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+</div>
+{% endif %}
+
+{% else %}
+ <h4>Vous n'avez pas les droits suffisants pour supprimer un projet</h4>
+ <a href="{{ path('tg_prod_view', {'id': projet.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au projet
+    </a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "TGProdBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block tgprod_body %}
+
+<div class="col-sm-9 no-padding"><h2>Liste des projets archivés ({{ listProjets.getTotalItemCount }})</h2></div>
+<div class="col-sm-3 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_home') }}" class="btn btn-primary"><i class="glyphicon glyphicon-menu-right"></i> Retour aux projets en cours</a></h4></div>
+
+<div class="col-sm-12 no-padding">
+{% if listProjets is not empty %}
+<table class="table table-hover table-bordered">
+  <thread>
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center">Nom du projet</th>
+      <th class="text-center">Type</th>
+      <th class="text-center">Publié par</th>
+      <th class="text-center">Pour le client</th>
+      <th class="text-center">{{ knp_pagination_sortable(listProjets, 'Livraison le', 'p.delai') }}</th>
+      <th class="text-center">Com</th>
+    </tr>
+  </thread>
+  <tbody align="center">
+    {% for projet in listProjets %}
+    <tr bgcolor={{ projet.type.couleur }}>
+      <td>{{ projet.id }}</td>
+      <td width="19%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
+          {{ projet.titre }}</td>
+      <td width="14%">{{ projet.type.name }}</td>
+      <td width="14%">{{ projet.user }}</td>
+      <td width="10%"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name }}</td>
+      <td width="20%">{% if projet.delai != null %}{{ projet.delai|date('d/m/Y') }}{% endif %}</td>
+      <td>{{ projet.nbcommentaires }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+   {% else %}
+      Pas de projet archivé pour le moment.<br/><br/> 
+{% endif %}
+
+<div class="navigation">
+    {{ knp_pagination_render(listProjets) }}
+</div>
+</div>
+
+{% endblock %}

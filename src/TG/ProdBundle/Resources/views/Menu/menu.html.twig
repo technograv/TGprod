@@ -1,0 +1,9 @@
+<h4>Projets en retard</h4>
+<ul class="nav nav-pills nav-stacked">
+  {% for projet in retards %}
+    <li>
+      <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.delai|localizeddate('full', 'none') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(15, false, '...')|capitalize }}</a>
+              </div>
+    </li>
+  {% endfor %}
+</ul>
