@@ -46,13 +46,17 @@ class CalendrierController extends Controller
 		$yesterday->sub(new \DateInterval('P1D'));
 		$d12 = new \DateTime;
 		$d12->setTime (0, 0, 0);
-		$d12->add(new \DateInterval('P9D'));
+		$d12->add(new \DateInterval('P15D'));
 
 		$allDays = array();
 		$allDays[] = $yesterday->format('Y-m-d');
 		
-		$projetsallDays = $this->getDoctrine()->getManager()->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, $etape);
-		
+		$em = $this->getDoctrine()->getManager();
+
+		$projetslivraison = $em->getRepository('TGProdBundle:Projet')->getProjetLivraison($yesterday, $d12, $etape);
+		$projetslivraisontoday = $em->getRepository('TGProdBundle:Projet')->getProjetLivraisonToday($yesterday, $d12, $etape);
+		$projetsallDays = $em->getRepository('TGProdBundle:Projet')->getProjetAgenda($yesterday, $d12, $etape);
+
 		while ($yesterday <= $d12) {
 		 	$yesterday->add(new \DateInterval('P1D'));
 		 	$allDays[] = $yesterday->format('Y-m-d');
@@ -61,32 +65,14 @@ class CalendrierController extends Controller
 		 $pagename = 'calendar';
 		 $page1 = $this->get('request')->query->get($pagename, 1);
 
-		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 6, array('pageParameterName' => $pagename));
+		 $calendar = $this->get('knp_paginator')->paginate($allDays, $page1, 18, array('pageParameterName' => $pagename));
 
-		if($this->get('request')->query->has('sort'))
-        {
-            $sort = $this->get('request')->query->get('sort');
-            $direction = $this->get('request')->query->get('direction');
-        }
-        else
-        {
-            $sort = 'p.maj';
-            $direction = 'desc';
-        }
-			
-			$findprojets = $this
-				->getDoctrine()
-				->getManager()
-				->getRepository('TGProdBundle:Projet')
-				->getProjetsOuverts($etape, $sort, $direction);
-
-			$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
-
-			return $this->render('TGProdBundle:Calendrier:index.html.twig', array(
-				'calendar' => $calendar,
-   				'allDays' => $allDays,
-   				'projetsallDays' => $projetsallDays,
-				'listProjets' => $listProjets));
+		return $this->render('TGProdBundle:Calendrier:index.html.twig', array(
+			'calendar' => $calendar,
+   			'allDays' => $allDays,
+   			'projetsallDays' => $projetsallDays,
+   			'projetslivraison' => $projetslivraison,
+   			'projetslivraisontoday' => $projetslivraisontoday,));
 	}
 
 	/**

@@ -148,7 +148,7 @@ class AdminController extends Controller
 						'ROLE_compta' => 'Comptable',
 						'ROLE_gerant' => 'Gérant',
 						'ROLE_admin' => 'Admin'),
-					'multiple' => false))
+					'multiple' => true))
 			->add('Enregistrer', 'submit');
 
 		$form = $formbuilder->getForm();

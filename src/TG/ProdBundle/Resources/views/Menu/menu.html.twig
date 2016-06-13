@@ -1,8 +1,13 @@
 <h4>Projets en retard</h4>
-<ul class="nav nav-pills nav-stacked">
+<ul class="nav nav-pills nav-stacked col-sm-12">
   {% for projet in retards %}
     <li>
-      <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.delai|localizeddate('full', 'none') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(15, false, '...')|capitalize }}</a>
+      <div class="rounded projet" style="background-color: {{ projet.assign.couleur }};">
+      	{% if projet.avancement > projet.delai %}
+          <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+         {% else %}
+           <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+         {% endif %}
               </div>
     </li>
   {% endfor %}

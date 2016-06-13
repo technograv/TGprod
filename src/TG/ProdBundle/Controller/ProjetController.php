@@ -33,11 +33,46 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProjetController extends Controller
 {
+
+	/**
+	* @Security("has_role('ROLE_STAGIAIRE')")
+	*/
+	public function listeAction()
+	{
+		$etape = array(1, 26, 24, 4, 6, 25, 18); //1,AttenteDonnéesClient, 26:terminé, 24:facturation, 4:AttenteValidationDevis, 6:AttenteValidationGraphique , 25:AttentePaiement, 18:AttenteLivraisonFournisseur
+
+		if($this->get('request')->query->has('sort'))
+        {
+            $sort = $this->get('request')->query->get('sort');
+            $direction = $this->get('request')->query->get('direction');
+        }
+        else
+        {
+            $sort = 'p.maj';
+            $direction = 'desc';
+        }
+
+        $findprojets = $this
+				->getDoctrine()
+				->getManager()
+				->getRepository('TGProdBundle:Projet')
+				->getProjetsOuverts($etape, $sort, $direction);
+
+		$listProjets  = $this->get('knp_paginator')->paginate($findprojets, $this->get('request')->query->get('page', 1), 20);
+
+		return $this->render('TGProdBundle:Projet:liste.html.twig', array(
+			'listProjets' => $listProjets));
+
+	}
+
+
+
 	/**
 	* @Security("has_role('ROLE_STAGIAIRE')")
 	*/
 	public function viewAction(projet $projet,request $request)
 	{
+		$user = $this->getUser();
 		$em = $this->getDoctrine()->getManager();
 		$emprojet = $em->getRepository('TGProdBundle:Projet');
 
@@ -63,11 +98,17 @@ class ProjetController extends Controller
 
 		$listComments = $em
 			->getRepository('TGProdBundle:Commentaire')
-			->getComments($projet/*, $page, $nbPerPage*/);
+			->getComments($projet);
 
+		$extention = array('pdf', 'jpg', 'JPEG', 'doc', 'docx', 'PNG');
 		$listcrea = $em
 			->getRepository('TGCreaBundle:Crea')
-			->getLastCrea($projet);
+			->getLastCrea($projet, $extention);
+
+		$extention = array('cdr', 'psd', 'eps', 'ai', 'tiff', 'indd', 'cpt');
+		$listsource = $em
+			->getRepository('TGCreaBundle:Crea')
+			->getLastCrea($projet, $extention);
 
 		$listdoc = $em
 			->getRepository('TGProdBundle:Documentjoint')
@@ -96,9 +137,15 @@ class ProjetController extends Controller
 		$enfants = $emprojet
 			->getEnfants($projet);
 
+		$extention = array('pdf', 'jpg', 'JPEG', 'doc', 'docx', 'PNG');
 		$listcreaparent = $em
 			->getRepository('TGCreaBundle:Crea')
-			->getLastCrea($projetparent);
+			->getLastCrea($projetparent, $extention);
+
+		$extention = array('cdr', 'psd', 'eps', 'ai', 'tiff', 'indd', 'cpt');
+		$listsourceparent = $em
+			->getRepository('TGCreaBundle:Crea')
+			->getLastCrea($projetparent, $extention);
 			
 		$listdevisparent = $em
 			->getRepository('TGComptaBundle:Devis')
@@ -190,6 +237,7 @@ class ProjetController extends Controller
 				'listComments' => $listComments,
 				'listProjets' => $listProjets,
 				'listcrea' => $listcrea,
+				'listsource' => $listsource,
 				'listlogo' => $listlogo,
 				'listdevis' => $listdevis,
 				'listfacture' => $listfacture,
@@ -204,7 +252,9 @@ class ProjetController extends Controller
 				'listEnfants' => $listEnfants,
 				'listdevisparent' => $listdevisparent,
 				'listcreaparent' => $listcreaparent,
-				'enfants' => $enfants
+				'listsourceparent' => $listsourceparent,
+				'enfants' => $enfants,
+				'user' => $user
 				));
 	}
 
@@ -322,24 +372,13 @@ class ProjetController extends Controller
 			$form
 				->remove('documentjoints');
 		}
+
 		else {
 		$form = $this->createForm(new ProjetEditType(), $projet);
 		$form
 			->remove('contact')
-			->remove('etape')
-			->add('etape',     'entity', array(
-                'label' => 'Etape en cours',
-                'class' => 'TGProdBundle:Etape',
-                'property' => 'name',
-                'query_builder' => function(EtapeRepository $er)
-                {
-                    return $er->createQueryBuilder('e')
-                    ->where('e.id NOT IN (:id)')
-                    ->setParameter('id', array(1, 4, 6, 18, 25, 26))
-                    ->orderBy('e.name', 'ASC');
-                },
-                'multiple' => false,
-                'empty_value' => 'Liste des étapes'));
+			->remove('client')
+			->remove('documentjoints');
 		}
 
 		if ($this->getUser())

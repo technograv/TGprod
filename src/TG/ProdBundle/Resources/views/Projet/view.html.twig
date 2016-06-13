@@ -64,7 +64,7 @@
         {% for commentaire in listComments %}
             <p>-----------------</br></br>
               <i class="glyphicon glyphicon-comment tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ commentaire.date|localizeddate('full', 'none') }} à {{ commentaire.date|date('G\\hi') }}"></i>
-          <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_GERANT") %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
+          <strong>{{ commentaire.user }}</strong>{% if is_granted("ROLE_GERANT") or (is_granted("ROLE_ATELIER") and commentaire.user == user)  %}<a href="{{ path('tg_prod_delete', { 'type': 'commentaire', 'id': commentaire.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
     {% endif %}</br>
             {{ commentaire.contenu|raw }}</br>
             </p>
@@ -111,8 +111,15 @@
     {% endfor %}</p>
     {% endif %}
     
+    {% for crea in listsource %}
+    <p><strong>Dernier fichier source :<br></strong>
+    <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
+    <a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
+    <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"><i class="glyphicon glyphicon-download"></i></a></p>
+    {% endfor %}
+
     {% for crea in listcrea %}
-    <p><strong>Dernière compo :<br></strong>
+    <p><strong>Dernière maquette :<br></strong>
     <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="AJouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
     <a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a>
     <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"><i class="glyphicon glyphicon-download"></i></a></p>
@@ -399,7 +406,7 @@
                               </ul>
                         </p>
                       {% endif %}
-                      {% if listdevisparent != null or listcreaparent != null %}
+                      {% if listdevisparent != null or listcreaparent != null or listsourceparent != null %}
                         <h4>Fichiers du projet parent :</h4>
                           {% if listdevisparent %}
                             <strong>Devis :</strong>
@@ -412,10 +419,19 @@
                               </div>
                           {% endif %}
                           {% if listcreaparent %}
-                            <strong>Compos :</strong>
+                            <strong>Dernier fichier source :</strong>
+                              <div>
+                                {% for crea in listsourceparent %}
+                                  <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
+                                  <a href="{{ asset(crea.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
+                                  <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
+                                {% endfor %}<br>
+                              </div>
+
+                            <strong>Dernière maquette :</strong>
                               <div>
                                 {% for crea in listcreaparent %}
-                                  <p><i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
+                                  <i class="tooltip-test" data-toggle="tooltip" data-placement="left" title="Ajouté le {{ crea.dateadd|localizeddate('full', 'none') }} à {{ crea.dateadd|date('G\\hi') }}">{{ crea.alt|capitalize }}</i>
                                   <a href="{{ asset(crea.webPath) }}" target=_blank> <i class="glyphicon glyphicon-eye-open"></i></a>
                                   <a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}.{{ crea.extention }}"> <i class="glyphicon glyphicon-download"></i></a><br>
                                 {% endfor %}<br>

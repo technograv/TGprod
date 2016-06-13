@@ -32,12 +32,20 @@ class FichierController extends Controller
 				array('projet' => $projet),
 				array('date' => 'asc'));
 
+		$extention = array('pdf', 'jpg', 'JPEG', 'doc', 'docx', 'PNG');
 		$listcrea = $em
 			->getRepository('TGCreaBundle:Crea')
 			->findBy(
-				array('projet' => $projet),
+				array('projet' => $projet, 'extention' => $extention),
 				array('dateadd' => 'asc'));
-			
+
+		$extention = array('cdr', 'psd', 'eps', 'ai', 'tiff', 'indd', 'cpt');
+		$listsource = $em
+			->getRepository('TGCreaBundle:Crea')
+			->findBy(
+				array('projet' => $projet, 'extention' => $extention),
+				array('dateadd' => 'asc'));
+
 		$listdevis = $em
 			->getRepository('TGComptaBundle:Devis')
 			->findBy(
@@ -61,6 +69,7 @@ class FichierController extends Controller
 		return $this->render('TGProdBundle:Fichier:fichier.html.twig', array(
 			'projet' => $projet,
 			'listcrea' => $listcrea,
+			'listsource' => $listsource,
 			'listdevis' => $listdevis,
 			'listfacture' => $listfacture,
 			'listlogo' => $listlogo,

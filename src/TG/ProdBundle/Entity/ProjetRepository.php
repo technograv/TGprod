@@ -105,6 +105,37 @@ class ProjetRepository extends EntityRepository
 		$qb
 			->where('p.avancement BETWEEN :start and :end')
 			->andwhere('p.etape NOT IN (:etape)')
+			->andWhere('p.delai != p.avancement')
+			->setParameter('start', $start)
+			->setParameter('end', $end)
+			->setParameter('etape', $etape);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function getProjetLivraison($start, $end, $etape)
+	{
+		$qb = $this->createQueryBuilder('p');
+
+		$qb
+			->where('p.delai BETWEEN :start and :end')
+			->andwhere('p.etape NOT IN (:etape)')
+			->andWhere('p.delai != p.avancement')
+			->setParameter('start', $start)
+			->setParameter('end', $end)
+			->setParameter('etape', $etape);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function getProjetLivraisonToday($start, $end, $etape)
+	{
+		$qb = $this->createQueryBuilder('p');
+
+		$qb
+			->where('p.delai BETWEEN :start and :end')
+			->andwhere('p.etape NOT IN (:etape)')
+			->andWhere('p.delai = p.avancement')
 			->setParameter('start', $start)
 			->setParameter('end', $end)
 			->setParameter('etape', $etape);
@@ -131,7 +162,7 @@ class ProjetRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('p');
 
 		$qb
-			->where('p.delai <= :end')
+			->where('p.avancement <= :end')
 			->andwhere('p.etape NOT IN (:etape)')
 			->setParameter('end', $end)
 			->setParameter('etape', $etape)

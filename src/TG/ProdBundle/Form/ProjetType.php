@@ -71,7 +71,8 @@ class ProjetType extends AbstractType
                 'data' => 
                 'Matière :
 Dimensions :
-Quantité :',))
+Quantité :
+Immatriculation :',))
             ->add('save',       'submit', array(
                 'label' => 'Enregistrer'))
         ;

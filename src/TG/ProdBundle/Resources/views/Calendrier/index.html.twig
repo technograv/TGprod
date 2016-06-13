@@ -7,75 +7,151 @@
 {% block tgprod_body %}
 
  <span id="texteJQ"></span>
-
+<div>
 {% if allDays is not empty %}
 <div class="well no-padding no-padding-bottom col-sm-12" style="min-height:200px; bor">
-  {% for item in calendar %}
+  {% for item in calendar|slice(0, 6) %}
     <div class="col-sm-2 no-padding" align="center">
       <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
-          {% for projet in projetsallDays %}
+          
+          {# Affichage des projets avec .delai == p.avancement #}
+          {% for projet in projetslivraisontoday %}
             {% if projet.delai|date('Y-m-d') == item %}
-            
-              <div class="rounded" style="background-color: {{ projet.assign.couleur }};"><a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+              
+              <div class="rounded priority" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
               </div>
             {% endif %}
           {% endfor %}
+
+          {# Affichage des projets par étapes #}
+          {% for projet in projetsallDays %}
+            {% if projet.avancement|date('Y-m-d') == item %}
+
+              <div class="rounded projet" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+    
+          {# Affichage des projets par date de livraison client #}
+          {% for projet in projetslivraison %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              
+              <div class="rounded livraison">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
     </div>
   {% endfor %}
-{% endif %}
+</div>
+<div class="well no-padding no-padding-bottom col-sm-12" style="min-height:200px; bor">
+  {% for item in calendar|slice(6, 6) %}
+    <div class="col-sm-2 no-padding" align="center">
+      <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
+          
+          {# Affichage des projets avec .delai == p.avancement #}
+          {% for projet in projetslivraisontoday %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              
+              <div class="rounded priority" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          {# Affichage des projets par étapes #}
+          {% for projet in projetsallDays %}
+            {% if projet.avancement|date('Y-m-d') == item %}
+
+              <div class="rounded projet" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+    
+          {# Affichage des projets par date de livraison client #}
+          {% for projet in projetslivraison %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              
+              <div class="rounded livraison">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+    </div>
+  {% endfor %}
 </div>
 
-<div class="col-sm-6 no-padding"><h2>Liste des projets en cours ({{ listProjets.getTotalItemCount }})</h2></div>
-{% if is_granted('ROLE_GERANT') %}
-<div class="col-sm-2 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_archives') }}" class="btn btn-default"><i class="glyphicon glyphicon-arrow"></i>Projets archivés</a></h4></div>
-<div class="col-sm-4 navigation">
-    {{ knp_pagination_render(calendar) }}
+<div class="well no-padding no-padding-bottom col-sm-12" style="min-height:200px; bor">
+  {% for item in calendar|slice(12, 6) %}
+    <div class="col-sm-2 no-padding" align="center">
+      <p><strong>{{ item|localizeddate('none', 'none', null, null, 'EEEE d MMMM') }}</strong></p>
+          
+          {# Affichage des projets avec .delai == p.avancement #}
+          {% for projet in projetslivraisontoday %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              
+              <div class="rounded priority" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          {# Affichage des projets par étapes #}
+          {% for projet in projetsallDays %}
+            {% if projet.avancement|date('Y-m-d') == item %}
+
+              <div class="rounded projet" style="background-color: {{ projet.assign.couleur }};">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.client.name|capitalize }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+    
+          {# Affichage des projets par date de livraison client #}
+          {% for projet in projetslivraison %}
+            {% if projet.delai|date('Y-m-d') == item %}
+              
+              <div class="rounded livraison">
+                {% if projet.avancement > projet.delai %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: #B9121B;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>
+                {% else %}
+                <a class="tooltip-test" data-toggle="tooltip" data-placement="right" title="{{ projet.etape.name }} le {{ projet.avancement|localizeddate('none', 'none', null, null, 'd MMMM') }}" href="{{ path('tg_prod_view', {'id': projet.id}) }}" style="text-decoration: none; color: black;" >{{ projet.titre|truncate(18, false, '...')|capitalize }}</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+    </div>
+  {% endfor %}
 </div>
 {% endif %}
-
-<div class="col-sm-12 no-padding">
-
-{% if listProjets is not empty %}
-<table class="table table-hover">
-  <thread>
-    <tr>
-      <th class="text-center">#</th>
-      <th class="text-center">Nom du projet</th>
-      <th class="text-center">Type</th>
-      <th class="text-center">Publié par</th>
-      <th class="text-center">Pour le client</th>
-      <th class="text-center">{{ knp_pagination_sortable(listProjets, 'Assigné à', 'p.assign') }}</th>
-      <th class="text-center">{{ knp_pagination_sortable(listProjets, 'Etape', 'p.etape') }}</th>
-      <th class="text-center">{{ knp_pagination_sortable(listProjets, 'Livraison le', 'p.delai') }}</th>
-      <th class="text-center">Com</th>
-    </tr>
-  </thread>
-  <tbody>
-    {% for projet in listProjets %}
-    <tr bgcolor={{ projet.assign.couleur }}>
-      <td>{{ projet.id }}</td>
-      <td width="19%"><a href="{{ path('tg_prod_view', {'id': projet.id}) }}">
-          {{ projet.titre|capitalize }}</td>
-      <td width="14%" align="center">{{ projet.type.name }}</td>
-      <td width="14%" align="center">{{ projet.user }}</td>
-      <td width="10%" align="center"><a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.Client.name|capitalize }}</td>
-      <td width="14%" align="center">{{ projet.assign }}</td>
-      <td width="14%" align="center">{{ projet.etape.name }}</td>
-      <td width="20%" align="center">{% if projet.delai != null %}{{ projet.delai|date('d/m/Y') }}{% endif %}</td>
-      <td align="center">{{ projet.nbcommentaires }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-   {% else %}
-      Pas de commande en cours pour le moment.<br/><br/>
-      Vous pouvez utiliser la page dédiée pour <a href="{{ path('tg_prod_add') }}">créer un nouveau projet</a> ou choisir le client dans <a href="{{path("tg_client_home") }}">la liste</a>. 
-{% endif %}
-
-<div class="navigation">
-    {{ knp_pagination_render(listProjets) }}
 </div>
-
-
 
 {% endblock %}

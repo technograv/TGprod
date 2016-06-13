@@ -4,6 +4,10 @@ tg_prod_home:
     path:      /
     defaults:  { _controller: TGProdBundle:Calendrier:index }
 
+tg_prod_liste:
+    path:      /liste
+    defaults:  { _controller: TGProdBundle:Projet:liste }
+
 tg_prod_view:
     path:      /projet/{id}
     defaults:  { _controller: TGProdBundle:Projet:view }

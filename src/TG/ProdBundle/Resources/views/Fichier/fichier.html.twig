@@ -48,13 +48,43 @@
 	<br></div>
 {% endif %}
 
-{% if listcrea %}
-<h4>Liste des compos :</h4>
+{% if listsource %}
+<h4>Liste des fichiers sources :</h4>
   <table class="table table-hover table-bordered table-striped">
   <thead>
     <tr>
 		<th class="col-sm-2">Type de fichier</th>
-		<th class="col-sm-3">Nom de la compo</th>
+		<th class="col-sm-3">Nom du fichier source</th>
+		<th class="col-sm-2">Détail</th>
+		<th class="col-sm-3">Ajouté le</th>
+		<th class="col-sm-1">Ouvrir</th>
+		<th class="col-sm-1">Télécharger</th>
+     </tr>
+  </thead>
+  <tbody align="center">
+		{% for crea in listsource %}
+			<tr>
+			<td><i class="glyphicon glyphicon-file"></i></td>
+			<td>{{ crea.alt|capitalize }}{% if is_granted("ROLE_PAO") %}
+      <a href="{{ path('tg_prod_delete', { 'type': 'crea', 'id': crea.id}) }}"><i style="color:red" class="glyphicon glyphicon-remove"></i></a>
+    {% endif %}</td>
+			<td>{{ crea.infos }}</td>
+			<td><span class="tooltip-test" data-toggle="tooltip" data-placement="top" title="{{ crea.dateadd|date('G\\hi') }}">{{ crea.dateadd|localizeddate('full', 'none') }}</span></td>
+			<td><a href="{{ asset(crea.webPath) }}" target=_blank><i class="glyphicon glyphicon-eye-open"></i></a></td>
+			<td><a href="{{ asset(crea.webPath) }}" download="Compo{{ crea.id }}-{{ crea.projet.slug }}-{{ crea.projet.client.slug }}"><i class="glyphicon glyphicon-download"></i></a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
+{% if listcrea %}
+<h4>Liste des maquettes :</h4>
+  <table class="table table-hover table-bordered table-striped">
+  <thead>
+    <tr>
+		<th class="col-sm-2">Type de fichier</th>
+		<th class="col-sm-3">Nom de la maquette</th>
 		<th class="col-sm-2">Détail</th>
 		<th class="col-sm-3">Ajoutée le</th>
 		<th class="col-sm-1">Ouvrir</th>

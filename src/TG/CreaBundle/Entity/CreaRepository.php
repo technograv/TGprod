@@ -12,13 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class CreaRepository extends EntityRepository
 {
-	public function getLastCrea($projet)
+	public function getLastCrea($projet, $extention)
 	{
 		$qb = $this->createQueryBuilder('c');
 
 		$qb
 			->where('c.projet = :projet')
+			->andWhere('c.extention IN (:extention)')
 			->setParameter('projet', $projet)
+			->setParameter('extention', $extention)
 			->orderBy('c.dateadd', 'DESC')
 			->SetMaxResults(1, 1);
 
