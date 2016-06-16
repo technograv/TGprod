@@ -1,0 +1,19 @@
+{% if paniers is not empty %}
+	<div>
+	<h4>Liste des paniers repas</h4>
+	{% for panier in paniers %}
+		{{ panier.chantier }} le {{ panier.date|localizeddate('full', 'none') }}<br/>
+	{% endfor %}
+	</div>
+{% endif %}
+
+<br/>
+
+{% if heuresups is not empty %}
+	<div style="float=left;">
+	{% for heuresup in heuresups %}
+		<h4>Liste des heures à rattraper</h4>
+		{{ heuresup.nombre }}h pour {{ heuresup.chantier }} le {{ heuresup.date|localizeddate('full', 'none') }}<br/>
+	{% endfor %}
+	</div>
+{% endif %}

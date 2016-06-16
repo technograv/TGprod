@@ -67,12 +67,7 @@ class ProjetType extends AbstractType
                 'label' => 'Pièce jointe',
                 'type' => new DocumentjointProdType(),
                 'required' => false))
-            ->add('recap',    'textarea', array(
-                'data' => 
-                'Matière :
-Dimensions :
-Quantité :
-Immatriculation :',))
+            ->add('recap',    'textarea')
             ->add('save',       'submit', array(
                 'label' => 'Enregistrer'))
         ;

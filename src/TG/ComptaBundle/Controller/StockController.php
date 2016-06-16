@@ -45,10 +45,10 @@ class StockController extends Controller
 			$besoin = new Besoin;
 			$besoin = $em->getRepository('TGComptaBundle:Besoin')->findOneBy(array('stock' => $datastock, 'dimension' => $datadimension));
 			
-			if ($besoin !== null and $datanombre >= 1) {
+			if ($besoin !== null && $datanombre >= 1) {
 				$tempnombre = $besoin->getNombre();
 				
-				if(isset($_POST['bouton']) && $_POST['bouton'] == "besoin")
+				if($request->request->get('bouton') && $request->request->get('bouton') == "besoin")
 				{
 				$nombre = $tempnombre + $datanombre;
 				$besoin->setNombre($nombre);
@@ -58,7 +58,7 @@ class StockController extends Controller
 				return $this->redirect($this->generateUrl('tg_prod_stocks'));
 				}
 
-				elseif (isset($_POST['bouton']) && $_POST['bouton'] == "commande")
+				elseif ($request->request->get('bouton') && $request->request->get('bouton') == "commande")
 				{
 				$nombre = $tempnombre - $datanombre;
 				$besoin->setNombre($nombre);

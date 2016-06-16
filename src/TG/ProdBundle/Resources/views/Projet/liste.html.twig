@@ -11,9 +11,6 @@
 <div class="col-sm-6 no-padding"><h2>Liste des projets en cours ({{ listProjets.getTotalItemCount }})</h2></div>
 {% if is_granted('ROLE_GERANT') %}
 <div class="col-sm-2 no-padding margin-top-10"><h4><a href="{{ path('tg_prod_archives') }}" class="btn btn-default"><i class="glyphicon glyphicon-arrow"></i>Projets archivés</a></h4></div>
-<div class="col-sm-4 navigation">
-    {{ knp_pagination_render(calendar) }}
-</div>
 {% endif %}
 
 <div class="col-sm-12 no-padding">

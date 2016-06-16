@@ -2,4 +2,8 @@
 
 {% block fos_user_content %}
 {% include "TGUserBundle:Profile:show_content.html.twig" %}
+<br/>
+<hr>
+<br/>
+{{ render(controller("TGComptaBundle:Paye:profil")) }}
 {% endblock fos_user_content %}

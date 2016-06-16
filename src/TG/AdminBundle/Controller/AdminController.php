@@ -44,7 +44,7 @@ class AdminController extends Controller
 
     	$typeslist = $em->getRepository('TGProdBundle:Type')->FindAll();
 
-        if (isset($_GET['type']))
+        if ($request->query->get('type'))
         {
             $edittype = $em->getRepository('TGProdBundle:Type')->find($request->query->get('type'));
 
@@ -83,7 +83,7 @@ class AdminController extends Controller
 
     	$etapeslist = $em->getRepository('TGProdBundle:Etape')->FindAll();
 
-        if (isset($_GET['etape']))
+        if ($request->query->get('etape'))
         {
             $editetape = $em->getRepository('TGProdBundle:Etape')->find($request->query->get('etape'));
 
@@ -180,9 +180,9 @@ class AdminController extends Controller
     */
     public function recetteAction(request $request)
     {
-       if (isset($_POST['recette']))
+       if ($request->request->get('recette'))
         {
-            $content = $_POST['recette'];
+            $content = $request->request->get('recette');
             $rapporteur = $this->get('security.context')->getToken()->getUser();
 
             $message = \Swift_Message::newInstance()

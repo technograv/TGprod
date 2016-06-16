@@ -1,4 +1,7 @@
-/web/
+/web/bundles/*
+/web/css/*
+/web/fonts/*
+/web/js/*
 /app/cache/*
 /app/logs/*
 /vendor/

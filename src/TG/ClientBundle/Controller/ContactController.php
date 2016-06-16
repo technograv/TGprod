@@ -140,7 +140,7 @@ class ContactController extends Controller
         $tabProjets[$i]['userP'] = $projet->getUser()->getUsername();
         $tabProjets[$i]['assignP'] = $projet->getAssign()->getUsername();
         $tabProjets[$i]['etapeP'] = $projet->getEtape()->getName();
-        $tabProjets[$i]['delaiP'] = $projet->getDelai();
+        $tabProjets[$i]['delaiP'] = $projet->getDelai()->format('d/m/Y');
         $i++;
       }
       $response = new Response();

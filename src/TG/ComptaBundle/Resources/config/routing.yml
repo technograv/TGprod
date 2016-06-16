@@ -1,5 +1,5 @@
 tg_compta_homepage:
-    path:     /hello/{name}
+    path:     /
     defaults: { _controller: TGComptaBundle:Default:index }
 
 set_dimensions:
@@ -7,3 +7,7 @@ set_dimensions:
     defaults: { _controller:TGComptaBundle:Stock:setdimensions }
     requirements:
         _method: POST
+
+tg_compta_paye:
+    path:      /profil
+    defaults:  { _controller: TGComptaBundle:Paye:profil }

@@ -16,8 +16,7 @@ class ProjetEditType extends AbstractType
 		$builder
 			->remove('documentjoints')
 			->remove('client')
-			->remove('contact')
-		;
+			->remove('contact');
 	}
 	
   	public function getParent()

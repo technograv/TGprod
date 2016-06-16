@@ -6,7 +6,6 @@ namespace TG\ProdBundle\Controller;
 
 use TG\ProdBundle\Entity\Projet;
 use TG\ComptaBundle\Entity\Devis;
-use TG\ClientBundle\Entity\Contact;
 use TG\ClientBundle\Entity\Client;
 use TG\ComptaBundle\Entity\Facture;
 use TG\CreaBundle\Entity\Crea;
@@ -93,35 +92,35 @@ class FichierController extends Controller
 
 		$form = $this->createFormBuilder()->getForm();
 
-		if (isset($_POST['projet'])){
+		if ($request->request->get('projet')){
 			$entity = 'projet';
 		}
-		elseif (isset($_POST['documentjoint'])){
+		elseif ($request->request->get('documentjoint')){
 			$entity = 'documentjoint';
 		}
-		elseif (isset($_POST['devis'])){
+		elseif ($request->request->get('devis')){
 			$entity = 'devis';
 		}
-		elseif (isset($_POST['facture'])){
+		elseif ($request->request->get('facture')){
 			$entity = 'facture';
 		}
-		elseif (isset($_POST['crea'])){
+		elseif ($request->request->get('crea')){
 			$entity = 'crea';
 		}
-		elseif (isset($_POST['logo'])){
+		elseif ($request->request->get('logo')){
 			$entity = 'logo';
 		}
-		elseif (isset($_POST['commentaire'])){
+		elseif ($request->request->get('commentaire')){
 			$entity = 'commentaire';
 		}
 
-		if (isset($_GET['type']))
+		if ($request->query->get('type'))
 		{
 		$request = $this->get('request');
 		$entity = $request->get('type');
 		}
 
-		if (isset($_GET['id']))
+		if ($request->query->get('id'))
 		{
 		$request = $this->get('request');
 		$id = $request->get('id');

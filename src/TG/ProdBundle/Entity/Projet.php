@@ -400,6 +400,10 @@ class Projet
         $this->maj = new \DateTime('now');
         $this->commentaires = new ArrayCollection();
         $this->documentjoints = new ArrayCollection();
+        $this->recap = 'Matière :
+Dimensions :
+Quantité :
+Immatriculation :';
     }
 
     /**

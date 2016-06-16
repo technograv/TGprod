@@ -97,8 +97,8 @@ $(function() {
       			$.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
     			var $url = Routing.generate('tg_prod_view', { id: value.idP });
           $('tbody#triparcontact').append('<tr><td width="6%">'+ value.idP +'</td><td width="14%"><a href="' + $url +'">' + value.titreP +'</a></td><td width="12%" align="center">'+ value.typeP +'</td><td width="10%" align="center">'+ value.userP +'</td><td width="10%" align="center">'+ value.assignP +'</td><td width="14%" align="center">'+ value.etapeP +'</td><td width="10%" align="center">'+ value.delaiP +'</td></tr>');
-      // var obj = JSON.stringify(json);
-      // console.log(obj);
+       //var obj = JSON.stringify(json);
+       //console.log(obj);
       });
     }
   });

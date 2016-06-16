@@ -16,7 +16,8 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('contenu',    'textarea')
-            ->add('save',       'submit')
+            ->add('save',       'submit', array(
+                'label' => 'Valider'))
         ;
     }
     

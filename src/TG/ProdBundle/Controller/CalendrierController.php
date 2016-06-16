@@ -4,31 +4,7 @@
 
 namespace TG\ProdBundle\Controller;
 
-use TG\ProdBundle\Form\ProjetType;
-use TG\ProdBundle\Entity\EtapeRepository;
-use TG\ProdBundle\Form\ProjetEditType;
-use TG\ProdBundle\Form\ProjetLinkType;
-use TG\ProdBundle\Form\ProjetUnlinkType;
-use TG\ProdBundle\Form\CommentaireType;
-use TG\ProdBundle\Form\NextType;
-use TG\ProdBundle\Form\NextAtelierType;
-use TG\ProdBundle\Entity\Projet;
-use TG\ComptaBundle\Entity\Devis;
-use TG\ClientBundle\Entity\Contact;
-use TG\ClientBundle\Entity\Client;
-use TG\ClientBundle\Form\ContactprodType;
-use TG\ClientBundle\Form\ContactType;
-use TG\ComptaBundle\Form\DevisaddType;
-use TG\ComptaBundle\Entity\Facture;
-use TG\ComptaBundle\Form\FactureaddType;
-use TG\CreaBundle\Entity\Crea;
-use TG\CreaBundle\Entity\Logo;
-use TG\ProdBundle\Entity\Documentjoint;
-use TG\ProdBundle\Form\DocumentjointType;
-use TG\CreaBundle\Form\CreaaddType;
-use TG\ProdBundle\Entity\Commentaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CalendrierController extends Controller
