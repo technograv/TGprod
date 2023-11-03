@@ -1,10 +1,10 @@
-tg_compta_homepage:
-    path:     /
-    defaults: { _controller: TGComptaBundle:Default:index }
+#tg_compta_homepage:
+ #   path:     /
+  #  defaults: { _controller: TGComptaBundle:Default:index }
 
 set_dimensions:
-    pattern: /set_dimensions
-    defaults: { _controller:TGComptaBundle:Stock:setdimensions }
+    path: /set_dimensions
+    defaults: { _controller: TGComptaBundle:Stock:setdimensions }
     requirements:
         _method: POST
 

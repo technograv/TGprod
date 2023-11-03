@@ -13,9 +13,9 @@
     <thead>
       <tr>
         <th>{{ knp_pagination_sortable(listClients, 'Nom du client', 'c.name') }}</th>
-        <th class="text-center">Date de création</th>
+        <th class="text-center">{{ knp_pagination_sortable(listClients, 'Date de création', 'c.dateadd') }}</th>
         <th class="text-center">{{ knp_pagination_sortable(listClients, 'Dernière modification le', 'c.maj') }}</th>
-        <th class="text-center">Nombre de projet</th>
+        <th class="text-center">{{ knp_pagination_sortable(listClients, 'Nombre de projets', 'c.nbprojets') }}</th>
       </tr>
     </thead>
     <tbody>

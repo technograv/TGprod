@@ -7,7 +7,7 @@
 {% block tgprod_body %}
 <h3>Résultats de votre recherche</h3>
 
-{% if clients %}
+{# {% if clients %}
 <h4>Clients</h4>
 <ul>
 {% for client in clients %}
@@ -23,7 +23,7 @@
 <li><a href="{{ path('tg_client_view', {'id': contact.client.id}) }}">{{ contact.name|capitalize }}</a></li>
 {% endfor %}
 </ul>
-{% endif %}
+{% endif %} #}
 
 {% if projets %}
 <h4>Projets</h4>

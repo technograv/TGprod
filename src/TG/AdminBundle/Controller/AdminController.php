@@ -187,7 +187,7 @@ class AdminController extends Controller
 
             $message = \Swift_Message::newInstance()
             ->setSubject('Rapport de bug')
-            ->setFrom('recette@technograv.com')
+            ->setFrom('recette@technograv.fr')
             ->setTo('nicolas.michel@technograv.fr')
             ->setBody($this->renderView('TGAdminBundle:Admin:email.txt.twig', array(
             'rapporteur' => $rapporteur,

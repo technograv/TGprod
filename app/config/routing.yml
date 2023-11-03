@@ -37,7 +37,7 @@ _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 tg_accueil:
-    pattern:   /
+    path:   /
     defaults:  { _controller: TGProdBundle:Calendrier:index, page: 1 }
 
 fos_js_routing:

@@ -35,7 +35,10 @@ twig:
 # Assetic Configuration
 assetic:
     filters:
-        less: ~
+        less:
+            node:       C:\Program Files\nodejs\node
+            node_paths: [C:\Users\Admin\AppData\Roaming\npm\node_modules]
+            apply_to:   "\.less$"
         cssrewrite: ~
     debug:                '%kernel.debug%'
     use_controller: false
@@ -120,7 +123,9 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
-    host:      "%mailer_host%"
+    host: "%mailer_host%"
+    port:      "%mailer_port%"
+    encryption: "%mailer_encryption%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
@@ -138,16 +143,20 @@ fos_user:
     registration:
         confirmation:
             from_email:
-                address :    inscription@technograv.fr
-                sender_name: Technograv.prod
+                address :    "%mailer_user%"
+                sender_name: "%local_domain%"
+    service:
+        mailer: fos_user.mailer.twig_swift
+
     resetting:
         email:
+            template: FOSUserBundle:Resetting:reset.html.twig
             from_email:
-                address:    reinitialiser@technograv.fr
-                sender_name: Technograv.prod
+                address:    "%mailer_user%"
+                sender_name: "%local_domain%"
     from_email:
-        address:    noreply@technograv.fr
-        sender_name: Technograv.prod
+        address:    "%mailer_user%"
+        sender_name: "%local_domain%"
 
 liip_imagine:
     resolvers:
@@ -231,37 +240,37 @@ fos_elastica:
                             worddelimiter :
                                 type:      word_delimiter
             types:
-                client:
-                    mappings:
-                        name:
-                            boost: 3
-                            index_analyzer : custom_analyzer
-                            search_analyzer : custom_search_analyzer
-                    persistence:
-                        driver: orm
-                        model: TG\ClientBundle\Entity\Client
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                contact:
-                    mappings:
-                        name:
-                            boost: 3
-                            index_analyzer : custom_analyzer
-                            search_analyzer : custom_search_analyzer
-                        email: ~
-                        client:
-                            type: object
-                            properties:
-                                name: ~
-                                id:
-                                    type: integer
-                    persistence:
-                        driver: orm
-                        model: TG\ClientBundle\Entity\Contact
-                        provider: ~
-                        listener: ~
-                        finder: ~
+                #client:
+                    #mappings:
+                        #name:
+                            #boost: 3
+                            #index_analyzer : custom_analyzer
+                            #search_analyzer : custom_search_analyzer
+                    #persistence:
+                        #driver: orm
+                        #model: TG\ClientBundle\Entity\Client
+                        #provider: ~
+                        #listener: ~
+                        #finder: ~
+                #contact:
+                    #mappings:
+                        #name:
+                            #boost: 3
+                            #index_analyzer : custom_analyzer
+                            #search_analyzer : custom_search_analyzer
+                        #email: ~
+                        #client:
+                            #type: object
+                            #properties:
+                                #name: ~
+                                #id:
+                                    #type: integer
+                    #persistence:
+                        #driver: orm
+                        #model: TG\ClientBundle\Entity\Contact
+                        #provider: ~
+                        #listener: ~
+                        #finder: ~
                 projet:
                     mappings:
                         titre:
