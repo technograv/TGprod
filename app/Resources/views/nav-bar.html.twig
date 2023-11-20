@@ -74,7 +74,7 @@
       {% endif %}
     </div>
   
-    <div class="collapse navbar-collapse" id="menu-collapse">
+    <div {#class="collapse navbar-collapse" id="menu-collapse"#}>
     <ul class="nav navbar-nav">
         {% if is_granted("ROLE_PAO") %}
           <li><a href="{{ path('tg_prod_relances') }}" name="_relances" /><span class="glyphicon glyphicon-send"></span> Relances</a></li>
@@ -91,7 +91,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-      {% if is_granted("ROLE_ATELIER") %}
+      {#{% if is_granted("ROLE_ATELIER") %}
          <li>
           <form action="{{ path('tg_prod_search') }}" method="post" class="navbar-form inline-form" role="form">
             <div class="form-group">
@@ -100,7 +100,7 @@
             </div>
           </form>
         </li>
-      {% endif %} 
+      {% endif %} #}
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }} <span class="caret"></span></a>
             <ul class="dropdown-menu">

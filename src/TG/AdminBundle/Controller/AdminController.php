@@ -201,7 +201,7 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('tg_prod_home'));
     }
 
-    public function searchAction(request $request)
+/*    public function searchAction(request $request)
     {
         $query = $request->get('search');
 
@@ -228,7 +228,7 @@ class AdminController extends Controller
             return $this->render('TGProdBundle:Projet:resultats.html.twig', array(
                 'projets' => $projets));    
       //  }
-    }
+    } */
 
         /**
     * @Security("has_role('ROLE_ADMIN')")
