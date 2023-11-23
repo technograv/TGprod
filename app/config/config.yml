@@ -203,43 +203,43 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
-fos_elastica:
-    clients:
-        default: { host: localhost, port: 9200 }
-    indexes:
-        test1:
-            client: default
-            settings:
-                index:
-                    analysis:
-                        analyzer:
-                            custom_analyzer :
-                                type     :    custom
-                                tokenizer:    nGram
-                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
-                            custom_search_analyzer :
-                                type     :    custom
-                                tokenizer:    standard
-                                filter   :    [asciifolding ,lowercase, snowball, elision, worddelimiter]
-                        tokenizer:
-                            nGram:
-                                type:     nGram
-                                min_gram: 3
-                                max_gram: 20
-                        filter:
-                            snowball:
-                                type:     snowball
-                                language: French
-                            elision:
-                                type:     elision
-                                articles: [l, m, t, qu, n, s, j, d]
-                            stopwords:
-                                type:      stop
-                                stopwords: [_french_]
-                                ignore_case : true
-                            worddelimiter :
-                                type:      word_delimiter
-            types:
+#fos_elastica:
+    #clients:
+        #default: { host: localhost, port: 9200 }
+    #indexes:
+        #test1:
+            #client: default
+            #settings:
+                #index:
+                    #analysis:
+                        #analyzer:
+                            #custom_analyzer :
+                                #type     :    custom
+                                #tokenizer:    nGram
+                                #filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            #custom_search_analyzer :
+                                #type     :    custom
+                                #tokenizer:    standard
+                                #filter   :    [asciifolding ,lowercase, snowball, elision, worddelimiter]
+                        #tokenizer:
+                            #nGram:
+                                #type:     nGram
+                                #min_gram: 3
+                                #max_gram: 20
+                        #filter:
+                            #snowball:
+                                #type:     snowball
+                                #language: French
+                            #elision:
+                                #type:     elision
+                                #articles: [l, m, t, qu, n, s, j, d]
+                            #stopwords:
+                                #type:      stop
+                                #stopwords: [_french_]
+                                #ignore_case : true
+                            #worddelimiter :
+                                #type:      word_delimiter
+            #types:
                 #client:
                     #mappings:
                         #name:
@@ -271,21 +271,21 @@ fos_elastica:
                         #provider: ~
                         #listener: ~
                         #finder: ~
-                projet:
-                    mappings:
-                        titre:
-                            boost: 3
-                            index_analyzer : custom_analyzer
-                            search_analyzer : custom_search_analyzer
-                            limit: 0
-                        contenu:
-                            boost: 3
-                            index_analyzer : custom_analyzer
-                            search_analyzer : custom_search_analyzer
-                            limit: 0
-                    persistence:
-                        driver: orm
-                        model: TG\ProdBundle\Entity\Projet
-                        provider: ~
-                        listener: ~
-                        finder: ~
+                #projet:
+                    #mappings:
+                        #titre:
+                            #boost: 3
+                            #index_analyzer : custom_analyzer
+                            #search_analyzer : custom_search_analyzer
+                            #limit: 0
+                        #contenu:
+                            #boost: 3
+                            #index_analyzer : custom_analyzer
+                            #search_analyzer : custom_search_analyzer
+                            #limit: 0
+                    #persistence:
+                        #driver: orm
+                        #model: TG\ProdBundle\Entity\Projet
+                        #provider: ~
+                        #listener: ~
+                        #finder: ~

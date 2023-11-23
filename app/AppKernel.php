@@ -29,7 +29,7 @@ class AppKernel extends Kernel
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
-            new \FOS\ElasticaBundle\FOSElasticaBundle(),
+            //new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
