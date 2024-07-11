@@ -47,6 +47,12 @@ class ClientController extends Controller
     	$projets = $em
     		->getRepository('TGProdBundle:Projet')->getProjetParClient($client);
 
+    	//$projetsOuverts = $em
+    		//->getRepository('TGClientBundle:Projet')->getProjetParClient($client);
+
+    	//$projetsFermes = $em
+    		//->getRepository('TGClientBundle:Projet')->getProjetParClient($client);
+
     	$logoduclient = $em
     		->getRepository('TGCreaBundle:Logo')->getLogoView($client);
 

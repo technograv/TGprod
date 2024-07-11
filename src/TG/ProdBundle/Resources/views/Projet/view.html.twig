@@ -12,7 +12,7 @@
 
   <div class="col-sm-12 no-padding"><p><i>
       Créé le {{ projet.dateadd|localizeddate('full', 'none') }} à {{ projet.dateadd|date('G\\hi') }}
-     par {{ projet.user }}{% if is_granted('ROLE_ATELIER') %} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name|capitalize }}</a></i>{% endif %}.</i></p>
+     par {{ projet.user }}{% if is_granted('ROLE_ATELIER') %} pour <a href="{{ path('tg_client_view', {'id': projet.client.id}) }}">{{ projet.client.name|capitalize }} #{{ projet.client.id|capitalize }}</a></i>{% endif %}.</i></p>
      {% if projet.usermodif %}
      <p><i>Modifié le {{ projet.datemodif|localizeddate('full', 'none') }} à {{ projet.datemodif|date('G\\hi') }} par {{ projet.usermodif }}.</i></p>{% endif %}
 
