@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_GERANT') %}
     <div class="form-group required">
       {{ form_label(form.client, "Pour le client", {'label_attr': {'class': 'col-sm-2 control-label' }}) }}
       {{ form_errors(form.client) }}
