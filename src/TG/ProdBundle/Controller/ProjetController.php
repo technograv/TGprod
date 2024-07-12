@@ -364,7 +364,7 @@ class ProjetController extends Controller
 			return $this->redirect($this->generateUrl('tg_prod_edit', array('id' => $projet->getId())));
 		}
 
-		if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+		if ($this->get('security.context')->isGranted('ROLE_GERANT')) {
 			$form = $this->createForm(new ProjetType(), $projet);
 			$form
 				->remove('documentjoints');
